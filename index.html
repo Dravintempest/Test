@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ayojoin SMP</title>
+    <title>Kaido SMP</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link href="https://fonts.bunny.net/css?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
       /* CSS yang Anda berikan (sebelum diubah) */
       :root {
@@ -41,6 +41,11 @@
           color: white;
           margin:0px;
           transition: background-color 0.3s, color 0.3s;
+      }
+
+      /* Menghilangkan outline fokus biru */
+      *:focus {
+          outline: none;
       }
 
       #more {
@@ -175,6 +180,14 @@
           align-items: center;
           width: 100%;
           background-color: #00000011;
+          /* Animasi Slide Down */
+          max-height: 0;
+          transition: max-height 0.5s ease-out;
+          overflow: hidden;
+      }
+      .mobile_navbar #mobile_navbar_links.open {
+          max-height: 500px; /* Cukup besar untuk menampung konten */
+          transition: max-height 0.5s ease-in;
       }
 
       .mobile_navbar_link {
@@ -332,7 +345,7 @@
           gap: 10px;
       }
 
-      .music-btn, .theme-toggle {
+      .music-btn {
           width: 50px;
           height: 50px;
           border-radius: 50%;
@@ -348,7 +361,7 @@
           font-size: 1.2rem; /* Adjust font size as needed */
       }
 
-      .music-btn:hover, .theme-toggle:hover {
+      .music-btn:hover {
           background-color: var(--accent2);
           transform: scale(1.1);
       }
@@ -412,7 +425,7 @@
           <a href="media.html" class="desktop_navbar_link2">Social Media</a>
       </div>
       <div class="desktop_navbar_controls">
-          </div>
+      </div>
     </nav>
     <div class="mobile_navbar">
       <a href="#" class="mobile_navbar_logo_img_a"><img class="mobile_navbar_logo_img" src="logo_small.png" alt="logo"></a>
@@ -427,16 +440,6 @@
                 <i class="fa fa-bars"></i>
             </div>
         </div>
-        <script>
-            function mobile_navbar_link_hider() {
-            var x = document.getElementById("mobile_navbar_links");
-            if (x.style.display === "flex") {
-                x.style.display = "none";
-            } else {
-                x.style.display = "flex";
-            }
-            } 
-        </script>
     </div>
     <div class="mainflex">
       <div class="main1">
@@ -470,7 +473,7 @@
             });
         </script>
         </div>
-        <a href="#more" class="scroll">
+        <a href="#more" class="scroll main1_downarrow_mobile_trigger">
           <img alt="downarrow" class="main1_downarrow" src="downarrow.png">
         </a>
         <script>
@@ -491,32 +494,77 @@
     </div>
 
     <div class="music-controls">
-        <button class="music-btn" id="musicToggleBtn">🔈</button>
+        <button class="music-btn" id="musicToggleBtn"><i class="fa-solid fa-volume-off"></i></button>
     </div>
 
-    <audio id="backgroundMusic" loop>
-        <source src="https://files.catbox.moe/7bzwfz.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="backgroundMusic"></audio>
 
     <script>
         // Music player functionality
+        const musicFiles = [
+            "https://files.catbox.moe/7bzwfz.mp3",
+            "https://files.catbox.moe/du52ay.mp3"
+        ];
+        let currentMusicIndex = 0;
         const backgroundMusic = document.getElementById('backgroundMusic');
         const musicToggleBtn = document.getElementById('musicToggleBtn');
         let isPlaying = false;
 
+        function loadAndPlayMusic() {
+            backgroundMusic.src = musicFiles[currentMusicIndex];
+            backgroundMusic.play();
+            isPlaying = true;
+            musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-up"></i>'; // Changed to volume-up
+        }
+
+        function stopMusic() {
+            backgroundMusic.pause();
+            backgroundMusic.currentTime = 0;
+            isPlaying = false;
+            musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-off"></i>';
+        }
+
         musicToggleBtn.addEventListener('click', () => {
             if (isPlaying) {
-                backgroundMusic.pause();
-                musicToggleBtn.textContent = '🔈';
+                stopMusic();
             } else {
-                backgroundMusic.play();
-                musicToggleBtn.textContent = '🔊';
+                loadAndPlayMusic();
             }
-            isPlaying = !isPlaying;
         });
 
-        // Theme initialization remains in CSS :root and [data-theme="light"]
-        // No JavaScript for theme toggle needed since the button is removed
+        backgroundMusic.addEventListener('ended', () => {
+            currentMusicIndex = (currentMusicIndex + 1) % musicFiles.length;
+            loadAndPlayMusic();
+        });
+
+        // Mobile Navbar Toggle Functionality
+        const mobileNavbarLinks = document.getElementById("mobile_navbar_links");
+        const mobileNavbarHamburgerIcon = document.querySelector(".mobile_navbar .icon");
+        const mobileDownArrowTrigger = document.querySelector(".main1_downarrow_mobile_trigger");
+
+        function mobile_navbar_link_hider() {
+            if (mobileNavbarLinks.classList.contains("open")) {
+                mobileNavbarLinks.classList.remove("open");
+            } else {
+                mobileNavbarLinks.classList.add("open");
+            }
+        } 
+        
+        // Ensure hamburger icon also toggles the navbar
+        if (mobileNavbarHamburgerIcon) {
+            mobileNavbarHamburgerIcon.addEventListener('click', mobile_navbar_link_hider);
+        }
+
+        // Down arrow opens navbar on mobile
+        if (mobileDownArrowTrigger) {
+            mobileDownArrowTrigger.addEventListener('click', function(event) {
+                // Only trigger if on mobile (max-width: 600px)
+                if (window.matchMedia('(max-width: 600px)').matches) {
+                    event.preventDefault(); // Prevent default scroll behavior
+                    mobile_navbar_link_hider(); // Toggle mobile navbar
+                }
+            });
+        }
     </script>
   </body>
 </html>
