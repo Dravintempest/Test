@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ayojoin SMP</title>
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="media/favicon.png">
     <link href="https://fonts.bunny.net/css?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
@@ -21,6 +21,16 @@
           color-scheme: dark;
       }
 
+      [data-theme="light"] {
+          --accent1: #02a302;
+          --accent2: #028502;
+          --accent2_transp: #02850255;
+          --background1: #f8f9fa;
+          --background2: #e9ecef;
+          color-scheme: light;
+          color: #212529;
+      }
+
       span {
           font-family: 'Space Grotesk', sans-serif;
       }
@@ -30,6 +40,7 @@
           background-color: var(--background1);
           color: white;
           margin:0px;
+          transition: background-color 0.3s, color 0.3s;
       }
 
       #more {
@@ -89,6 +100,13 @@
           flex-direction: row;
       }
 
+      .desktop_navbar_controls {
+          display: flex;
+          margin-left: auto;
+          margin-right: 2rem;
+          gap: 1rem;
+      }
+
       .desktop_navbar_logo_img {
           width: 5rem;
           padding-left: 2rem;
@@ -117,8 +135,6 @@
           font-size: 1.2rem;
           padding: .8rem;
           transition: all .5s;
-          margin-left: auto;
-          margin-right: 2rem;
           font-weight: 700;
           border: solid 1px var(--accent1);
           border-radius: var(--roundness);
@@ -239,7 +255,7 @@
 
       .main1_actcent {
           font-weight: 800;
-          color:var(--accent1);
+          color: #FF8C00; /* Changed to orange color */
       }
 
       .main1_ipcopier {
@@ -297,6 +313,35 @@
           transform: scale(1.05)
       }
 
+      /* Music player controls */
+      .music-controls {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          z-index: 100;
+          display: flex;
+          gap: 10px;
+      }
+
+      .music-btn, .theme-toggle {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background-color: var(--accent2_transp);
+          border: 1px solid var(--accent1);
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.3s;
+      }
+
+      .music-btn:hover, .theme-toggle:hover {
+          background-color: var(--accent2);
+          transform: scale(1.1);
+      }
+
       /* Media Queries from your CSS */
       @media only screen and (max-width: 600px) {
           .desktop_navbar{
@@ -320,7 +365,15 @@
           .main1_ipcopier {
               display: none; /* This will hide the button on mobile as per your CSS */
           }
-          /* Removed unrelated media queries for brevity in this specific output */
+          .music-controls {
+              bottom: 10px;
+              right: 10px;
+          }
+          .music-btn, .theme-toggle {
+              width: 40px;
+              height: 40px;
+              font-size: 0.8rem;
+          }
       }
       @media only screen and (max-width: 360px) {
           /* Removed unrelated media queries for brevity in this specific output */
@@ -340,21 +393,24 @@
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <nav class="desktop_navbar">
-      <a href="#"><img class="desktop_navbar_logo_img" src="logo_small.png" alt="logo"></a>
+      <a href="#"><img class="desktop_navbar_logo_img" src="media/logo_small.png" alt="logo"></a>
       <a href="https://tokodukun.com" class="desktop_navbar_link">Donasi</a>
-      <a href="#discord" class="desktop_navbar_link scroll">Community</a>
-      <a href="#about" class="desktop_navbar_link scroll">Tentang</a>
+      <a href="community.html" class="desktop_navbar_link">Community</a>
+      <a href="tentang.html" class="desktop_navbar_link">Tentang</a>
       <div class="desktop_navbar_link2_div">
-          <a href="#join" class="desktop_navbar_link2 scroll">Join Us!</a>
+          <a href="media.html" class="desktop_navbar_link2">Social Media</a>
+      </div>
+      <div class="desktop_navbar_controls">
+          <button class="theme-toggle" id="themeToggle">🌓</button>
       </div>
     </nav>
     <div class="mobile_navbar">
-      <a href="#" class="mobile_navbar_logo_img_a"><img class="mobile_navbar_logo_img" src="logo_small.png" alt="logo"></a>
+      <a href="#" class="mobile_navbar_logo_img_a"><img class="mobile_navbar_logo_img" src="media/logo_small.png" alt="logo"></a>
       <div id="mobile_navbar_links">
-          <a class="mobile_navbar_link" onclick="mobile_navbar_link_hider()" href="https://wiki.example.com/">Wiki</a>
-          <a class="mobile_navbar_link scroll" onclick="mobile_navbar_link_hider()" href="#discord">Community</a>
-          <a class="mobile_navbar_link scroll" onclick="mobile_navbar_link_hider()" href="#about">About Us</a>
-          <a class="mobile_navbar_link scroll" onclick="mobile_navbar_link_hider()" href="#join">Join Us</a>
+          <a class="mobile_navbar_link" onclick="mobile_navbar_link_hider()" href="server.html">Server</a>
+          <a class="mobile_navbar_link" onclick="mobile_navbar_link_hider()" href="community.html">Community</a>
+          <a class="mobile_navbar_link" onclick="mobile_navbar_link_hider()" href="tentang.html">Tentang</a>
+          <a class="mobile_navbar_link" onclick="mobile_navbar_link_hider()" href="media.html">Social Media</a>
         </div>
         <div class="icon" onclick="mobile_navbar_link_hider()">
             <i class="fa fa-bars"></i>
@@ -373,7 +429,7 @@
     <div class="mainflex">
       <div class="main1">
         <a class="main1_logo_a" href="#">
-          <img class="main1_logo" src="logo.png" alt="logo">
+          <img class="main1_logo" src="media/logo.png" alt="logo">
         </a>
         <div class="main1_description">
           <a>Berpetualang,<br>Seru</a>
@@ -403,7 +459,7 @@
         </script>
         </div>
         <a href="#more" class="scroll">
-          <img alt="downarrow" class="main1_downarrow" src="downarrow.png">
+          <img alt="downarrow" class="main1_downarrow" src="media/downarrow.png">
         </a>
         <script>
           const scrollLinks = document.querySelectorAll('.scroll');
@@ -421,5 +477,98 @@
         </script>
       </div>
     </div>
+
+    <!-- Music player controls -->
+    <div class="music-controls">
+        <button class="music-btn" id="playBtn1">🎵 1</button>
+        <button class="music-btn" id="playBtn2">🎵 2</button>
+        <button class="music-btn" id="stopBtn">⏹️</button>
+    </div>
+
+    <audio id="music1" loop>
+        <source src="https://files.catbox.moe/7bzwfz.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="music2" loop>
+        <source src="https://files.catbox.moe/du52ay.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Music player functionality
+        const music1 = document.getElementById('music1');
+        const music2 = document.getElementById('music2');
+        const playBtn1 = document.getElementById('playBtn1');
+        const playBtn2 = document.getElementById('playBtn2');
+        const stopBtn = document.getElementById('stopBtn');
+        
+        let currentMusic = null;
+
+        playBtn1.addEventListener('click', () => {
+            if (currentMusic === music1) {
+                music1.pause();
+                currentMusic = null;
+                playBtn1.textContent = '🎵 1';
+            } else {
+                if (currentMusic) currentMusic.pause();
+                music1.currentTime = 0;
+                music1.play();
+                currentMusic = music1;
+                playBtn1.textContent = '🔊 1';
+                playBtn2.textContent = '🎵 2';
+            }
+        });
+
+        playBtn2.addEventListener('click', () => {
+            if (currentMusic === music2) {
+                music2.pause();
+                currentMusic = null;
+                playBtn2.textContent = '🎵 2';
+            } else {
+                if (currentMusic) currentMusic.pause();
+                music2.currentTime = 0;
+                music2.play();
+                currentMusic = music2;
+                playBtn2.textContent = '🔊 2';
+                playBtn1.textContent = '🎵 1';
+            }
+        });
+
+        stopBtn.addEventListener('click', () => {
+            if (currentMusic) {
+                currentMusic.pause();
+                currentMusic.currentTime = 0;
+                currentMusic = null;
+                playBtn1.textContent = '🎵 1';
+                playBtn2.textContent = '🎵 2';
+            }
+        });
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // Check for saved theme preference or use system preference
+        const currentTheme = localStorage.getItem('theme') || 
+                            (prefersDarkScheme.matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        
+        if (currentTheme === 'light') {
+            themeToggle.textContent = '🌙';
+        } else {
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            let theme;
+            if (document.documentElement.getAttribute('data-theme') === 'light') {
+                theme = 'dark';
+                themeToggle.textContent = '☀️';
+            } else {
+                theme = 'light';
+                themeToggle.textContent = '🌙';
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        });
+    </script>
   </body>
 </html>
