@@ -185,7 +185,7 @@
       }
 
       .mobile_navbar #mobile_navbar_links {
-          display: none;
+          /* Hapus display none di sini */
           margin-top: 53px;
           flex-direction: column;
           align-items: center;
@@ -193,13 +193,13 @@
           background-color: #00000011;
           /* Animasi Slide Down */
           max-height: 0;
-          transition: max-height 0.5s ease-out;
+          transition: max-height 0.5s ease-out; /* Animasi saat menutup */
           overflow: hidden;
       }
       .mobile_navbar #mobile_navbar_links.open {
-          display: flex;
+          /* Hapus display flex di sini */
           max-height: 500px; /* Cukup besar untuk menampung konten */
-          transition: max-height 0.5s ease-in;
+          transition: max-height 0.5s ease-in; /* Animasi saat membuka */
       }
 
       .mobile_navbar_link {
@@ -345,6 +345,8 @@
           padding:2rem;
           transition: all .5s;
           cursor: pointer;
+          outline: none; /* Remove outline on click */
+          box-shadow: none; /* Remove box-shadow on click */
       }
 
       .main1_downarrow:hover {
