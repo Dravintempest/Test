@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaido SMP - Server Status</title>
+    <title>Status Server Kaido SMP</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link href="https://fonts.bunny.net/css?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* CSS Umum dari index.html */
         :root {
             --nice-padding: 6rem;
             --roundness: 0.75rem;
@@ -17,22 +18,41 @@
             --accent2_transp: #05b30555;
             --background1: #212529;
             --background2: #16191b;
+            color-scheme: dark;
+
+            /* Variabel tambahan untuk status server */
+            --primary-color-status: #007bff; /* Warna utama untuk elemen status */
+            --secondary-color-status: #0056b3; /* Warna sekunder untuk elemen status */
+            --text-color-status: #333; /* Warna teks untuk elemen status */
+            --bg-color-status: #f0f2f5; /* Warna latar belakang untuk elemen status */
+            --card-bg-status: white; /* Warna latar belakang card status */
+            --border-color-status: #e0e0e0; /* Warna border untuk elemen status */
+            --shadow-color-status: rgba(0, 0, 0, 0.1); /* Warna shadow untuk elemen status */
             --dot-online: #2ecc71;
             --dot-offline: #e74c3c;
             --dot-maintenance: #f39c12;
-            color-scheme: dark;
         }
+
+        /* Light mode dari index.html */
         [data-theme="light"] {
             --accent1: #02a302;
             --accent2: #028502;
             --accent2_transp: #02850255;
             --background1: #f8f9fa;
             --background2: #e9ecef;
-            --dot-online: #28a745;
-            --dot-offline: #dc3545;
-            --dot-maintenance: #ffc107;
             color-scheme: light;
             color: #212529;
+        }
+
+        /* Dark mode untuk elemen status */
+        body.dark-mode {
+            --primary-color-status: #74b9ff;
+            --secondary-color-status: #5392d0;
+            --text-color-status: #e0e0e0;
+            --bg-color-status: #1a1a2e;
+            --card-bg-status: #2d2d44;
+            --border-color-status: #4a4a6b;
+            --shadow-color-status: rgba(0, 0, 0, 0.4);
         }
 
         span {
@@ -41,12 +61,16 @@
 
         body {
             font-family:'Space Grotesk', sans-serif;
-            background-color: var(--background1);
-            color: white;
+            background-color: var(--background1); /* Latar belakang dari index.html */
+            color: white; /* Warna teks global */
             margin:0px;
             transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh; /* Pastikan halaman penuh */
+            display: flex;
+            flex-direction: column;
         }
 
+        /* Hilangkan outline fokus */
         *:focus {
             outline: none;
         }
@@ -59,29 +83,7 @@
             outline: none;
         }
 
-        .banner {
-            display: flex;
-            position: fixed;
-            background-color: #ff000099;
-            width: 100%;
-            height: 3rem;
-            z-index: 10;
-            font-size: 2rem;
-            font-weight: 600;
-            justify-content: center;
-            backdrop-filter: blur(15px);
-            align-content: center;
-            padding-top: .4rem;
-        }
-
-        .headline {
-            margin-top: 2rem;
-            color: #fff;
-            font-size:3rem;
-            text-align: center;
-            font-weight: 600;
-        }
-
+        /* Styling Navbar Desktop dari index.html */
         .desktop_navbar {
             position:fixed;
             display: flex;
@@ -90,7 +92,6 @@
             top: 0;
             right: 0;
             left: 0;
-            bottom:0;
             background-color: #00000022;
             backdrop-filter: blur(15px);
             z-index: 5;
@@ -145,8 +146,9 @@
             transform: scale(1.05)
         }
 
+        /* Styling Navbar Mobile dari index.html */
         .mobile_navbar {
-            display: none;
+            display: none; /* Default hidden */
             overflow: hidden;
             background-color: #00000033;
             backdrop-filter: blur(15px);
@@ -167,33 +169,17 @@
             padding-top: 3.5px;
         }
 
-        .mobile_navbar #mobile_navbar_links {
-            margin-top: 53px;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            background-color: #00000011;
-            max-height: 0;
-            transition: max-height 0.5s ease-out;
-            overflow: hidden;
-        }
-        .mobile_navbar #mobile_navbar_links.open {
-            max-height: 500px;
-            transition: max-height 0.5s ease-in;
-        }
-
-        .mobile_navbar_link {
-            padding:.5rem;
-            width: 100%;
-            text-align: center;
-        }
-
-        .mobile_navbar a {
-            color: white;
-            text-decoration: none;
-            font-size: 17px;
+        .mobile_navbar_logo_img_a {
             display: block;
-            padding: 10px;
+            background-color: #00000022;
+        }
+        
+        .mobile_navbar_controls {
+            display: flex;
+            margin-left: auto;
+            margin-right: 1rem;
+            gap: 10px;
+            align-items: center;
         }
 
         .mobile_navbar .icon {
@@ -205,63 +191,89 @@
             padding: 16px;
             cursor: pointer;
         }
-
         .mobile_navbar .icon i {
             transition: transform 0.5s ease-in-out;
         }
-
         .mobile_navbar .icon.open i {
             transform: rotate(180deg);
         }
 
-        .mobile_navbar_logo_img_a {
-            display: block;
-            background-color: #00000022;
-        }
-
-        .mobile_navbar_controls {
-            display: flex;
-            margin-left: auto;
-            margin-right: 1rem;
-            gap: 10px;
+        /* Konten Utama - Meniru main1 dari index.html */
+        .main-content-wrapper {
+            padding-top: 4rem; /* Sesuaikan dengan tinggi navbar agar tidak tertutup */
+            display:flex;
+            width: 100%;
+            align-self: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, .5) url('https://imgur.com/cGMLytH.png');
+            background-blend-mode: darken;
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            background-size: cover;
+            flex-grow: 1; /* Biarkan konten ini mengisi ruang yang tersedia */
+            padding-bottom: 50px; /* Padding bawah untuk tombol refresh */
+        }
+        
+        /* Gaya spesifik untuk halaman cek server */
+        .page-header-status {
+            background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--shadow-color-status);
+            margin-top: 2rem; /* Margin atas */
+            margin-bottom: 30px;
+            max-width: 900px;
+            width: 90%;
+            box-sizing: border-box; /* Pastikan padding dihitung dalam lebar */
         }
 
-        /* Server Status Styles */
-        .server-container {
+        .page-header-status h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .container-status {
             max-width: 900px;
+            width: 90%;
             margin: 0 auto;
-            padding: 2rem;
-            padding-top: calc(var(--nice-padding) + 2rem);
+            display: grid;
+            gap: 25px;
+            box-sizing: border-box; /* Pastikan padding dihitung dalam lebar */
         }
 
         .server-card {
-            background-color: var(--background2);
-            border-radius: var(--roundness);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: var(--card-bg-status);
+            border-radius: var(--roundness); /* Menggunakan roundness dari index.html */
+            box-shadow: 0 5px 15px var(--shadow-color-status);
+            padding: 25px;
+            color: var(--text-color-status); /* Warna teks untuk card */
         }
 
         .server-card h2 {
-            color: var(--accent1);
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--accent2_transp);
+            color: var(--primary-color-status);
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color-status);
         }
 
         .server-info {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
+            gap: 20px;
         }
 
         .status-section {
             display: flex;
             align-items: center;
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
         }
         
         .status-dot {
@@ -286,52 +298,46 @@
             box-shadow: 0 0 12px var(--dot-maintenance);
         }
 
-        .player-count {
-            font-size: 1.1rem;
-            margin-left: 25px;
-        }
-
         .server-details {
-            margin-top: 0.5rem;
+            margin-top: 15px;
         }
 
         .detail-row {
             display: flex;
-            margin-bottom: 0.5rem;
+            margin-bottom: 8px;
         }
 
         .detail-label {
             font-weight: bold;
             min-width: 100px;
-            color: var(--accent1);
+            color: var(--primary-color-status);
         }
 
         .timestamp {
             font-size: 0.85rem;
-            color: #aaa;
-            margin-top: 1rem;
+            color: #777;
+            margin-top: 15px;
             display: block;
-            text-align: right;
         }
 
         .refresh-button {
-            background-color: var(--accent2);
+            background-color: var(--primary-color-status);
             color: white;
             border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: var(--roundness);
+            padding: 10px 15px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 1rem;
-            margin-top: 1rem;
+            margin-top: 20px;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.3s;
+            transition: all .3s;
         }
 
         .refresh-button:hover {
-            background-color: var(--accent1);
-            transform: scale(1.05);
+            opacity: 0.9;
+            transform: scale(1.02);
         }
 
         .loading {
@@ -348,30 +354,40 @@
             to { transform: rotate(360deg); }
         }
 
+        /* Media Queries dari index.html */
         @media only screen and (max-width: 600px) {
-            .desktop_navbar{
-                display:none;
+            .desktop_navbar {
+                display: none;
             }
-            .mobile_navbar{
-                display:flex;
+            .mobile_navbar {
+                display: flex;
             }
-            .headline {
-                font-size:1.9rem;
-                margin-right: 1rem;
-                margin-left: 1rem;
+            .main-content-wrapper {
+                padding-top: 53px; /* Sesuaikan dengan tinggi navbar mobile */
             }
-            .server-container {
-                padding: 1rem;
-                padding-top: calc(var(--nice-padding) + 1rem);
+            .page-header-status {
+                margin-top: 1rem;
+                font-size: 1.9rem;
+                padding: 15px;
+            }
+            .page-header-status h1 {
+                font-size: 1.9rem;
+            }
+            .container-status {
+                padding: 0 10px;
             }
             .server-info {
                 grid-template-columns: 1fr;
             }
+            .server-card {
+                padding: 15px;
+            }
             .server-card h2 {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
         }
-
+        
+        /* Desktop Navbar override for screens larger than 600px */
         @media only screen and (min-width: 601px) {
             .desktop_navbar {
                 display: flex;
@@ -384,8 +400,9 @@
 </head>
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
     <nav class="desktop_navbar">
-        <a href="#"><img class="desktop_navbar_logo_img" src="logo_small.png" alt="logo"></a>
+        <a href="./"><img class="desktop_navbar_logo_img" src="logo_small.png" alt="logo"></a>
         <a href="https://tokodukun.com" class="desktop_navbar_link">Donasi</a>
         <a href="community.html" class="desktop_navbar_link">Community</a>
         <a href="tentang.html" class="desktop_navbar_link">Tentang</a>
@@ -393,283 +410,271 @@
             <a href="media.html" class="desktop_navbar_link2">Social Media</a>
         </div>
         <div class="desktop_navbar_controls">
-        </div>
+            </div>
     </nav>
+
     <div class="mobile_navbar">
-        <a href="#" class="mobile_navbar_logo_img_a"><img class="mobile_navbar_logo_img" src="logo_small.png" alt="logo"></a>
-        <div id="mobile_navbar_links">
-            <a class="mobile_navbar_link" href="server.html">Server</a>
-            <a class="mobile_navbar_link" href="community.html">Community</a>
-            <a class="mobile_navbar_link" href="tentang.html">Tentang</a>
-            <a class="mobile_navbar_link" href="media.html">Social Media</a>
-        </div>
+        <a href="./" class="mobile_navbar_logo_img_a"> <img class="mobile_navbar_logo_img" src="logo_small.png" alt="logo">
+        </a>
         <div class="mobile_navbar_controls">
-            <div class="icon">
-                <i class="fa fa-bars"></i>
-            </div>
+            <button id="theme-toggle-mobile" class="theme-toggle-button">
+                <i class="fas fa-moon"></i>
+            </button>
         </div>
     </div>
 
-    <div class="server-container">
-        <div class="server-card" id="hub-server">
-            <h2>Hub Server</h2>
-            <div class="server-info">
-                <div>
-                    <div class="status-section">
-                        <div class="status-dot offline"></div>
-                        <span class="status-text">Memuat...</span>
-                    </div>
-                    <div class="player-count">Pemain: -/-</div>
-                </div>
-                <div class="server-details">
-                    <div class="detail-row">
-                        <span class="detail-label">Alamat IP:</span>
-                        <span>play.ayomain.com:19132</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Versi:</span>
-                        <span class="version">Memuat...</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Edition:</span>
-                        <span>Bedrock</span>
-                    </div>
-                </div>
-            </div>
-            <span class="timestamp">Terakhir diperbarui: <span class="update-time">-</span></span>
+    <div class="main-content-wrapper">
+        <div class="page-header-status">
+            <h1>Status Server Kaido SMP</h1>
+            <p>Pantau status real-time semua server kami</p>
         </div>
-        
-        <div class="server-card" id="fantasy-server">
-            <h2>Fantasy Server</h2>
-            <div class="server-info">
-                <div>
-                    <div class="status-section">
-                        <div class="status-dot offline"></div>
-                        <span class="status-text">Memuat...</span>
+
+        <div class="container-status">
+            <div class="server-card" id="hub-server">
+                <h2>Hub Server</h2>
+                <div class="server-info">
+                    <div>
+                        <div class="status-section">
+                            <div class="status-dot offline"></div>
+                            <span class="status-text">Memuat...</span>
+                        </div>
+                        <div class="player-count">Pemain: -/-</div>
                     </div>
-                    <div class="player-count">Pemain: -/-</div>
+                    <div class="server-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Alamat IP:</span>
+                            <span>mc.kaidosmp.kesug.com:19132</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Versi:</span>
+                            <span class="version">Memuat...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Edition:</span>
+                            <span>Bedrock</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="server-details">
-                    <div class="detail-row">
-                        <span class="detail-label">Alamat IP:</span>
-                        <span>play.ayomain.com:19140</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Versi:</span>
-                        <span class="version">Memuat...</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Edition:</span>
-                        <span>Bedrock</span>
-                    </div>
-                </div>
+                <span class="timestamp">Terakhir diperbarui: <span class="update-time">-</span></span>
             </div>
-            <span class="timestamp">Terakhir diperbarui: <span class="update-time">-</span></span>
-        </div>
-        
-        <div class="server-card" id="vanilla-server">
-            <h2>Vanilla Server</h2>
-            <div class="server-info">
-                <div>
-                    <div class="status-section">
-                        <div class="status-dot offline"></div>
-                        <span class="status-text">Memuat...</span>
-                    </div>
-                    <div class="player-count">Pemain: -/-</div>
-                </div>
-                <div class="server-details">
-                    <div class="detail-row">
-                        <span class="detail-label">Alamat IP:</span>
-                        <span>play.ayomain.com:19135</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Versi:</span>
-                        <span class="version">Memuat...</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Edition:</span>
-                        <span>Bedrock</span>
-                    </div>
-                </div>
-            </div>
-            <span class="timestamp">Terakhir diperbarui: <span class="update-time">-</span></span>
-        </div>
-        
-        <div class="server-card" id="bedwars-server">
-            <h2>Bed Wars Server</h2>
-            <div class="server-info">
-                <div>
-                    <div class="status-section">
-                        <div class="status-dot offline"></div>
-                        <span class="status-text">Memuat...</span>
-                    </div>
-                    <div class="player-count">Pemain: -/-</div>
-                </div>
-                <div class="server-details">
-                    <div class="detail-row">
-                        <span class="detail-label">Alamat IP:</span>
-                        <span>play.ayomain.com:19150</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Versi:</span>
-                        <span class="version">Memuat...</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Edition:</span>
-                        <span>Bedrock</span>
-                    </div>
-                </div>
-            </div>
-            <span class="timestamp">Terakhir diperbarui: <span class="update-time">-</span></span>
-        </div>
-        
-        <button id="refresh-button" class="refresh-button">
-            <i class="fas fa-sync-alt"></i> Segarkan Status
-        </button>
-    </div>
-
-    <div class="music-controls">
-        <button class="music-btn" id="musicToggleBtn"><i class="fa-solid fa-volume-off"></i></button>
-    </div>
-
-    <audio id="backgroundMusic"></audio>
-
-    <script>
-        // Mobile Navbar Toggle Functionality
-        const mobileNavbarLinks = document.getElementById("mobile_navbar_links");
-        const mobileNavbarHamburgerIconContainer = document.querySelector(".mobile_navbar .icon");
-        const mobileNavbarHamburgerIcon = document.querySelector(".mobile_navbar .icon i");
-
-        function toggleMobileNavbar() {
-            mobileNavbarLinks.classList.toggle("open");
-            mobileNavbarHamburgerIconContainer.classList.toggle("open");
-        }
-
-        if (mobileNavbarHamburgerIconContainer) {
-            mobileNavbarHamburgerIconContainer.addEventListener('click', toggleMobileNavbar);
-        }
-
-        document.querySelectorAll('.mobile_navbar_link').forEach(link => {
-            link.addEventListener('click', toggleMobileNavbar);
-        });
-
-        // Music player functionality
-        const musicFiles = [
-            "https://files.catbox.moe/7bzwfz.mp3",
-            "https://files.catbox.moe/du52ay.mp3"
-        ];
-        let currentMusicIndex = 0;
-        const backgroundMusic = document.getElementById('backgroundMusic');
-        const musicToggleBtn = document.getElementById('musicToggleBtn');
-        let isPlaying = false;
-
-        function loadAndPlayMusic() {
-            backgroundMusic.src = musicFiles[currentMusicIndex];
-            backgroundMusic.play();
-            isPlaying = true;
-            musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-up"></i>';
-        }
-
-        function stopMusic() {
-            backgroundMusic.pause();
-            backgroundMusic.currentTime = 0;
-            isPlaying = false;
-            musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-off"></i>';
-        }
-
-        musicToggleBtn.addEventListener('click', () => {
-            if (isPlaying) {
-                stopMusic();
-            } else {
-                loadAndPlayMusic();
-            }
-        });
-
-        backgroundMusic.addEventListener('ended', () => {
-            currentMusicIndex = (currentMusicIndex + 1) % musicFiles.length;
-            loadAndPlayMusic();
-        });
-
-        // Server status functionality
-        const servers = [
-            { id: 'hub', name: 'Hub Server', port: '19132', displayIp: 'play.ayomain.com:19132', apiIp: 'play.ayomain.com' },
-            { id: 'fantasy', name: 'Fantasy Server', port: '19140', displayIp: 'play.ayomain.com:19140', apiIp: 'play.ayomain.com' },
-            { id: 'vanilla', name: 'Vanilla Server', port: '19135', displayIp: 'play.ayomain.com:19135', apiIp: 'play.ayomain.com' },
-            { id: 'bedwars', name: 'Bed Wars Server', port: '19150', displayIp: 'play.ayomain.com:19150', apiIp: 'play.ayomain.com' }
-        ];
-
-        const refreshButton = document.getElementById('refresh-button');
-        const refreshIcon = refreshButton.querySelector('i');
-
-        function updateServerStatus(serverId, data) {
-            const serverElement = document.getElementById(`${serverId}-server`);
-            const statusDot = serverElement.querySelector('.status-dot');
-            const statusText = serverElement.querySelector('.status-text');
-            const playerCount = serverElement.querySelector('.player-count');
-            const versionElement = serverElement.querySelector('.version');
-            const updateTime = serverElement.querySelector('.update-time');
             
-            const now = new Date();
-            updateTime.textContent = now.toLocaleString('id-ID', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
+            <div class="server-card" id="fantasy-server">
+                <h2>Fantasy Server</h2>
+                <div class="server-info">
+                    <div>
+                        <div class="status-section">
+                            <div class="status-dot offline"></div>
+                            <span class="status-text">Memuat...</span>
+                        </div>
+                        <div class="player-count">Pemain: -/-</div>
+                    </div>
+                    <div class="server-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Alamat IP:</span>
+                            <span>mc.kaidosmp.kesug.com:19140</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Versi:</span>
+                            <span class="version">Memuat...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Edition:</span>
+                            <span>Bedrock</span>
+                        </div>
+                    </div>
+                </div>
+                <span class="timestamp">Terakhir diperbarui: <span class="update-time">-</span></span>
+            </div>
+            
+            <div class="server-card" id="vanilla-server">
+                <h2>Vanilla Server</h2>
+                <div class="server-info">
+                    <div>
+                        <div class="status-section">
+                            <div class="status-dot offline"></div>
+                            <span class="status-text">Memuat...</span>
+                        </div>
+                        <div class="player-count">Pemain: -/-</div>
+                    </div>
+                    <div class="server-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Alamat IP:</span>
+                            <span>mc.kaidosmp.kesug.com:19135</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Versi:</span>
+                            <span class="version">Memuat...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Edition:</span>
+                            <span>Bedrock</span>
+                        </div>
+                    </div>
+                </div>
+                <span class="timestamp">Terakhir diperbarui: <span class="update-time">-</span></span>
+            </div>
+            
+            <div class="server-card" id="bedwars-server">
+                <h2>Bed Wars Server</h2>
+                <div class="server-info">
+                    <div>
+                        <div class="status-section">
+                            <div class="status-dot offline"></div>
+                            <span class="status-text">Memuat...</span>
+                        </div>
+                        <div class="player-count">Pemain: -/-</div>
+                    </div>
+                    <div class="server-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Alamat IP:</span>
+                            <span>mc.kaidosmp.kesug.com:19150</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Versi:</span>
+                            <span class="version">Memuat...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Edition:</span>
+                            <span>Bedrock</span>
+                        </div>
+                    </div>
+                </div>
+                <span class="timestamp">Terakhir diperbarui: <span class="update-time">-</span></span>
+            </div>
+            
+            <button id="refresh-button" class="refresh-button">
+                <i class="fas fa-sync-alt"></i> Segarkan Status
+            </button>
+        </div>
+    </div> <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Theme toggle functionality (for desktop and mobile)
+            const body = document.body;
 
-            if (data.online) {
-                statusDot.className = 'status-dot online';
-                statusText.textContent = 'Online';
-                playerCount.textContent = `Pemain: ${data.players.online}/${data.players.max}`;
-                versionElement.textContent = data.version.name;
-            } else {
-                statusDot.className = 'status-dot offline';
-                statusText.textContent = 'Offline';
-                playerCount.textContent = 'Pemain: -/-';
-                versionElement.textContent = '-';
+            const setTheme = (theme) => {
+                if (theme === 'dark') {
+                    body.classList.add('dark-mode');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    body.classList.remove('dark-mode');
+                    localStorage.setItem('theme', 'light');
+                }
+                // Update button text/icon for both desktop and mobile toggle buttons
+                const desktopToggleButton = document.getElementById('theme-toggle-desktop');
+                const mobileToggleButton = document.getElementById('theme-toggle-mobile');
+
+                if (desktopToggleButton) {
+                    desktopToggleButton.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i> Mode Terang' : '<i class="fas fa-moon"></i> Mode Gelap';
+                }
+                if (mobileToggleButton) {
+                    mobileToggleButton.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+                }
+            };
+
+            const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const savedTheme = localStorage.getItem('theme');
+
+            if (savedTheme) {
+                setTheme(savedTheme);
+            } else if (prefersDarkMode) {
+                setTheme('dark');
             }
-        }
 
-        function fetchServerStatus(serverId, port, apiIp) {
-            fetch(`https://api.mcstatus.io/v2/status/bedrock/${apiIp}:${port}`)
-                .then(response => response.json())
-                .then(data => {
-                    updateServerStatus(serverId, data);
-                })
-                .catch(error => {
-                    console.error(`Error fetching ${serverId} server status:`, error);
-                    const serverElement = document.getElementById(`${serverId}-server`);
-                    const statusDot = serverElement.querySelector('.status-dot');
-                    const statusText = serverElement.querySelector('.status-text');
+            // Event listener for theme toggle buttons
+            const handleThemeToggleClick = () => {
+                const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+                setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+            };
+
+            const desktopToggleButton = document.getElementById('theme-toggle-desktop');
+            const mobileToggleButton = document.getElementById('theme-toggle-mobile');
+            if (desktopToggleButton) desktopToggleButton.addEventListener('click', handleThemeToggleClick);
+            if (mobileToggleButton) mobileToggleButton.addEventListener('click', handleThemeToggleClick);
+
+
+            // Server status functionality
+            const servers = [
+                { id: 'hub', name: 'Hub Server', port: '19132', displayIp: 'mc.kaidosmp.kesug.com:19132', apiIp: 'mc.kaidosmp.kesug.com' },
+                { id: 'fantasy', name: 'Fantasy Server', port: '19140', displayIp: 'mc.kaidosmp.kesug.com:19140', apiIp: 'mc.kaidosmp.kesug.com' },
+                { id: 'vanilla', name: 'Vanilla Server', port: '19135', displayIp: 'mc.kaidosmp.kesug.com:19135', apiIp: 'node.servermc.my.id' },
+                { id: 'bedwars', name: 'Bed Wars Server', port: '19150', displayIp: 'mc.kaidosmp.kesug.com:19150', apiIp: 'node.servermc.my.id' }
+            ];
+
+            const refreshButton = document.getElementById('refresh-button');
+            const refreshIcon = refreshButton.querySelector('i');
+
+            function updateServerStatus(serverId, data) {
+                const serverElement = document.getElementById(`${serverId}-server`);
+                const statusDot = serverElement.querySelector('.status-dot');
+                const statusText = serverElement.querySelector('.status-text');
+                const playerCount = serverElement.querySelector('.player-count');
+                const versionElement = serverElement.querySelector('.version');
+                const updateTime = serverElement.querySelector('.update-time');
+                
+                const now = new Date();
+                updateTime.textContent = now.toLocaleString('id-ID', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+
+                if (data.online) {
+                    statusDot.className = 'status-dot online';
+                    statusText.textContent = 'Online';
+                    playerCount.textContent = `Pemain: ${data.players.online}/${data.players.max}`;
+                    versionElement.textContent = data.version.name || 'Unknown'; 
+                } else {
                     statusDot.className = 'status-dot offline';
                     statusText.textContent = 'Offline';
+                    playerCount.textContent = 'Pemain: -/-';
+                    versionElement.textContent = '-';
+                }
+            }
+
+            function fetchServerStatus(serverId, port, apiIp) {
+                fetch(`https://api.mcstatus.io/v2/status/bedrock/${apiIp}:${port}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        updateServerStatus(serverId, data);
+                    })
+                    .catch(error => {
+                        console.error(`Error fetching ${serverId} server status:`, error);
+                        const serverElement = document.getElementById(`${serverId}-server`);
+                        const statusDot = serverElement.querySelector('.status-dot');
+                        const statusText = serverElement.querySelector('.status-text');
+                        statusDot.className = 'status-dot offline';
+                        statusText.textContent = 'Offline';
+                        serverElement.querySelector('.player-count').textContent = 'Pemain: -/-';
+                        serverElement.querySelector('.version').textContent = '-';
+                    });
+            }
+
+            function refreshAllServers() {
+                servers.forEach(server => {
+                    fetchServerStatus(server.id, server.port, server.apiIp);
                 });
-        }
+            }
 
-        function refreshAllServers() {
-            servers.forEach(server => {
-                fetchServerStatus(server.id, server.port, server.apiIp);
-            });
-        }
-
-        // Initial load
-        refreshAllServers();
-        
-        // Set up refresh button
-        refreshButton.addEventListener('click', () => {
-            refreshIcon.className = 'fas fa-sync-alt loading';
-            refreshButton.disabled = true;
+            // Initial load
             refreshAllServers();
-            setTimeout(() => {
-                refreshIcon.className = 'fas fa-sync-alt';
-                refreshButton.disabled = false;
-            }, 1000);
+            
+            // Set up refresh button
+            refreshButton.addEventListener('click', () => {
+                refreshIcon.className = 'fas fa-sync-alt loading';
+                refreshButton.disabled = true;
+                refreshAllServers();
+                setTimeout(() => {
+                    refreshIcon.className = 'fas fa-sync-alt';
+                    refreshButton.disabled = false;
+                }, 1000);
+            });
+            
+            // Auto-refresh every 5 seconds
+            setInterval(refreshAllServers, 5000); 
         });
-        
-        // Auto-refresh every 30 seconds
-        setInterval(refreshAllServers, 30000);
     </script>
 </body>
 </html>
