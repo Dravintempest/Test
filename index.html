@@ -220,12 +220,15 @@
             top: 0;
             padding: 16px;
             cursor: pointer;
-            transition: transform 0.5s ease-in-out; /* Tambahkan transisi untuk ikon hamburger */
         }
 
         /* Animasi putar untuk ikon hamburger */
-        .mobile_navbar .icon.open {
-            transform: rotate(360deg); /* Berputar ke X */
+        .mobile_navbar .icon i { /* Targetkan elemen <i> di dalam .icon */
+            transition: transform 0.5s ease-in-out; /* Transisi untuk rotasi */
+        }
+
+        .mobile_navbar .icon.open i {
+            transform: rotate(180deg); /* Berputar menjadi 'X' (jika font awesome mendukung) */
         }
 
 
@@ -566,21 +569,22 @@
 
         // Mobile Navbar Toggle Functionality
         const mobileNavbarLinks = document.getElementById("mobile_navbar_links");
-        const mobileNavbarHamburgerIcon = document.querySelector(".mobile_navbar .icon");
+        const mobileNavbarHamburgerIconContainer = document.querySelector(".mobile_navbar .icon"); // Container ikon
+        const mobileNavbarHamburgerIcon = document.querySelector(".mobile_navbar .icon i"); // Ikon sebenarnya
         const mobileDownArrowTrigger = document.querySelector(".main1_downarrow_mobile_trigger");
         const downArrowImage = document.querySelector(".main1_downarrow");
 
         function toggleMobileNavbar() {
             mobileNavbarLinks.classList.toggle("open");
-            mobileNavbarHamburgerIcon.classList.toggle("open"); // Toggle class for hamburger icon
+            mobileNavbarHamburgerIconContainer.classList.toggle("open"); // Toggle class pada container ikon
             if (window.matchMedia('(max-width: 600px)').matches) {
-                downArrowImage.classList.toggle("open"); // Toggle class for down arrow image
+                downArrowImage.classList.toggle("open");
             }
         }
 
-        // Event listener untuk hamburger icon
-        if (mobileNavbarHamburgerIcon) {
-            mobileNavbarHamburgerIcon.addEventListener('click', toggleMobileNavbar);
+        // Event listener untuk hamburger icon (container)
+        if (mobileNavbarHamburgerIconContainer) {
+            mobileNavbarHamburgerIconContainer.addEventListener('click', toggleMobileNavbar);
         }
 
         // Event listener untuk mobile navbar links
@@ -591,10 +595,9 @@
         // Down arrow opens navbar on mobile
         if (mobileDownArrowTrigger) {
             mobileDownArrowTrigger.addEventListener('click', function(event) {
-                // Only trigger if on mobile (max-width: 600px)
                 if (window.matchMedia('(max-width: 600px)').matches) {
-                    event.preventDefault(); // Prevent default scroll behavior
-                    toggleMobileNavbar(); // Toggle mobile navbar
+                    event.preventDefault();
+                    toggleMobileNavbar();
                 }
             });
         }
