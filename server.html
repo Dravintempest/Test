@@ -20,14 +20,13 @@
             --background2: #16191b;
             color-scheme: dark;
 
-            /* Variabel tambahan untuk status server */
-            --primary-color-status: #007bff; /* Warna utama untuk elemen status */
-            --secondary-color-status: #0056b3; /* Warna sekunder untuk elemen status */
-            --text-color-status: #333; /* Warna teks untuk elemen status */
-            --bg-color-status: #f0f2f5; /* Warna latar belakang untuk elemen status */
-            --card-bg-status: white; /* Warna latar belakang card status */
-            --border-color-status: #e0e0e0; /* Warna border untuk elemen status */
-            --shadow-color-status: rgba(0, 0, 0, 0.1); /* Warna shadow untuk elemen status */
+            /* Variabel untuk status server (tanpa dark mode khusus status) */
+            --primary-color-status: var(--accent1); /* Menggunakan warna aksen dari index.html */
+            --secondary-color-status: var(--accent2); /* Menggunakan warna aksen dari index.html */
+            --text-color-status: white; /* Default teks terang */
+            --card-bg-status: #2d2d44; /* Warna kartu gelap */
+            --border-color-status: #4a4a6b;
+            --shadow-color-status: rgba(0, 0, 0, 0.4);
             --dot-online: #2ecc71;
             --dot-offline: #e74c3c;
             --dot-maintenance: #f39c12;
@@ -41,18 +40,15 @@
             --background1: #f8f9fa;
             --background2: #e9ecef;
             color-scheme: light;
-            color: #212529;
-        }
+            color: #212529; /* Teks default gelap */
 
-        /* Dark mode untuk elemen status */
-        body.dark-mode {
-            --primary-color-status: #74b9ff;
-            --secondary-color-status: #5392d0;
-            --text-color-status: #e0e0e0;
-            --bg-color-status: #1a1a2e;
-            --card-bg-status: #2d2d44;
-            --border-color-status: #4a4a6b;
-            --shadow-color-status: rgba(0, 0, 0, 0.4);
+            /* Variabel untuk status server di light mode */
+            --primary-color-status: #007bff;
+            --secondary-color-status: #0056b3;
+            --text-color-status: #333;
+            --card-bg-status: white;
+            --border-color-status: #e0e0e0;
+            --shadow-color-status: rgba(0, 0, 0, 0.1);
         }
 
         span {
@@ -61,11 +57,11 @@
 
         body {
             font-family:'Space Grotesk', sans-serif;
-            background-color: var(--background1); /* Latar belakang dari index.html */
-            color: white; /* Warna teks global */
+            background-color: var(--background1);
+            color: white;
             margin:0px;
             transition: background-color 0.3s, color 0.3s;
-            min-height: 100vh; /* Pastikan halaman penuh */
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
@@ -198,6 +194,35 @@
             transform: rotate(180deg);
         }
 
+        .mobile_navbar #mobile_navbar_links {
+            margin-top: 53px;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            background-color: #00000011;
+            max-height: 0;
+            transition: max-height 0.5s ease-out;
+            overflow: hidden;
+        }
+        .mobile_navbar #mobile_navbar_links.open {
+            max-height: 500px;
+            transition: max-height 0.5s ease-in;
+        }
+
+        .mobile_navbar_link {
+            padding:.5rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        .mobile_navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+            display: block;
+            padding: 10px;
+        }
+
         /* Konten Utama - Meniru main1 dari index.html */
         .main-content-wrapper {
             padding-top: 4rem; /* Sesuaikan dengan tinggi navbar agar tidak tertutup */
@@ -214,44 +239,49 @@
             background-size: cover;
             flex-grow: 1; /* Biarkan konten ini mengisi ruang yang tersedia */
             padding-bottom: 50px; /* Padding bawah untuk tombol refresh */
+            min-height: calc(100vh - 4rem); /* Untuk memastikan isi setidaknya setinggi viewport minus navbar */
         }
         
-        /* Gaya spesifik untuk halaman cek server */
-        .page-header-status {
-            background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
-            color: white;
-            padding: 25px;
-            text-align: center;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px var(--shadow-color-status);
-            margin-top: 2rem; /* Margin atas */
+        /* Gaya header baru dengan logo */
+        .page-header-logo {
+            margin-top: 2rem;
             margin-bottom: 30px;
             max-width: 900px;
             width: 90%;
-            box-sizing: border-box; /* Pastikan padding dihitung dalam lebar */
+            text-align: center;
         }
 
-        .page-header-status h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        .page-header-logo img {
+            max-width: 100%;
+            height: auto;
+            display: block; /* Agar img berada di tengah */
+            margin: 0 auto; /* Tengah secara horizontal */
         }
 
+        /* Container untuk status server */
         .container-status {
             max-width: 900px;
             width: 90%;
-            margin: 0 auto;
+            margin: 0 auto; /* Tengah secara horizontal */
             display: grid;
             gap: 25px;
-            box-sizing: border-box; /* Pastikan padding dihitung dalam lebar */
+            box-sizing: border-box;
+            justify-content: center; /* Memastikan grid items di tengah */
+            align-items: flex-start; /* Mengatur item dari atas */
         }
 
+        /* Card server */
         .server-card {
             background-color: var(--card-bg-status);
-            border-radius: var(--roundness); /* Menggunakan roundness dari index.html */
+            border-radius: var(--roundness);
             box-shadow: 0 5px 15px var(--shadow-color-status);
             padding: 25px;
-            color: var(--text-color-status); /* Warna teks untuk card */
+            color: var(--text-color-status);
+            /* Pastikan konten di dalam card di tengah jika memungkinkan */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Tengah secara horizontal */
+            text-align: center; /* Tengah teks */
         }
 
         .server-card h2 {
@@ -260,18 +290,21 @@
             margin-bottom: 15px;
             padding-bottom: 10px;
             border-bottom: 2px solid var(--border-color-status);
+            width: 100%; /* Pastikan border-bottom selebar h2 */
         }
 
         .server-info {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            grid-template-columns: 1fr; /* Selalu 1 kolom untuk kesederhanaan centering */
+            gap: 10px; /* Kurangi gap untuk tampilan tengah */
+            width: 100%; /* Agar memenuhi lebar card */
         }
 
         .status-section {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
+            justify-content: center; /* Tengah status dot dan teks */
+            margin-bottom: 5px; /* Kurangi margin */
             font-weight: bold;
             font-size: 1.1rem;
         }
@@ -298,19 +331,26 @@
             box-shadow: 0 0 12px var(--dot-maintenance);
         }
 
+        .player-count {
+            margin-bottom: 10px;
+        }
+
         .server-details {
-            margin-top: 15px;
+            margin-top: 10px; /* Kurangi margin */
+            width: 100%;
         }
 
         .detail-row {
             display: flex;
-            margin-bottom: 8px;
+            flex-direction: column; /* Tumpuk label dan nilai */
+            margin-bottom: 5px; /* Kurangi margin */
+            align-items: center; /* Tengah item */
         }
 
         .detail-label {
             font-weight: bold;
-            min-width: 100px;
             color: var(--primary-color-status);
+            margin-bottom: 2px; /* Jarak antara label dan nilai */
         }
 
         .timestamp {
@@ -318,6 +358,7 @@
             color: #777;
             margin-top: 15px;
             display: block;
+            width: 100%;
         }
 
         .refresh-button {
@@ -354,7 +395,7 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Media Queries dari index.html */
+        /* Media Queries */
         @media only screen and (max-width: 600px) {
             .desktop_navbar {
                 display: none;
@@ -364,20 +405,18 @@
             }
             .main-content-wrapper {
                 padding-top: 53px; /* Sesuaikan dengan tinggi navbar mobile */
+                min-height: calc(100vh - 53px);
             }
-            .page-header-status {
+            .page-header-logo {
                 margin-top: 1rem;
-                font-size: 1.9rem;
-                padding: 15px;
+                width: 95%;
             }
-            .page-header-status h1 {
-                font-size: 1.9rem;
+            .page-header-logo img {
+                max-width: 80%; /* Sesuaikan ukuran logo di mobile */
             }
             .container-status {
                 padding: 0 10px;
-            }
-            .server-info {
-                grid-template-columns: 1fr;
+                width: 95%;
             }
             .server-card {
                 padding: 15px;
@@ -387,7 +426,6 @@
             }
         }
         
-        /* Desktop Navbar override for screens larger than 600px */
         @media only screen and (min-width: 601px) {
             .desktop_navbar {
                 display: flex;
@@ -416,17 +454,22 @@
     <div class="mobile_navbar">
         <a href="./" class="mobile_navbar_logo_img_a"> <img class="mobile_navbar_logo_img" src="logo_small.png" alt="logo">
         </a>
+        <div id="mobile_navbar_links">
+            <a class="mobile_navbar_link" href="server.html">Server</a>
+            <a class="mobile_navbar_link" href="community.html">Community</a>
+            <a class="mobile_navbar_link" href="tentang.html">Tentang</a>
+            <a class="mobile_navbar_link" href="media.html">Social Media</a>
+        </div>
         <div class="mobile_navbar_controls">
-            <button id="theme-toggle-mobile" class="theme-toggle-button">
-                <i class="fas fa-moon"></i>
-            </button>
+            <div class="icon">
+                <i class="fa fa-bars"></i>
+            </div>
         </div>
     </div>
 
     <div class="main-content-wrapper">
-        <div class="page-header-status">
-            <h1>Status Server Kaido SMP</h1>
-            <p>Pantau status real-time semua server kami</p>
+        <div class="page-header-logo">
+            <img src="logo.png" alt="Kaido SMP Logo">
         </div>
 
         <div class="container-status">
@@ -548,49 +591,23 @@
         </div>
     </div> <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Theme toggle functionality (for desktop and mobile)
-            const body = document.body;
+            // Mobile Navbar Toggle Functionality
+            const mobileNavbarLinks = document.getElementById("mobile_navbar_links");
+            const mobileNavbarHamburgerIconContainer = document.querySelector(".mobile_navbar .icon");
+            // const mobileNavbarHamburgerIcon = document.querySelector(".mobile_navbar .icon i"); // Tidak perlu lagi untuk rotasi
 
-            const setTheme = (theme) => {
-                if (theme === 'dark') {
-                    body.classList.add('dark-mode');
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    body.classList.remove('dark-mode');
-                    localStorage.setItem('theme', 'light');
-                }
-                // Update button text/icon for both desktop and mobile toggle buttons
-                const desktopToggleButton = document.getElementById('theme-toggle-desktop');
-                const mobileToggleButton = document.getElementById('theme-toggle-mobile');
-
-                if (desktopToggleButton) {
-                    desktopToggleButton.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i> Mode Terang' : '<i class="fas fa-moon"></i> Mode Gelap';
-                }
-                if (mobileToggleButton) {
-                    mobileToggleButton.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-                }
-            };
-
-            const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const savedTheme = localStorage.getItem('theme');
-
-            if (savedTheme) {
-                setTheme(savedTheme);
-            } else if (prefersDarkMode) {
-                setTheme('dark');
+            function toggleMobileNavbar() {
+                mobileNavbarLinks.classList.toggle("open");
+                mobileNavbarHamburgerIconContainer.classList.toggle("open");
             }
 
-            // Event listener for theme toggle buttons
-            const handleThemeToggleClick = () => {
-                const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
-                setTheme(currentTheme === 'dark' ? 'light' : 'dark');
-            };
+            if (mobileNavbarHamburgerIconContainer) {
+                mobileNavbarHamburgerIconContainer.addEventListener('click', toggleMobileNavbar);
+            }
 
-            const desktopToggleButton = document.getElementById('theme-toggle-desktop');
-            const mobileToggleButton = document.getElementById('theme-toggle-mobile');
-            if (desktopToggleButton) desktopToggleButton.addEventListener('click', handleThemeToggleClick);
-            if (mobileToggleButton) mobileToggleButton.addEventListener('click', handleThemeToggleClick);
-
+            document.querySelectorAll('.mobile_navbar_link').forEach(link => {
+                link.addEventListener('click', toggleMobileNavbar);
+            });
 
             // Server status functionality
             const servers = [
@@ -672,8 +689,8 @@
                 }, 1000);
             });
             
-            // Auto-refresh every 5 seconds
-            setInterval(refreshAllServers, 5000); 
+            // Auto-refresh setiap detik (PERHATIAN: Ini bisa menyebabkan masalah rate limit API)
+            setInterval(refreshAllServers, 1000); 
         });
     </script>
 </body>
