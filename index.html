@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaido SMP</title>
+    <title>Ayojoin SMP</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link href="https://fonts.bunny.net/css?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -321,7 +321,8 @@
           right: 20px;
           z-index: 100;
           display: flex;
-          gap: 10px;
+          flex-direction: column; /* Stack vertically */
+          gap: 10px; /* Space between buttons */
       }
 
       .music-btn, .theme-toggle {
@@ -330,7 +331,7 @@
           border-radius: 50%;
           background-color: var(--accent2_transp);
           border: 1px solid var(--accent1);
-          color: white;
+          color: white; /* Make text white for unicode look */
           display: flex;
           align-items: center;
           justify-content: center;
@@ -365,9 +366,17 @@
       /* Mobile Navbar controls */
       .mobile_navbar_controls {
           display: flex;
-          gap: 10px;
+          flex-direction: column; /* Stack vertically for mobile too */
+          gap: 10px; /* Space between buttons */
           margin-left: auto; /* Push to the right */
           margin-right: 1rem; /* Add some margin from the right edge */
+      }
+      /* Ensure theme toggle is always on top in mobile */
+      .mobile_navbar_controls .theme-toggle {
+          order: -1; 
+      }
+      .mobile_navbar_controls .music-btn {
+          order: 0;
       }
 
 
@@ -396,9 +405,9 @@
           .main1_ipcopier {
               display: none; /* This will hide the button on mobile as per your CSS */
           }
+          /* Music controls will be handled by mobile_navbar_controls now */
           .music-controls {
-              bottom: 10px;
-              right: 10px;
+              display: none; /* Hide the fixed music controls on mobile */
           }
           .music-btn, .theme-toggle {
               width: 40px;
@@ -414,11 +423,7 @@
             background-color: #00000011;
             padding-bottom: 1rem; /* Add some padding at the bottom for links */
           }
-          /* Move the mobile navbar controls to the right within the mobile navbar */
-          .mobile_navbar .mobile_navbar_controls {
-              margin-left: auto;
-              padding-right: 1rem;
-          }
+          /* Removed specific margin-left for mobile_navbar_controls as it's now handled by column flex */
       }
       @media only screen and (max-width: 360px) {
           /* Removed unrelated media queries for brevity in this specific output */
@@ -528,39 +533,39 @@
       </div>
     </div>
 
+    <div class="music-controls">
+        <button class="theme-toggle" id="fixedThemeToggle">☀️</button>
+        <button class="music-btn" id="fixedMusicToggle">🔈</button>
+    </div>
+
     <audio id="music1" loop>
         <source src="https://files.catbox.moe/7bzwfz.mp3" type="audio/mpeg">
     </audio>
 
     <script>
         // Music player functionality
-        const music = document.getElementById('music1'); // Only one audio element now
-        const musicToggleBtn = document.getElementById('musicToggle');
-        const mobileMusicToggleBtn = document.getElementById('mobileMusicToggle');
+        const music = document.getElementById('music1');
+        const musicToggleBtns = document.querySelectorAll('.music-btn'); // Select all music buttons
         
         let isPlaying = false;
 
         function toggleMusic() {
             if (isPlaying) {
                 music.pause();
-                musicToggleBtn.textContent = '🔈';
-                mobileMusicToggleBtn.textContent = '🔈';
+                musicToggleBtns.forEach(btn => btn.textContent = '🔈'); // Update all music buttons
             } else {
                 music.currentTime = 0; // Reset to start
                 music.play();
-                musicToggleBtn.textContent = '🔊';
-                mobileMusicToggleBtn.textContent = '🔊';
+                musicToggleBtns.forEach(btn => btn.textContent = '🔊'); // Update all music buttons
             }
             isPlaying = !isPlaying;
         }
 
-        musicToggleBtn.addEventListener('click', toggleMusic);
-        mobileMusicToggleBtn.addEventListener('click', toggleMusic);
+        musicToggleBtns.forEach(btn => btn.addEventListener('click', toggleMusic)); // Add event listener to all
 
 
         // Theme toggle functionality
-        const themeToggle = document.getElementById('themeToggle');
-        const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+        const themeToggleBtns = document.querySelectorAll('.theme-toggle'); // Select all theme buttons
         const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
         
         // Function to set theme
@@ -568,11 +573,9 @@
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
             if (theme === 'light') {
-                themeToggle.textContent = '🌙';
-                mobileThemeToggle.textContent = '🌙';
+                themeToggleBtns.forEach(btn => btn.textContent = '🌙'); // Update all theme buttons
             } else {
-                themeToggle.textContent = '☀️';
-                mobileThemeToggle.textContent = '☀️';
+                themeToggleBtns.forEach(btn => btn.textContent = '☀️'); // Update all theme buttons
             }
         }
 
@@ -582,13 +585,11 @@
         setTheme(currentTheme); // Apply theme on load
 
         // Event listener for theme toggle
-        themeToggle.addEventListener('click', () => {
-            const current = document.documentElement.getAttribute('data-theme');
-            setTheme(current === 'light' ? 'dark' : 'light');
-        });
-        mobileThemeToggle.addEventListener('click', () => {
-            const current = document.documentElement.getAttribute('data-theme');
-            setTheme(current === 'light' ? 'dark' : 'light');
+        themeToggleBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const current = document.documentElement.getAttribute('data-theme');
+                setTheme(current === 'light' ? 'dark' : 'light');
+            });
         });
     </script>
   </body>
