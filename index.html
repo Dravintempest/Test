@@ -305,50 +305,6 @@
             color: #FF8C00;
         }
 
-        .main1_ipcopier {
-            padding: 1rem;
-            padding-left: 2rem;
-            padding-right: 2rem;
-            font-size: 2rem;
-            background-color: var(--accent2_transp);
-            border: 0px;
-            border-radius: var(--roundness);
-            color: white;
-            transition: all .5s;
-            cursor:pointer;
-            position: relative;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .main1_ipcopier:hover {
-            background-color: var(--accent2);
-            transform: scale(1.05)
-        }
-
-        .main1_ipcopier_text1 {
-            font-size:2rem;
-            font-weight: 800;
-        }
-
-        .main1_ipcopier_text2 {
-            font-size:1.5rem;
-        }
-
-        .main1_popup {
-            position: absolute;
-            left: 50%;
-            transform: translate(-50%, -0%);
-            text-align: center;
-            background-color: rgba(0, 175, 0, 0.1);
-            border:solid rgba(0, 175, 0, 1) 1px;
-            color: #fff;
-            border-radius: var(--roundness);
-            z-index: 9999;
-            padding-left: 1rem;
-            padding-right: 1rem;
-            margin-top: -10.5rem;
-        }
-
         .main1_downarrow {
             opacity: 50%;
             height: 1.5rem;
@@ -415,9 +371,6 @@
             .main1_description {
                 font-size: 2.5rem;
                 margin-bottom: 2rem;
-            }
-            .main1_ipcopier {
-                display: none;
             }
             .music-controls {
                 bottom: 10px;
@@ -487,28 +440,6 @@
             <div class="main1_description">
                 <a>Berpetualang,<br>Seru</a>
                 <a class="main1_actcent">di dunia Minecraft</a><a>.</a>
-            </div>
-            <div class="main1_ipcopier_div">
-                <button class="main1_ipcopier" onclick="copyText()" type="button">
-                    <span class="main1_ipcopier_text1">play.ayojoin.com</span>
-                    <br>
-                    <span class="main1_ipcopier_text2">Click to copy</span>
-                </button>
-                <script>
-                    function copyText() {
-                        navigator.clipboard.writeText("play.ayomain.com");
-                    }
-                    $(document).ready(function() {
-                        $('.main1_ipcopier').click(function() {
-                            var popup = $('<div>', { class: 'main1_popup' })
-                                .append($('<h3 class="copy_confirm">').text('Copied IP to clipboard'));
-                            $(this).after(popup);
-                            setTimeout(function() {
-                                popup.remove();
-                            }, 1000);
-                        });
-                    });
-                </script>
             </div>
             <a href="#more" class="scroll main1_downarrow_mobile_trigger">
                 <img alt="downarrow" class="main1_downarrow" src="downarrow.png">
