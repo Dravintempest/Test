@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,451 +9,459 @@
     <link href="https://fonts.bunny.net/css?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-      /* CSS yang Anda berikan (sebelum diubah) */
-      :root {
-          --nice-padding: 6rem;
-          --roundness: 0.75rem;
-          --accent1: #02db02;
-          --accent2: #05b305;
-          --accent2_transp: #05b30555;
-          --background1: #212529;
-          --background2: #16191b;
-          color-scheme: dark;
-      }
+        /* CSS yang Anda berikan (sebelum diubah) */
+        :root {
+            --nice-padding: 6rem;
+            --roundness: 0.75rem;
+            --accent1: #02db02;
+            --accent2: #05b305;
+            --accent2_transp: #05b30555;
+            --background1: #212529;
+            --background2: #16191b;
+            color-scheme: dark;
+        }
+        [data-theme="light"] {
+            --accent1: #02a302;
+            --accent2: #028502;
+            --accent2_transp: #02850255;
+            --background1: #f8f9fa;
+            --background2: #e9ecef;
+            color-scheme: light;
+            color: #212529;
+        }
 
-      [data-theme="light"] {
-          --accent1: #02a302;
-          --accent2: #028502;
-          --accent2_transp: #02850255;
-          --background1: #f8f9fa;
-          --background2: #e9ecef;
-          color-scheme: light;
-          color: #212529;
-      }
+        span {
+            font-family: 'Space Grotesk', sans-serif;
+        }
 
-      span {
-          font-family: 'Space Grotesk', sans-serif;
-      }
+        body {
+            font-family:'Space Grotesk', sans-serif;
+            background-color: var(--background1);
+            color: white;
+            margin:0px;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-      body {
-          font-family:'Space Grotesk', sans-serif;
-          background-color: var(--background1);
-          color: white;
-          margin:0px;
-          transition: background-color 0.3s, color 0.3s;
-      }
+        /* Perbaikan: Hilangkan outline fokus dan tambahkan gaya fokus yang lebih baik */
+        *:focus {
+            outline: none;
+            /* box-shadow: 0 0 0 2px var(--accent1); */
+        }
 
-      /* Perbaikan: Hilangkan outline fokus dan tambahkan gaya fokus yang lebih baik */
-      *:focus {
-          outline: none;
-          box-shadow: 0 0 0 2px var(--accent1);
-      }
+        button {
+            -webkit-tap-highlight-color: transparent; /* Hilangkan highlight biru di mobile */
+        }
 
-      button {
-          -webkit-tap-highlight-color: transparent; /* Hilangkan highlight biru di mobile */
-      }
+        /* Tambahan untuk aksesibilitas */
+        a:focus, button:focus {
+            outline: none;
+            /* box-shadow: 0 0 0 2px var(--accent1); */
+        }
 
-      /* Tambahan untuk aksesibilitas */
-      a:focus, button:focus {
-          outline: none;
-          box-shadow: 0 0 0 2px var(--accent1);
-      }
+        #more {
+            padding-top:5rem;
+            margin-top: -5rem;
+        }
+        #discord {
+            padding-top:5rem;
+            margin-top: -5rem;
+        }
+        #about {
+            padding-top:5rem;
+            margin-top: -5rem;
+        }
+        #join {
+            padding-top:5rem;
+            margin-top: -5rem;
+        }
 
-      #more {
-          padding-top:5rem;
-          margin-top: -5rem;
-      }
-      #discord {
-          padding-top:5rem;
-          margin-top: -5rem;
-      }
-      #about {
-          padding-top:5rem;
-          margin-top: -5rem;
-      }
-      #join {
-          padding-top:5rem;
-          margin-top: -5rem;
-      }
+        .banner {
+            display: flex;
+            position: fixed;
+            background-color: #ff000099;
+            width: 100%;
+            height: 3rem;
+            z-index: 10;
+            font-size: 2rem;
+            font-weight: 600;
+            justify-content: center;
+            backdrop-filter: blur(15px);
+            align-content: center;
+            padding-top: .4rem;
+        }
 
-      .banner {
-          display: flex;
-          position: fixed;
-          background-color: #ff000099;
-          width: 100%;
-          height: 3rem;
-          z-index: 10;
-          font-size: 2rem;
-          font-weight: 600;
-          justify-content: center;
-          backdrop-filter: blur(15px);
-          align-content: center;
-          padding-top: .4rem;
-      }
+        .headline {
+            margin-top: 2rem;
+            color: #fff;
+            font-size:3rem;
+            text-align: center;
+            font-weight: 600;
+        }
 
-      .headline {
-          margin-top: 2rem;
-          color: #fff;
-          font-size:3rem;
-          text-align: center;
-          font-weight: 600;
-      }
+        .desktop_navbar {
+            position:fixed;
+            display: flex;
+            height: 4rem;
+            width: 100%;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom:0;
+            background-color: #00000022;
+            backdrop-filter: blur(15px);
+            z-index: 5;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+        }
 
-      .desktop_navbar {
-          position:fixed;
-          display: flex;
-          height: 4rem;
-          width: 100%;
-          top: 0;
-          right: 0;
-          left: 0;
-          bottom:0;
-          background-color: #00000022;
-          backdrop-filter: blur(15px);
-          z-index: 5;
-          align-items: center;
-          justify-content: center;
-          flex-direction: row;
-      }
+        .desktop_navbar_controls {
+            display: flex;
+            margin-left: auto;
+            margin-right: 2rem;
+            gap: 1rem;
+        }
 
-      .desktop_navbar_controls {
-          display: flex;
-          margin-left: auto;
-          margin-right: 2rem;
-          gap: 1rem;
-      }
+        .desktop_navbar_logo_img {
+            width: 5rem;
+            padding-left: 2rem;
+            padding-right: 1rem;
+        }
 
-      .desktop_navbar_logo_img {
-          width: 5rem;
-          padding-left: 2rem;
-          padding-right: 1rem;
-      }
+        .desktop_navbar_link {
+            font-size: 1.2rem;
+            padding: .8rem;
+            transition: all .5s;
+            text-decoration: none;
+            color: #fff;
+            text-align: center;
+        }
+        .desktop_navbar_link:hover {
+            color: var(--accent1);
+        }
 
-      .desktop_navbar_link {
-          font-size: 1.2rem;
-          padding: .8rem;
-          transition: all .5s;
-          text-decoration: none;
-          color: #fff;
-          text-align: center;
-      }
-      .desktop_navbar_link:hover {
-          color: var(--accent1);
-      }
+        .desktop_navbar_link2 {
+            padding:.5rem;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+        }
+        .desktop_navbar_link2_div {
+            font-size: 1.2rem;
+            padding: .8rem;
+            transition: all .5s;
+            font-weight: 700;
+            border: solid 1px var(--accent1);
+            border-radius: var(--roundness);
+            text-align: center;
+        }
+        .desktop_navbar_link2_div:hover {
+            border: solid 1px var(--accent2);
+            background-color: var(--accent2);
+            transform: scale(1.05)
+        }
 
-      .desktop_navbar_link2 {
-          padding:.5rem;
-          color: #fff;
-          text-decoration: none;
-          text-align: center;
-      }
-      .desktop_navbar_link2_div {
-          font-size: 1.2rem;
-          padding: .8rem;
-          transition: all .5s;
-          font-weight: 700;
-          border: solid 1px var(--accent1);
-          border-radius: var(--roundness);
-          text-align: center;
-      }
-      .desktop_navbar_link2_div:hover {
-          border: solid 1px var(--accent2);
-          background-color: var(--accent2);
-          transform: scale(1.05)
-      }
+        .mobile_navbar {
+            display: none;
+            overflow: hidden;
+            background-color: #00000033;
+            backdrop-filter: blur(15px);
+            position: fixed;
+            width: 100%;
+            z-index: 5;
+            flex-direction: row;
+            min-height: 53px;
+        }
 
-      .mobile_navbar {
-          display: none;
-          overflow: hidden;
-          background-color: #00000033;
-          backdrop-filter: blur(15px);
-          position: fixed;
-          width: 100%;
-          z-index: 5;
-          flex-direction: row;
-          min-height: 53px;
-      }
+        .mobile_navbar_logo_img {
+            position: absolute;
+            display: block;
+            height: 42px;
+            padding-left: .5rem;
+            top: 0;
+            left: 0;
+            padding-top: 3.5px;
+        }
 
-      .mobile_navbar_logo_img {
-          position: absolute;
-          display: block;
-          height: 42px;
-          padding-left: .5rem;
-          top: 0;
-          left: 0;
-          padding-top: 3.5px;
-      }
+        .mobile_navbar #mobile_navbar_links {
+            margin-top: 53px;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            background-color: #00000011;
+            max-height: 0;
+            transition: max-height 0.5s ease-out;
+            overflow: hidden;
+        }
+        .mobile_navbar #mobile_navbar_links.open {
+            max-height: 500px;
+            transition: max-height 0.5s ease-in;
+        }
 
-      .mobile_navbar #mobile_navbar_links {
-          /* Hapus display none di sini */
-          margin-top: 53px;
-          flex-direction: column;
-          align-items: center;
-          width: 100%;
-          background-color: #00000011;
-          /* Animasi Slide Down */
-          max-height: 0;
-          transition: max-height 0.5s ease-out; /* Animasi saat menutup */
-          overflow: hidden;
-      }
-      .mobile_navbar #mobile_navbar_links.open {
-          /* Hapus display flex di sini */
-          max-height: 500px; /* Cukup besar untuk menampung konten */
-          transition: max-height 0.5s ease-in; /* Animasi saat membuka */
-      }
+        .mobile_navbar_link {
+            padding:.5rem;
+            width: 100%;
+            text-align: center;
+        }
 
-      .mobile_navbar_link {
-          padding:.5rem;
-          width: 100%;
-          text-align: center;
-      }
+        .mobile_navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+            display: block;
+            padding: 10px;
+        }
 
-      .mobile_navbar a {
-          color: white;
-          text-decoration: none;
-          font-size: 17px;
-          display: block;
-          padding: 10px;
-      }
+        .mobile_navbar .icon {
+            background-color: #00000044;
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 16px;
+            cursor: pointer;
+            transition: transform 0.5s ease-in-out; /* Tambahkan transisi untuk ikon hamburger */
+        }
 
-      .mobile_navbar .icon {
-          background-color: #00000044;
-          display: block;
-          position: absolute;
-          right: 0;
-          top: 0;
-          padding: 16px;
-          cursor: pointer;
-      }
+        /* Animasi putar untuk ikon hamburger */
+        .mobile_navbar .icon.open {
+            transform: rotate(360deg); /* Berputar ke X */
+        }
 
-      .mobile_navbar_logo_img_a {
-          display: block;
-          background-color: #00000022;
-      } 
 
-      .mobile_navbar_controls {
-          display: flex;
-          margin-left: auto;
-          margin-right: 1rem; /* Adjust as needed */
-          gap: 10px; /* Adjust as needed */
-          align-items: center; /* Vertically align buttons */
-      }
+        .mobile_navbar_logo_img_a {
+            display: block;
+            background-color: #00000022;
+        }
 
-      .mainflex {
-          display: flex;
-          align-items: center;
-          align-content: center;
-          justify-content: center;
-          flex-direction: column;
-      }
+        .mobile_navbar_controls {
+            display: flex;
+            margin-left: auto;
+            margin-right: 1rem;
+            gap: 10px;
+            align-items: center;
+        }
 
-      .main1 {
-          padding-top: calc(var(--nice-padding) + 2rem);
-          display:flex;
-          width: 100%;
-          align-self: center;
-          flex-direction: column;
-          align-items: center;
-          align-content: center;
-          justify-content: center;
-          /* Asumsi background.webp tidak tersedia, menggunakan URL dari gambar */
-          background: rgba(0, 0, 0, .5) url('https://imgur.com/cGMLytH.png');
-          background-blend-mode: darken;
-          background-repeat: no-repeat;
-          background-position: 50% 50%;
-          background-size: cover; /* Added for better image scaling */
-          min-height: 100vh; /* Ensure it takes full height */
-      }
+        .mainflex {
+            display: flex;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            flex-direction: column;
+        }
 
-      .main1_logo_a {
-          margin-bottom: var(--nice-padding);
-          cursor: default;
-      }
+        .main1 {
+            padding-top: calc(var(--nice-padding) + 2rem);
+            display:flex;
+            width: 100%;
+            align-self: center;
+            flex-direction: column;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, .5) url('https://imgur.com/cGMLytH.png');
+            background-blend-mode: darken;
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            background-size: cover;
+            min-height: 100vh;
+        }
 
-      .main1_logo {
-          display: block;
-          align-self: center;
-          margin-left:auto;
-          margin-right: auto;
-          transition: all .5s;
-          max-width: 40rem;
-      }
-      .main1_logo:hover {
-          transform: scale(1.05)
-      }
+        .main1_logo_a {
+            margin-bottom: var(--nice-padding);
+            cursor: default;
+        }
 
-      .main1_description {
-          text-align: center;
-          font-size:3rem;
-          margin-bottom: var(--nice-padding);
-          margin-left: 1rem;
-          margin-right: 1rem;
-      }
+        .main1_logo {
+            display: block;
+            align-self: center;
+            margin-left:auto;
+            margin-right: auto;
+            transition: all .5s;
+            max-width: 40rem;
+        }
+        .main1_logo:hover {
+            transform: scale(1.05)
+        }
 
-      .main1_actcent {
-          font-weight: 800;
-          color: #FF8C00; /* Changed to orange color */
-      }
+        .main1_description {
+            text-align: center;
+            font-size:3rem;
+            margin-bottom: var(--nice-padding);
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
 
-      .main1_ipcopier {
-          padding: 1rem;
-          padding-left: 2rem;
-          padding-right: 2rem;
-          font-size: 2rem;
-          background-color: var(--accent2_transp);
-          border: 0px;
-          border-radius: var(--roundness);
-          color: white;
-          transition: all .5s;
-          cursor:pointer;
-          position: relative;
-          -webkit-tap-highlight-color: transparent;
-      }
+        .main1_actcent {
+            font-weight: 800;
+            color: #FF8C00;
+        }
 
-      .main1_ipcopier:hover {
-          background-color: var(--accent2);
-          transform: scale(1.05)
-      }
+        .main1_ipcopier {
+            padding: 1rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            font-size: 2rem;
+            background-color: var(--accent2_transp);
+            border: 0px;
+            border-radius: var(--roundness);
+            color: white;
+            transition: all .5s;
+            cursor:pointer;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-      .main1_ipcopier_text1 {
-          font-size:2rem;
-          font-weight: 800;
-      }
+        .main1_ipcopier:hover {
+            background-color: var(--accent2);
+            transform: scale(1.05)
+        }
 
-      .main1_ipcopier_text2 {
-          font-size:1.5rem;
-      }
+        .main1_ipcopier_text1 {
+            font-size:2rem;
+            font-weight: 800;
+        }
 
-      .main1_popup {
-          position: absolute;
-          left: 50%;
-          transform: translate(-50%, -0%);
-          text-align: center;
-          background-color: rgba(0, 175, 0, 0.1);
-          border:solid rgba(0, 175, 0, 1) 1px;
-          color: #fff;
-          border-radius: var(--roundness);
-          z-index: 9999;
-          padding-left: 1rem;
-          padding-right: 1rem;
-          margin-top: -10.5rem;
-      }
+        .main1_ipcopier_text2 {
+            font-size:1.5rem;
+        }
 
-      .main1_downarrow {
-          opacity: 50%;
-          height: 1.5rem;
-          padding:2rem;
-          transition: all .5s;
-          cursor: pointer;
-          outline: none; /* Remove outline on click */
-          box-shadow: none; /* Remove box-shadow on click */
-      }
+        .main1_popup {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, -0%);
+            text-align: center;
+            background-color: rgba(0, 175, 0, 0.1);
+            border:solid rgba(0, 175, 0, 1) 1px;
+            color: #fff;
+            border-radius: var(--roundness);
+            z-index: 9999;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            margin-top: -10.5rem;
+        }
 
-      .main1_downarrow:hover {
-          opacity: 100%;
-          transform: scale(1.05)
-      }
+        .main1_downarrow {
+            opacity: 50%;
+            height: 1.5rem;
+            padding:2rem;
+            transition: all .5s;
+            cursor: pointer;
+            outline: none; /* Remove outline on click */
+            box-shadow: none; /* Remove box-shadow on click */
+        }
 
-      /* Music player controls */
-      .music-controls {
-          position: fixed;
-          bottom: 20px;
-          right: 20px;
-          z-index: 100;
-          display: flex;
-          gap: 10px;
-      }
+        .main1_downarrow:hover {
+            opacity: 100%;
+            transform: scale(1.05)
+        }
 
-      .music-btn {
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          background-color: var(--accent2_transp);
-          border: 1px solid var(--accent1);
-          color: white;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          transition: all 0.3s;
-          font-family: 'Space Grotesk', sans-serif; /* Apply Space Grotesk font */
-          font-size: 1.2rem; /* Adjust font size as needed */
-          -webkit-tap-highlight-color: transparent;
-      }
+        /* Music player controls */
+        .music-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
 
-      .music-btn:hover {
-          background-color: var(--accent2);
-          transform: scale(1.1);
-      }
+        .music-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--accent2_transp);
+            border: 1px solid var(--accent1);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-      /* Media Queries from your CSS */
-      @media only screen and (max-width: 600px) {
-          .desktop_navbar{
-              display:none;
-          }
-          .mobile_navbar{
-              display:flex;
-          }
-          .headline {
-              font-size:1.9rem;
-              margin-right: 1rem;
-              margin-left: 1rem;
-          }
-          .main1_logo {
-              max-width: 16rem;
-          }
-          .main1_description {
-              font-size: 2.5rem;
-              margin-bottom: 2rem;
-          }
-          .main1_ipcopier {
-              display: none; /* This will hide the button on mobile as per your CSS */
-          }
-          .music-controls {
-              bottom: 10px;
-              right: 10px;
-          }
-          .music-btn {
-              width: 40px;
-              height: 40px;
-              font-size: 1rem; /* Adjusted font size for mobile */
-          }
-      }
-      @media only screen and (max-width: 360px) {
-          /* Removed unrelated media queries for brevity in this specific output */
-      }
+        .music-btn:hover {
+            background-color: var(--accent2);
+            transform: scale(1.1);
+        }
 
-      /* Desktop Navbar override for screens larger than 600px */
-      @media only screen and (min-width: 601px) {
-          .desktop_navbar {
-              display: flex;
-          }
-          .mobile_navbar {
-              display: none;
-          }
-      }
+        /* Media Queries from your CSS */
+        @media only screen and (max-width: 600px) {
+            .desktop_navbar{
+                display:none;
+            }
+            .mobile_navbar{
+                display:flex;
+            }
+            .headline {
+                font-size:1.9rem;
+                margin-right: 1rem;
+                margin-left: 1rem;
+            }
+            .main1_logo {
+                max-width: 16rem;
+            }
+            .main1_description {
+                font-size: 2.5rem;
+                margin-bottom: 2rem;
+            }
+            .main1_ipcopier {
+                display: none;
+            }
+            .music-controls {
+                bottom: 10px;
+                right: 10px;
+            }
+            .music-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            /* Panah bawah berubah arah pada mobile saat navbar terbuka */
+            .main1_downarrow.open {
+                transform: rotate(180deg);
+            }
+        }
+        @media only screen and (max-width: 360px) {
+            /* Removed unrelated media queries for brevity in this specific output */
+        }
+
+        /* Desktop Navbar override for screens larger than 600px */
+        @media only screen and (min-width: 601px) {
+            .desktop_navbar {
+                display: flex;
+            }
+            .mobile_navbar {
+                display: none;
+            }
+        }
     </style>
+
 </head>
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <nav class="desktop_navbar">
-      <a href="#"><img class="desktop_navbar_logo_img" src="logo_small.png" alt="logo"></a>
-      <a href="https://tokodukun.com" class="desktop_navbar_link">Donasi</a>
-      <a href="community.html" class="desktop_navbar_link">Community</a>
-      <a href="tentang.html" class="desktop_navbar_link">Tentang</a>
-      <div class="desktop_navbar_link2_div">
-          <a href="media.html" class="desktop_navbar_link2">Social Media</a>
-      </div>
-      <div class="desktop_navbar_controls">
-      </div>
+        <a href="#"><img class="desktop_navbar_logo_img" src="logo_small.png" alt="logo"></a>
+        <a href="https://tokodukun.com" class="desktop_navbar_link">Donasi</a>
+        <a href="community.html" class="desktop_navbar_link">Community</a>
+        <a href="tentang.html" class="desktop_navbar_link">Tentang</a>
+        <div class="desktop_navbar_link2_div">
+            <a href="media.html" class="desktop_navbar_link2">Social Media</a>
+        </div>
+        <div class="desktop_navbar_controls">
+        </div>
     </nav>
     <div class="mobile_navbar">
-      <a href="#" class="mobile_navbar_logo_img_a"><img class="mobile_navbar_logo_img" src="logo_small.png" alt="logo"></a>
-      <div id="mobile_navbar_links">
-          <a class="mobile_navbar_link" href="server.html">Server</a>
-          <a class="mobile_navbar_link" href="community.html">Community</a>
-          <a class="mobile_navbar_link" href="tentang.html">Tentang</a>
-          <a class="mobile_navbar_link" href="media.html">Social Media</a>
+        <a href="#" class="mobile_navbar_logo_img_a"><img class="mobile_navbar_logo_img" src="logo_small.png" alt="logo"></a>
+        <div id="mobile_navbar_links">
+            <a class="mobile_navbar_link" href="server.html">Server</a>
+            <a class="mobile_navbar_link" href="community.html">Community</a>
+            <a class="mobile_navbar_link" href="tentang.html">Tentang</a>
+            <a class="mobile_navbar_link" href="media.html">Social Media</a>
         </div>
         <div class="mobile_navbar_controls">
             <div class="icon">
@@ -462,55 +470,54 @@
         </div>
     </div>
     <div class="mainflex">
-      <div class="main1">
-        <a class="main1_logo_a" href="#">
-          <img class="main1_logo" src="logo.png" alt="logo">
-        </a>
-        <div class="main1_description">
-          <a>Berpetualang,<br>Seru</a>
-          <a class="main1_actcent">di dunia Minecraft</a><a>.</a>
-        </div>
-        <div class="main1_ipcopier_div">
-          <button class="main1_ipcopier" onclick="copyText()" type="button">
-            <span class="main1_ipcopier_text1">play.ayojoin.com</span>
-            <br>
-            <span class="main1_ipcopier_text2">Click to copy</span>
-          </button>
-          <script>
-            function copyText() {
-                navigator.clipboard.writeText("play.ayomain.com");
-            }
-            
-            $(document).ready(function() {
-                $('.main1_ipcopier').click(function() {
-                    var popup = $('<div>', { class: 'main1_popup' })
-                    .append($('<h3 class="copy_confirm">').text('Copied IP to clipboard'));
-                    $(this).after(popup);
-                    setTimeout(function() {
-                        popup.remove();
-                    }, 1000);
+        <div class="main1">
+            <a class="main1_logo_a" href="#">
+                <img class="main1_logo" src="logo.png" alt="logo">
+            </a>
+            <div class="main1_description">
+                <a>Berpetualang,<br>Seru</a>
+                <a class="main1_actcent">di dunia Minecraft</a><a>.</a>
+            </div>
+            <div class="main1_ipcopier_div">
+                <button class="main1_ipcopier" onclick="copyText()" type="button">
+                    <span class="main1_ipcopier_text1">play.ayojoin.com</span>
+                    <br>
+                    <span class="main1_ipcopier_text2">Click to copy</span>
+                </button>
+                <script>
+                    function copyText() {
+                        navigator.clipboard.writeText("play.ayomain.com");
+                    }
+                    $(document).ready(function() {
+                        $('.main1_ipcopier').click(function() {
+                            var popup = $('<div>', { class: 'main1_popup' })
+                                .append($('<h3 class="copy_confirm">').text('Copied IP to clipboard'));
+                            $(this).after(popup);
+                            setTimeout(function() {
+                                popup.remove();
+                            }, 1000);
+                        });
+                    });
+                </script>
+            </div>
+            <a href="#more" class="scroll main1_downarrow_mobile_trigger">
+                <img alt="downarrow" class="main1_downarrow" src="downarrow.png">
+            </a>
+            <script>
+                const scrollLinks = document.querySelectorAll('.scroll');
+                scrollLinks.forEach(function(link) {
+                    link.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        const target = document.querySelector(link.getAttribute('href'));
+                        const offsetTop = target.offsetTop;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    });
                 });
-            });
-          </script>
+            </script>
         </div>
-        <a href="#more" class="scroll main1_downarrow_mobile_trigger">
-          <img alt="downarrow" class="main1_downarrow" src="downarrow.png">
-        </a>
-        <script>
-          const scrollLinks = document.querySelectorAll('.scroll');
-          scrollLinks.forEach(function(link) {
-            link.addEventListener('click', function(event) {
-              event.preventDefault();
-              const target = document.querySelector(link.getAttribute('href'));
-              const offsetTop = target.offsetTop;
-              window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-              });
-            });
-          });
-        </script>
-      </div>
     </div>
 
     <div class="music-controls">
@@ -534,7 +541,7 @@
             backgroundMusic.src = musicFiles[currentMusicIndex];
             backgroundMusic.play();
             isPlaying = true;
-            musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-up"></i>'; // Changed to volume-up
+            musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-up"></i>';
         }
 
         function stopMusic() {
@@ -561,11 +568,16 @@
         const mobileNavbarLinks = document.getElementById("mobile_navbar_links");
         const mobileNavbarHamburgerIcon = document.querySelector(".mobile_navbar .icon");
         const mobileDownArrowTrigger = document.querySelector(".main1_downarrow_mobile_trigger");
+        const downArrowImage = document.querySelector(".main1_downarrow");
 
         function toggleMobileNavbar() {
             mobileNavbarLinks.classList.toggle("open");
+            mobileNavbarHamburgerIcon.classList.toggle("open"); // Toggle class for hamburger icon
+            if (window.matchMedia('(max-width: 600px)').matches) {
+                downArrowImage.classList.toggle("open"); // Toggle class for down arrow image
+            }
         }
-        
+
         // Event listener untuk hamburger icon
         if (mobileNavbarHamburgerIcon) {
             mobileNavbarHamburgerIcon.addEventListener('click', toggleMobileNavbar);
@@ -587,5 +599,5 @@
             });
         }
     </script>
-  </body>
+</body>
 </html>
