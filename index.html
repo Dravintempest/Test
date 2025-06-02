@@ -43,9 +43,20 @@
           transition: background-color 0.3s, color 0.3s;
       }
 
-      /* Menghilangkan outline fokus biru */
+      /* Perbaikan: Hilangkan outline fokus dan tambahkan gaya fokus yang lebih baik */
       *:focus {
           outline: none;
+          box-shadow: 0 0 0 2px var(--accent1);
+      }
+
+      button {
+          -webkit-tap-highlight-color: transparent; /* Hilangkan highlight biru di mobile */
+      }
+
+      /* Tambahan untuk aksesibilitas */
+      a:focus, button:focus {
+          outline: none;
+          box-shadow: 0 0 0 2px var(--accent1);
       }
 
       #more {
@@ -186,12 +197,15 @@
           overflow: hidden;
       }
       .mobile_navbar #mobile_navbar_links.open {
+          display: flex;
           max-height: 500px; /* Cukup besar untuk menampung konten */
           transition: max-height 0.5s ease-in;
       }
 
       .mobile_navbar_link {
           padding:.5rem;
+          width: 100%;
+          text-align: center;
       }
 
       .mobile_navbar a {
@@ -199,6 +213,7 @@
           text-decoration: none;
           font-size: 17px;
           display: block;
+          padding: 10px;
       }
 
       .mobile_navbar .icon {
@@ -208,6 +223,7 @@
           right: 0;
           top: 0;
           padding: 16px;
+          cursor: pointer;
       }
 
       .mobile_navbar_logo_img_a {
@@ -222,7 +238,6 @@
           gap: 10px; /* Adjust as needed */
           align-items: center; /* Vertically align buttons */
       }
-
 
       .mainflex {
           display: flex;
@@ -292,6 +307,7 @@
           transition: all .5s;
           cursor:pointer;
           position: relative;
+          -webkit-tap-highlight-color: transparent;
       }
 
       .main1_ipcopier:hover {
@@ -328,6 +344,7 @@
           height: 1.5rem;
           padding:2rem;
           transition: all .5s;
+          cursor: pointer;
       }
 
       .main1_downarrow:hover {
@@ -359,6 +376,7 @@
           transition: all 0.3s;
           font-family: 'Space Grotesk', sans-serif; /* Apply Space Grotesk font */
           font-size: 1.2rem; /* Adjust font size as needed */
+          -webkit-tap-highlight-color: transparent;
       }
 
       .music-btn:hover {
@@ -430,13 +448,13 @@
     <div class="mobile_navbar">
       <a href="#" class="mobile_navbar_logo_img_a"><img class="mobile_navbar_logo_img" src="logo_small.png" alt="logo"></a>
       <div id="mobile_navbar_links">
-          <a class="mobile_navbar_link" onclick="mobile_navbar_link_hider()" href="server.html">Server</a>
-          <a class="mobile_navbar_link" onclick="mobile_navbar_link_hider()" href="community.html">Community</a>
-          <a class="mobile_navbar_link" onclick="mobile_navbar_link_hider()" href="tentang.html">Tentang</a>
-          <a class="mobile_navbar_link" onclick="mobile_navbar_link_hider()" href="media.html">Social Media</a>
+          <a class="mobile_navbar_link" href="server.html">Server</a>
+          <a class="mobile_navbar_link" href="community.html">Community</a>
+          <a class="mobile_navbar_link" href="tentang.html">Tentang</a>
+          <a class="mobile_navbar_link" href="media.html">Social Media</a>
         </div>
         <div class="mobile_navbar_controls">
-            <div class="icon" onclick="mobile_navbar_link_hider()">
+            <div class="icon">
                 <i class="fa fa-bars"></i>
             </div>
         </div>
@@ -458,20 +476,20 @@
           </button>
           <script>
             function copyText() {
-                navigator.clipboard.writeText
-            ("play.ayomain.com");
-                }
+                navigator.clipboard.writeText("play.ayomain.com");
+            }
+            
             $(document).ready(function() {
-            $('.main1_ipcopier').click(function() {
-                var popup = $('<div>', { class: 'main1_popup' })
-                .append($('<h3 class="copy_confirm">').text('Copied IP to clipboard'))
-                $(this).after(popup);
-                setTimeout(function() {
-                popup.remove();
-                }, 1000);
+                $('.main1_ipcopier').click(function() {
+                    var popup = $('<div>', { class: 'main1_popup' })
+                    .append($('<h3 class="copy_confirm">').text('Copied IP to clipboard'));
+                    $(this).after(popup);
+                    setTimeout(function() {
+                        popup.remove();
+                    }, 1000);
+                });
             });
-            });
-        </script>
+          </script>
         </div>
         <a href="#more" class="scroll main1_downarrow_mobile_trigger">
           <img alt="downarrow" class="main1_downarrow" src="downarrow.png">
@@ -542,18 +560,19 @@
         const mobileNavbarHamburgerIcon = document.querySelector(".mobile_navbar .icon");
         const mobileDownArrowTrigger = document.querySelector(".main1_downarrow_mobile_trigger");
 
-        function mobile_navbar_link_hider() {
-            if (mobileNavbarLinks.classList.contains("open")) {
-                mobileNavbarLinks.classList.remove("open");
-            } else {
-                mobileNavbarLinks.classList.add("open");
-            }
-        } 
-        
-        // Ensure hamburger icon also toggles the navbar
-        if (mobileNavbarHamburgerIcon) {
-            mobileNavbarHamburgerIcon.addEventListener('click', mobile_navbar_link_hider);
+        function toggleMobileNavbar() {
+            mobileNavbarLinks.classList.toggle("open");
         }
+        
+        // Event listener untuk hamburger icon
+        if (mobileNavbarHamburgerIcon) {
+            mobileNavbarHamburgerIcon.addEventListener('click', toggleMobileNavbar);
+        }
+
+        // Event listener untuk mobile navbar links
+        document.querySelectorAll('.mobile_navbar_link').forEach(link => {
+            link.addEventListener('click', toggleMobileNavbar);
+        });
 
         // Down arrow opens navbar on mobile
         if (mobileDownArrowTrigger) {
@@ -561,7 +580,7 @@
                 // Only trigger if on mobile (max-width: 600px)
                 if (window.matchMedia('(max-width: 600px)').matches) {
                     event.preventDefault(); // Prevent default scroll behavior
-                    mobile_navbar_link_hider(); // Toggle mobile navbar
+                    toggleMobileNavbar(); // Toggle mobile navbar
                 }
             });
         }
