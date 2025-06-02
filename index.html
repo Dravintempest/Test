@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ayojoin SMP</title>
-    <link rel="icon" type="image/png" href="media/favicon.png">
+    <link rel="icon" type="image/png" href="favicon.png">
     <link href="https://fonts.bunny.net/css?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
@@ -380,7 +380,7 @@
               bottom: 10px;
               right: 10px;
           }
-          .music-btn, .theme-toggle {
+          .music-btn {
               width: 40px;
               height: 40px;
               font-size: 1rem; /* Adjusted font size for mobile */
@@ -404,7 +404,7 @@
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <nav class="desktop_navbar">
-      <a href="#"><img class="desktop_navbar_logo_img" src="media/logo_small.png" alt="logo"></a>
+      <a href="#"><img class="desktop_navbar_logo_img" src="logo_small.png" alt="logo"></a>
       <a href="https://tokodukun.com" class="desktop_navbar_link">Donasi</a>
       <a href="community.html" class="desktop_navbar_link">Community</a>
       <a href="tentang.html" class="desktop_navbar_link">Tentang</a>
@@ -412,11 +412,10 @@
           <a href="media.html" class="desktop_navbar_link2">Social Media</a>
       </div>
       <div class="desktop_navbar_controls">
-          <button class="theme-toggle" id="themeToggleDesktop"></button>
-      </div>
+          </div>
     </nav>
     <div class="mobile_navbar">
-      <a href="#" class="mobile_navbar_logo_img_a"><img class="mobile_navbar_logo_img" src="media/logo_small.png" alt="logo"></a>
+      <a href="#" class="mobile_navbar_logo_img_a"><img class="mobile_navbar_logo_img" src="logo_small.png" alt="logo"></a>
       <div id="mobile_navbar_links">
           <a class="mobile_navbar_link" onclick="mobile_navbar_link_hider()" href="server.html">Server</a>
           <a class="mobile_navbar_link" onclick="mobile_navbar_link_hider()" href="community.html">Community</a>
@@ -424,7 +423,6 @@
           <a class="mobile_navbar_link" onclick="mobile_navbar_link_hider()" href="media.html">Social Media</a>
         </div>
         <div class="mobile_navbar_controls">
-            <button class="theme-toggle" id="themeToggleMobile"></button>
             <div class="icon" onclick="mobile_navbar_link_hider()">
                 <i class="fa fa-bars"></i>
             </div>
@@ -443,7 +441,7 @@
     <div class="mainflex">
       <div class="main1">
         <a class="main1_logo_a" href="#">
-          <img class="main1_logo" src="media/logo.png" alt="logo">
+          <img class="main1_logo" src="logo.png" alt="logo">
         </a>
         <div class="main1_description">
           <a>Berpetualang,<br>Seru</a>
@@ -473,7 +471,7 @@
         </script>
         </div>
         <a href="#more" class="scroll">
-          <img alt="downarrow" class="main1_downarrow" src="media/downarrow.png">
+          <img alt="downarrow" class="main1_downarrow" src="downarrow.png">
         </a>
         <script>
           const scrollLinks = document.querySelectorAll('.scroll');
@@ -517,39 +515,8 @@
             isPlaying = !isPlaying;
         });
 
-        // Theme toggle functionality
-        const themeToggleDesktop = document.getElementById('themeToggleDesktop');
-        const themeToggleMobile = document.getElementById('themeToggleMobile');
-        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-        
-        // Function to set the theme and update button text
-        function setAndApplyTheme(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-            if (theme === 'light') {
-                themeToggleDesktop.textContent = 'Dark';
-                themeToggleMobile.textContent = 'Dark';
-            } else {
-                themeToggleDesktop.textContent = 'Light';
-                themeToggleMobile.textContent = 'Light';
-            }
-        }
-
-        // Initialize theme on load
-        const currentTheme = localStorage.getItem('theme') || 
-                            (prefersDarkScheme.matches ? 'dark' : 'light');
-        setAndApplyTheme(currentTheme);
-
-        // Add event listeners
-        themeToggleDesktop.addEventListener('click', () => {
-            const newTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-            setAndApplyTheme(newTheme);
-        });
-
-        themeToggleMobile.addEventListener('click', () => {
-            const newTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-            setAndApplyTheme(newTheme);
-        });
+        // Theme initialization remains in CSS :root and [data-theme="light"]
+        // No JavaScript for theme toggle needed since the button is removed
     </script>
   </body>
 </html>
