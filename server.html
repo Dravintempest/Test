@@ -231,7 +231,7 @@
             align-self: center;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start; /* Start dari atas, bukan tengah */
             background: rgba(0, 0, 0, .5) url('https://imgur.com/cGMLytH.png');
             background-blend-mode: darken;
             background-repeat: no-repeat;
@@ -266,8 +266,7 @@
             display: grid;
             gap: 25px;
             box-sizing: border-box;
-            justify-content: center; /* Memastikan grid items di tengah */
-            align-items: flex-start; /* Mengatur item dari atas */
+            /* Tidak perlu justify-content: center; di sini karena card akan mentok kiri */
         }
 
         /* Card server */
@@ -277,11 +276,11 @@
             box-shadow: 0 5px 15px var(--shadow-color-status);
             padding: 25px;
             color: var(--text-color-status);
-            /* Pastikan konten di dalam card di tengah jika memungkinkan */
+            /* Konten di dalam card akan mentok kiri */
             display: flex;
             flex-direction: column;
-            align-items: center; /* Tengah secara horizontal */
-            text-align: center; /* Tengah teks */
+            align-items: flex-start; /* **KIRI**: Mentok kiri */
+            text-align: left; /* **KIRI**: Teks rata kiri */
         }
 
         .server-card h2 {
@@ -291,20 +290,21 @@
             padding-bottom: 10px;
             border-bottom: 2px solid var(--border-color-status);
             width: 100%; /* Pastikan border-bottom selebar h2 */
+            text-align: left; /* **KIRI**: Judul rata kiri */
         }
 
         .server-info {
             display: grid;
-            grid-template-columns: 1fr; /* Selalu 1 kolom untuk kesederhanaan centering */
-            gap: 10px; /* Kurangi gap untuk tampilan tengah */
-            width: 100%; /* Agar memenuhi lebar card */
+            grid-template-columns: 1fr; /* Selalu 1 kolom */
+            gap: 10px;
+            width: 100%;
         }
 
         .status-section {
             display: flex;
             align-items: center;
-            justify-content: center; /* Tengah status dot dan teks */
-            margin-bottom: 5px; /* Kurangi margin */
+            justify-content: flex-start; /* **KIRI**: Status dot dan teks rata kiri */
+            margin-bottom: 5px;
             font-weight: bold;
             font-size: 1.1rem;
         }
@@ -336,21 +336,21 @@
         }
 
         .server-details {
-            margin-top: 10px; /* Kurangi margin */
+            margin-top: 10px;
             width: 100%;
         }
 
         .detail-row {
             display: flex;
             flex-direction: column; /* Tumpuk label dan nilai */
-            margin-bottom: 5px; /* Kurangi margin */
-            align-items: center; /* Tengah item */
+            margin-bottom: 5px;
+            align-items: flex-start; /* **KIRI**: Item rata kiri */
         }
 
         .detail-label {
             font-weight: bold;
             color: var(--primary-color-status);
-            margin-bottom: 2px; /* Jarak antara label dan nilai */
+            margin-bottom: 2px;
         }
 
         .timestamp {
@@ -359,6 +359,7 @@
             margin-top: 15px;
             display: block;
             width: 100%;
+            text-align: left; /* **KIRI**: Timestamp rata kiri */
         }
 
         .refresh-button {
@@ -395,6 +396,39 @@
             to { transform: rotate(360deg); }
         }
 
+        /* Music player controls */
+        .music-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+
+        .music-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--accent2_transp);
+            border: 1px solid var(--accent1);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .music-btn:hover {
+            background-color: var(--accent2);
+            transform: scale(1.1);
+        }
+
+
         /* Media Queries */
         @media only screen and (max-width: 600px) {
             .desktop_navbar {
@@ -423,6 +457,15 @@
             }
             .server-card h2 {
                 font-size: 1.4rem;
+            }
+            .music-controls {
+                bottom: 10px;
+                right: 10px;
+            }
+            .music-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
             }
         }
         
@@ -589,12 +632,17 @@
                 <i class="fas fa-sync-alt"></i> Segarkan Status
             </button>
         </div>
-    </div> <script>
+    </div> <div class="music-controls">
+        <button class="music-btn" id="musicToggleBtn"><i class="fa-solid fa-volume-off"></i></button>
+    </div>
+
+    <audio id="backgroundMusic"></audio>
+
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Mobile Navbar Toggle Functionality
+            // Mobile Navbar Toggle Functionality (sama seperti sebelumnya)
             const mobileNavbarLinks = document.getElementById("mobile_navbar_links");
             const mobileNavbarHamburgerIconContainer = document.querySelector(".mobile_navbar .icon");
-            // const mobileNavbarHamburgerIcon = document.querySelector(".mobile_navbar .icon i"); // Tidak perlu lagi untuk rotasi
 
             function toggleMobileNavbar() {
                 mobileNavbarLinks.classList.toggle("open");
@@ -609,7 +657,44 @@
                 link.addEventListener('click', toggleMobileNavbar);
             });
 
-            // Server status functionality
+            // Music player functionality (dikembalikan dari index.html)
+            const musicFiles = [
+                "https://files.catbox.moe/7bzwfz.mp3",
+                "https://files.catbox.moe/du52ay.mp3"
+            ];
+            let currentMusicIndex = 0;
+            const backgroundMusic = document.getElementById('backgroundMusic');
+            const musicToggleBtn = document.getElementById('musicToggleBtn');
+            let isPlaying = false;
+
+            function loadAndPlayMusic() {
+                backgroundMusic.src = musicFiles[currentMusicIndex];
+                backgroundMusic.play();
+                isPlaying = true;
+                musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-up"></i>';
+            }
+
+            function stopMusic() {
+                backgroundMusic.pause();
+                backgroundMusic.currentTime = 0;
+                isPlaying = false;
+                musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-off"></i>';
+            }
+
+            musicToggleBtn.addEventListener('click', () => {
+                if (isPlaying) {
+                    stopMusic();
+                } else {
+                    loadAndPlayMusic();
+                }
+            });
+
+            backgroundMusic.addEventListener('ended', () => {
+                currentMusicIndex = (currentMusicIndex + 1) % musicFiles.length;
+                loadAndPlayMusic();
+            });
+
+            // Server status functionality (sama seperti sebelumnya, refresh setiap detik)
             const servers = [
                 { id: 'hub', name: 'Hub Server', port: '19132', displayIp: 'mc.kaidosmp.kesug.com:19132', apiIp: 'mc.kaidosmp.kesug.com' },
                 { id: 'fantasy', name: 'Fantasy Server', port: '19140', displayIp: 'mc.kaidosmp.kesug.com:19140', apiIp: 'mc.kaidosmp.kesug.com' },
@@ -689,7 +774,7 @@
                 }, 1000);
             });
             
-            // Auto-refresh setiap detik (PERHATIAN: Ini bisa menyebabkan masalah rate limit API)
+            // Auto-refresh setiap detik (PERHATIAN: Masih ada risiko rate limit)
             setInterval(refreshAllServers, 1000); 
         });
     </script>
