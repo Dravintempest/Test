@@ -156,7 +156,6 @@
           z-index: 5;
           flex-direction: row;
           min-height: 53px;
-          align-items: center; /* Center items vertically */
       }
 
       .mobile_navbar_logo_img {
@@ -202,6 +201,15 @@
           display: block;
           background-color: #00000022;
       } 
+
+      .mobile_navbar_controls {
+          display: flex;
+          margin-left: auto;
+          margin-right: 1rem; /* Adjust as needed */
+          gap: 10px; /* Adjust as needed */
+          align-items: center; /* Vertically align buttons */
+      }
+
 
       .mainflex {
           display: flex;
@@ -314,15 +322,14 @@
           transform: scale(1.05)
       }
 
-      /* Music and Theme Controls */
+      /* Music player controls */
       .music-controls {
           position: fixed;
           bottom: 20px;
           right: 20px;
           z-index: 100;
           display: flex;
-          flex-direction: column; /* Stack vertically */
-          gap: 10px; /* Space between buttons */
+          gap: 10px;
       }
 
       .music-btn, .theme-toggle {
@@ -331,64 +338,22 @@
           border-radius: 50%;
           background-color: var(--accent2_transp);
           border: 1px solid var(--accent1);
-          color: white; /* Make text white for unicode look */
+          color: white;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
           transition: all 0.3s;
-          font-size: 1.5rem; /* Ensure font is visible */
-          font-family: 'Space Grotesk', sans-serif; /* Apply the same font */
+          font-family: 'Space Grotesk', sans-serif; /* Apply Space Grotesk font */
+          font-size: 1.2rem; /* Adjust font size as needed */
       }
 
       .music-btn:hover, .theme-toggle:hover {
           background-color: var(--accent2);
           transform: scale(1.1);
       }
-      
-      /* Order for fixed controls: theme on top, music below */
-      .music-controls .theme-toggle {
-          order: -1;
-      }
-      .music-controls .music-btn {
-          order: 0;
-      }
 
-      /* Desktop Navbar controls - removed to simplify and keep fixed controls only */
-      .desktop_navbar_controls {
-          display: none; /* Hide desktop navbar controls as per request */
-      }
-
-
-      /* Mobile Navbar overrides */
-      .mobile_navbar {
-          display: none; /* Will be flex on mobile screens via media query */
-          overflow: hidden;
-          background-color: #00000033;
-          backdrop-filter: blur(15px);
-          position: fixed;
-          width: 100%;
-          z-index: 5;
-          align-items: center;
-          justify-content: space-between; /* Space out logo and controls */
-          min-height: 53px;
-          padding-right: 1rem; /* Add padding to the right for controls */
-      }
-
-      .mobile_navbar_controls {
-          display: flex;
-          gap: 10px;
-          align-items: center;
-      }
-      /* Order for mobile navbar controls: theme on top, music below */
-      .mobile_navbar_controls .theme-toggle {
-          order: -1;
-      }
-      .mobile_navbar_controls .music-btn {
-          order: 0;
-      }
-
-      /* Media Queries */
+      /* Media Queries from your CSS */
       @media only screen and (max-width: 600px) {
           .desktop_navbar{
               display:none;
@@ -411,31 +376,21 @@
           .main1_ipcopier {
               display: none; /* This will hide the button on mobile as per your CSS */
           }
-          /* Fixed music controls on mobile */
           .music-controls {
               bottom: 10px;
               right: 10px;
-              display: flex; /* Ensure it's displayed on mobile */
           }
           .music-btn, .theme-toggle {
               width: 40px;
               height: 40px;
-              font-size: 1.2rem;
-          }
-          /* Adjust mobile navbar links display for control buttons */
-          .mobile_navbar #mobile_navbar_links {
-            margin-top: 53px;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            background-color: #00000011;
-            padding-bottom: 1rem; /* Add some padding at the bottom for links */
-          }
-          /* Hide icon (hamburger) on mobile if music/theme controls are shown directly */
-          .mobile_navbar .icon {
-              display: none; 
+              font-size: 1rem; /* Adjusted font size for mobile */
           }
       }
+      @media only screen and (max-width: 360px) {
+          /* Removed unrelated media queries for brevity in this specific output */
+      }
+
+      /* Desktop Navbar override for screens larger than 600px */
       @media only screen and (min-width: 601px) {
           .desktop_navbar {
               display: flex;
@@ -456,18 +411,23 @@
       <div class="desktop_navbar_link2_div">
           <a href="media.html" class="desktop_navbar_link2">Social Media</a>
       </div>
-      </nav>
+      <div class="desktop_navbar_controls">
+          <button class="theme-toggle" id="themeToggleDesktop"></button>
+      </div>
+    </nav>
     <div class="mobile_navbar">
       <a href="#" class="mobile_navbar_logo_img_a"><img class="mobile_navbar_logo_img" src="media/logo_small.png" alt="logo"></a>
-      <div class="mobile_navbar_controls">
-          <button class="theme-toggle" id="mobileThemeToggle">☀️</button>
-          <button class="music-btn" id="mobileMusicToggle">🔈</button>
-          </div>
       <div id="mobile_navbar_links">
           <a class="mobile_navbar_link" onclick="mobile_navbar_link_hider()" href="server.html">Server</a>
           <a class="mobile_navbar_link" onclick="mobile_navbar_link_hider()" href="community.html">Community</a>
           <a class="mobile_navbar_link" onclick="mobile_navbar_link_hider()" href="tentang.html">Tentang</a>
           <a class="mobile_navbar_link" onclick="mobile_navbar_link_hider()" href="media.html">Social Media</a>
+        </div>
+        <div class="mobile_navbar_controls">
+            <button class="theme-toggle" id="themeToggleMobile"></button>
+            <div class="icon" onclick="mobile_navbar_link_hider()">
+                <i class="fa fa-bars"></i>
+            </div>
         </div>
         <script>
             function mobile_navbar_link_hider() {
@@ -533,62 +493,62 @@
     </div>
 
     <div class="music-controls">
-        <button class="theme-toggle" id="fixedThemeToggle">☀️</button>
-        <button class="music-btn" id="fixedMusicToggle">🔈</button>
+        <button class="music-btn" id="musicToggleBtn">🔈</button>
     </div>
 
-    <audio id="music1" loop>
+    <audio id="backgroundMusic" loop>
         <source src="https://files.catbox.moe/7bzwfz.mp3" type="audio/mpeg">
     </audio>
 
     <script>
         // Music player functionality
-        const music = document.getElementById('music1');
-        const musicToggleBtns = document.querySelectorAll('.music-btn'); // Select all music buttons
-        
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const musicToggleBtn = document.getElementById('musicToggleBtn');
         let isPlaying = false;
 
-        function toggleMusic() {
+        musicToggleBtn.addEventListener('click', () => {
             if (isPlaying) {
-                music.pause();
-                musicToggleBtns.forEach(btn => btn.textContent = '🔈'); // Update all music buttons
+                backgroundMusic.pause();
+                musicToggleBtn.textContent = '🔈';
             } else {
-                music.currentTime = 0; // Reset to start
-                music.play();
-                musicToggleBtns.forEach(btn => btn.textContent = '🔊'); // Update all music buttons
+                backgroundMusic.play();
+                musicToggleBtn.textContent = '🔊';
             }
             isPlaying = !isPlaying;
-        }
-
-        musicToggleBtns.forEach(btn => btn.addEventListener('click', toggleMusic)); // Add event listener to all
-
+        });
 
         // Theme toggle functionality
-        const themeToggleBtns = document.querySelectorAll('.theme-toggle'); // Select all theme buttons
+        const themeToggleDesktop = document.getElementById('themeToggleDesktop');
+        const themeToggleMobile = document.getElementById('themeToggleMobile');
         const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
         
-        // Function to set theme
-        function setTheme(theme) {
+        // Function to set the theme and update button text
+        function setAndApplyTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
             if (theme === 'light') {
-                themeToggleBtns.forEach(btn => btn.textContent = '🌙'); // Update all theme buttons
+                themeToggleDesktop.textContent = 'Dark';
+                themeToggleMobile.textContent = 'Dark';
             } else {
-                themeToggleBtns.forEach(btn => btn.textContent = '☀️'); // Update all theme buttons
+                themeToggleDesktop.textContent = 'Light';
+                themeToggleMobile.textContent = 'Light';
             }
         }
 
-        // Check for saved theme preference or use system preference on load
+        // Initialize theme on load
         const currentTheme = localStorage.getItem('theme') || 
                             (prefersDarkScheme.matches ? 'dark' : 'light');
-        setTheme(currentTheme); // Apply theme on load
+        setAndApplyTheme(currentTheme);
 
-        // Event listener for theme toggle
-        themeToggleBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const current = document.documentElement.getAttribute('data-theme');
-                setTheme(current === 'light' ? 'dark' : 'light');
-            });
+        // Add event listeners
+        themeToggleDesktop.addEventListener('click', () => {
+            const newTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            setAndApplyTheme(newTheme);
+        });
+
+        themeToggleMobile.addEventListener('click', () => {
+            const newTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            setAndApplyTheme(newTheme);
         });
     </script>
   </body>
