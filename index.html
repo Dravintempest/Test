@@ -98,93 +98,31 @@
             font-weight: 600;
         }
 
-        .desktop_navbar {
-            position:fixed;
+        /* Unified Navbar for both desktop and mobile */
+        .navbar {
             display: flex;
-            height: 4rem;
-            width: 100%;
-            top: 0;
-            right: 0;
-            left: 0;
-            bottom:0;
-            background-color: #00000022;
-            backdrop-filter: blur(15px);
-            z-index: 5;
-            align-items: center;
-            justify-content: center;
-            flex-direction: row;
-        }
-
-        .desktop_navbar_controls {
-            display: flex;
-            margin-left: auto;
-            margin-right: 2rem;
-            gap: 1rem;
-        }
-
-        .desktop_navbar_logo_img {
-            width: 5rem;
-            padding-left: 2rem;
-            padding-right: 1rem;
-        }
-
-        .desktop_navbar_link {
-            font-size: 1.2rem;
-            padding: .8rem;
-            transition: all .5s;
-            text-decoration: none;
-            color: #fff;
-            text-align: center;
-        }
-        .desktop_navbar_link:hover {
-            color: var(--accent1);
-        }
-
-        .desktop_navbar_link2 {
-            padding:.5rem;
-            color: #fff;
-            text-decoration: none;
-            text-align: center;
-        }
-        .desktop_navbar_link2_div {
-            font-size: 1.2rem;
-            padding: .8rem;
-            transition: all .5s;
-            font-weight: 700;
-            border: solid 1px var(--accent1);
-            border-radius: var(--roundness);
-            text-align: center;
-        }
-        .desktop_navbar_link2_div:hover {
-            border: solid 1px var(--accent2);
-            background-color: var(--accent2);
-            transform: scale(1.05)
-        }
-
-        .mobile_navbar {
-            display: none;
-            overflow: hidden;
             background-color: #00000033;
             backdrop-filter: blur(15px);
             position: fixed;
             width: 100%;
             z-index: 5;
-            flex-direction: row;
             min-height: 53px;
+            align-items: center;
+            padding: 0 1rem; /* Added some padding */
         }
 
-        .mobile_navbar_logo_img {
-            position: absolute;
+        .navbar_logo_img_a {
             display: block;
+            background-color: #00000022;
+        }
+
+        .navbar_logo_img {
             height: 42px;
-            padding-left: .5rem;
-            top: 0;
-            left: 0;
             padding-top: 3.5px;
         }
 
-        .mobile_navbar #mobile_navbar_links {
-            margin-top: 53px;
+        .navbar_links {
+            display: none; /* Hidden by default, will be shown by JS for open state */
             flex-direction: column;
             align-items: center;
             width: 100%;
@@ -192,58 +130,114 @@
             max-height: 0;
             transition: max-height 0.5s ease-out;
             overflow: hidden;
+            position: absolute; /* Positioned below the logo and icon */
+            top: 53px; /* Height of the static part of navbar */
+            left: 0;
+            right: 0;
         }
-        .mobile_navbar #mobile_navbar_links.open {
-            max-height: 500px;
+        .navbar_links.open {
+            max-height: 500px; /* Adjust as needed to accommodate all links */
             transition: max-height 0.5s ease-in;
         }
 
-        .mobile_navbar_link {
+        .navbar_link {
             padding:.5rem;
             width: 100%;
             text-align: center;
-        }
-
-        .mobile_navbar a {
             color: white;
             text-decoration: none;
             font-size: 17px;
             display: block;
             padding: 10px;
+            transition: all .3s;
+        }
+        .navbar_link:hover {
+            color: var(--accent1);
         }
 
-        .mobile_navbar .icon {
+        .navbar_controls {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar .icon {
             background-color: #00000044;
             display: block;
-            position: absolute;
-            right: 0;
-            top: 0;
             padding: 16px;
             cursor: pointer;
         }
 
-        /* Animasi putar untuk ikon hamburger */
-        .mobile_navbar .icon i { /* Targetkan elemen <i> di dalam .icon */
-            transition: transform 0.5s ease-in-out; /* Transisi untuk rotasi */
+        .navbar .icon i {
+            transition: transform 0.5s ease-in-out;
         }
 
-        .mobile_navbar .icon.open i {
-            transform: rotate(180deg); /* Berputar menjadi 'X' (jika font awesome mendukung) */
+        .navbar .icon.open i {
+            transform: rotate(180deg);
         }
 
+        /* Desktop specific styles for navbar */
+        @media only screen and (min-width: 601px) {
+            .navbar {
+                justify-content: flex-start; /* Align logo to start */
+                min-height: 4rem; /* Taller navbar for desktop */
+                padding: 0 2rem;
+            }
+            .navbar_logo_img {
+                width: 5rem; /* Larger logo on desktop */
+                height: auto;
+                padding-left: 0; /* Remove extra padding */
+                padding-right: 1rem;
+            }
+            .navbar_logo_img_a {
+                background-color: transparent; /* No background for logo link */
+            }
+            .navbar_links {
+                display: flex; /* Always display links on desktop */
+                flex-direction: row; /* Horizontal links */
+                position: static; /* Remove absolute positioning */
+                max-height: none; /* No max-height limit */
+                background-color: transparent; /* No background for links container */
+                width: auto; /* Width based on content */
+                margin-left: auto; /* Push links to the right */
+                transition: none; /* No transition needed */
+            }
+            .navbar_links.open { /* Remove open class effects on desktop */
+                max-height: none;
+            }
+            .navbar_link {
+                padding: .8rem;
+                width: auto; /* Link width based on content */
+                font-size: 1.2rem; /* Larger font size */
+            }
+            .navbar .icon {
+                display: none; /* Hide hamburger icon on desktop */
+            }
 
-        .mobile_navbar_logo_img_a {
-            display: block;
-            background-color: #00000022;
+            .navbar_link2_div {
+                font-size: 1.2rem;
+                padding: .8rem;
+                transition: all .5s;
+                font-weight: 700;
+                border: solid 1px var(--accent1);
+                border-radius: var(--roundness);
+                text-align: center;
+                margin-left: 1rem; /* Space from other links */
+            }
+            .navbar_link2_div:hover {
+                border: solid 1px var(--accent2);
+                background-color: var(--accent2);
+                transform: scale(1.05)
+            }
+            .navbar_link2 {
+                padding:.5rem;
+                color: #fff;
+                text-decoration: none;
+                text-align: center;
+            }
         }
 
-        .mobile_navbar_controls {
-            display: flex;
-            margin-left: auto;
-            margin-right: 1rem;
-            gap: 10px;
-            align-items: center;
-        }
 
         .mainflex {
             display: flex;
@@ -393,12 +387,6 @@
 
         /* Media Queries from your CSS */
         @media only screen and (max-width: 600px) {
-            .desktop_navbar{
-                display:none;
-            }
-            .mobile_navbar{
-                display:flex;
-            }
             .headline {
                 font-size:1.9rem;
                 margin-right: 1rem;
@@ -432,46 +420,27 @@
         @media only screen and (max-width: 360px) {
             /* Removed unrelated media queries for brevity in this specific output */
         }
-
-        /* Desktop Navbar override for screens larger than 600px */
-        @media only screen and (min-width: 601px) {
-            .desktop_navbar {
-                display: flex;
-            }
-            .mobile_navbar {
-                display: none;
-            }
-        }
     </style>
 
 </head>
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <nav class="desktop_navbar">
-        <a href="#"><img class="desktop_navbar_logo_img" src="logo_small.png" alt="logo"></a>
-        <a href="https://tokodukun.com" class="desktop_navbar_link">Donasi</a>
-        <a href="community.html" class="desktop_navbar_link">Community</a>
-        <a href="tentang.html" class="desktop_navbar_link">Tentang</a>
-        <div class="desktop_navbar_link2_div">
-            <a href="media.html" class="desktop_navbar_link2">Social Media</a>
+    <nav class="navbar">
+        <a href="#" class="navbar_logo_img_a"><img class="navbar_logo_img" src="logo_small.png" alt="logo"></a>
+        <div class="navbar_links" id="navbar_links">
+            <a class="navbar_link" href="https://tokodukun.com">Donasi</a>
+            <a class="navbar_link" href="community.html">Community</a>
+            <a class="navbar_link" href="tentang.html">Tentang</a>
+            <div class="navbar_link2_div">
+                <a href="media.html" class="navbar_link2">Social Media</a>
+            </div>
         </div>
-        <div class="desktop_navbar_controls">
-        </div>
-    </nav>
-    <div class="mobile_navbar">
-        <a href="#" class="mobile_navbar_logo_img_a"><img class="mobile_navbar_logo_img" src="logo_small.png" alt="logo"></a>
-        <div id="mobile_navbar_links">
-            <a class="mobile_navbar_link" href="server.html">Server</a>
-            <a class="mobile_navbar_link" href="community.html">Community</a>
-            <a class="mobile_navbar_link" href="tentang.html">Tentang</a>
-            <a class="mobile_navbar_link" href="media.html">Social Media</a>
-        </div>
-        <div class="mobile_navbar_controls">
-            <div class="icon">
+        <div class="navbar_controls">
+            <div class="icon" id="hamburger_icon">
                 <i class="fa fa-bars"></i>
             </div>
         </div>
-    </div>
+    </nav>
     <div class="mainflex">
         <div class="main1">
             <a class="main1_logo_a" href="#">
@@ -567,40 +536,54 @@
             loadAndPlayMusic();
         });
 
-        // Mobile Navbar Toggle Functionality
-        const mobileNavbarLinks = document.getElementById("mobile_navbar_links");
-        const mobileNavbarHamburgerIconContainer = document.querySelector(".mobile_navbar .icon"); // Container ikon
-        const mobileNavbarHamburgerIcon = document.querySelector(".mobile_navbar .icon i"); // Ikon sebenarnya
-        const mobileDownArrowTrigger = document.querySelector(".main1_downarrow_mobile_trigger");
+        // Unified Navbar Toggle Functionality
+        const navbarLinks = document.getElementById("navbar_links");
+        const hamburgerIconContainer = document.getElementById("hamburger_icon");
+        const hamburgerIcon = document.querySelector("#hamburger_icon i");
         const downArrowImage = document.querySelector(".main1_downarrow");
 
-        function toggleMobileNavbar() {
-            mobileNavbarLinks.classList.toggle("open");
-            mobileNavbarHamburgerIconContainer.classList.toggle("open"); // Toggle class pada container ikon
+        function toggleNavbar() {
+            navbarLinks.classList.toggle("open");
+            hamburgerIconContainer.classList.toggle("open");
             if (window.matchMedia('(max-width: 600px)').matches) {
                 downArrowImage.classList.toggle("open");
             }
         }
 
-        // Event listener untuk hamburger icon (container)
-        if (mobileNavbarHamburgerIconContainer) {
-            mobileNavbarHamburgerIconContainer.addEventListener('click', toggleMobileNavbar);
+        // Event listener for hamburger icon (container)
+        if (hamburgerIconContainer) {
+            hamburgerIconContainer.addEventListener('click', toggleNavbar);
         }
 
-        // Event listener untuk mobile navbar links
-        document.querySelectorAll('.mobile_navbar_link').forEach(link => {
-            link.addEventListener('click', toggleMobileNavbar);
+        // Event listener for navbar links (to close when a link is clicked on mobile)
+        document.querySelectorAll('.navbar_link').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.matchMedia('(max-width: 600px)').matches && navbarLinks.classList.contains("open")) {
+                    toggleNavbar();
+                }
+            });
         });
 
         // Down arrow opens navbar on mobile
+        const mobileDownArrowTrigger = document.querySelector(".main1_downarrow_mobile_trigger");
         if (mobileDownArrowTrigger) {
             mobileDownArrowTrigger.addEventListener('click', function(event) {
                 if (window.matchMedia('(max-width: 600px)').matches) {
                     event.preventDefault();
-                    toggleMobileNavbar();
+                    toggleNavbar();
                 }
             });
         }
+
+        // Close navbar if resizing from mobile to desktop while open
+        window.addEventListener('resize', function() {
+            if (window.matchMedia('(min-width: 601px)').matches && navbarLinks.classList.contains("open")) {
+                navbarLinks.classList.remove("open");
+                hamburgerIconContainer.classList.remove("open");
+                downArrowImage.classList.remove("open");
+            }
+        });
+
     </script>
 </body>
 </html>
