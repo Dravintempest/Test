@@ -20,11 +20,11 @@
             --background2: #16191b;
             color-scheme: dark;
 
-            /* Variabel untuk status server */
-            --primary-color-status: var(--accent1);
-            --secondary-color-status: var(--accent2);
-            --text-color-status: white;
-            --card-bg-status: #2d2d44;
+            /* Variabel untuk status server (tanpa dark mode khusus status) */
+            --primary-color-status: var(--accent1); /* Menggunakan warna aksen dari index.html */
+            --secondary-color-status: var(--accent2); /* Menggunakan warna aksen dari index.html */
+            --text-color-status: white; /* Default teks terang */
+            --card-bg-status: #2d2d44; /* Warna kartu gelap */
             --border-color-status: #4a4a6b;
             --shadow-color-status: rgba(0, 0, 0, 0.4);
             --dot-online: #2ecc71;
@@ -40,7 +40,7 @@
             --background1: #f8f9fa;
             --background2: #e9ecef;
             color-scheme: light;
-            color: #212529;
+            color: #212529; /* Teks default gelap */
 
             /* Variabel untuk status server di light mode */
             --primary-color-status: #007bff;
@@ -144,7 +144,7 @@
 
         /* Styling Navbar Mobile dari index.html */
         .mobile_navbar {
-            display: none;
+            display: none; /* Default hidden */
             overflow: hidden;
             background-color: #00000033;
             backdrop-filter: blur(15px);
@@ -223,23 +223,23 @@
             padding: 10px;
         }
 
-        /* Konten Utama */
+        /* Konten Utama - Meniru main1 dari index.html */
         .main-content-wrapper {
-            padding-top: 4rem;
+            padding-top: 4rem; /* Sesuaikan dengan tinggi navbar agar tidak tertutup */
             display:flex;
             width: 100%;
             align-self: center;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: flex-start; /* Start dari atas, bukan tengah */
             background: rgba(0, 0, 0, .5) url('https://imgur.com/cGMLytH.png');
             background-blend-mode: darken;
             background-repeat: no-repeat;
             background-position: 50% 50%;
             background-size: cover;
-            flex-grow: 1;
-            padding-bottom: 50px;
-            min-height: calc(100vh - 4rem);
+            flex-grow: 1; /* Biarkan konten ini mengisi ruang yang tersedia */
+            padding-bottom: 50px; /* Padding bawah untuk tombol refresh */
+            min-height: calc(100vh - 4rem); /* Untuk memastikan isi setidaknya setinggi viewport minus navbar */
         }
         
         /* Gaya header baru dengan logo */
@@ -254,18 +254,19 @@
         .page-header-logo img {
             max-width: 100%;
             height: auto;
-            display: block;
-            margin: 0 auto;
+            display: block; /* Agar img berada di tengah */
+            margin: 0 auto; /* Tengah secara horizontal */
         }
 
         /* Container untuk status server */
         .container-status {
             max-width: 900px;
             width: 90%;
-            margin: 0 auto;
+            margin: 0 auto; /* Tengah secara horizontal */
             display: grid;
             gap: 25px;
             box-sizing: border-box;
+            /* Tidak perlu justify-content: center; di sini karena card akan mentok kiri */
         }
 
         /* Card server */
@@ -275,10 +276,11 @@
             box-shadow: 0 5px 15px var(--shadow-color-status);
             padding: 25px;
             color: var(--text-color-status);
+            /* Konten di dalam card akan mentok kiri */
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            text-align: left;
+            align-items: flex-start; /* **KIRI**: Mentok kiri */
+            text-align: left; /* **KIRI**: Teks rata kiri */
         }
 
         .server-card h2 {
@@ -287,13 +289,13 @@
             margin-bottom: 15px;
             padding-bottom: 10px;
             border-bottom: 2px solid var(--border-color-status);
-            width: 100%;
-            text-align: left;
+            width: 100%; /* Pastikan border-bottom selebar h2 */
+            text-align: left; /* **KIRI**: Judul rata kiri */
         }
 
         .server-info {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr; /* Selalu 1 kolom */
             gap: 10px;
             width: 100%;
         }
@@ -301,7 +303,7 @@
         .status-section {
             display: flex;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: flex-start; /* **KIRI**: Status dot dan teks rata kiri */
             margin-bottom: 5px;
             font-weight: bold;
             font-size: 1.1rem;
@@ -340,9 +342,9 @@
 
         .detail-row {
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* Tumpuk label dan nilai */
             margin-bottom: 5px;
-            align-items: flex-start;
+            align-items: flex-start; /* **KIRI**: Item rata kiri */
         }
 
         .detail-label {
@@ -357,7 +359,7 @@
             margin-top: 15px;
             display: block;
             width: 100%;
-            text-align: left;
+            text-align: left; /* **KIRI**: Timestamp rata kiri */
         }
 
         .refresh-button {
@@ -394,15 +396,17 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Theme toggle controls */
-        .theme-toggle {
+        /* Music player controls */
+        .music-controls {
             position: fixed;
             bottom: 20px;
             right: 20px;
             z-index: 100;
+            display: flex;
+            gap: 10px;
         }
 
-        .theme-btn {
+        .music-btn {
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -414,14 +418,16 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s;
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 1.2rem;
             -webkit-tap-highlight-color: transparent;
         }
 
-        .theme-btn:hover {
+        .music-btn:hover {
             background-color: var(--accent2);
             transform: scale(1.1);
         }
+
 
         /* Media Queries */
         @media only screen and (max-width: 600px) {
@@ -432,7 +438,7 @@
                 display: flex;
             }
             .main-content-wrapper {
-                padding-top: 53px;
+                padding-top: 53px; /* Sesuaikan dengan tinggi navbar mobile */
                 min-height: calc(100vh - 53px);
             }
             .page-header-logo {
@@ -440,7 +446,7 @@
                 width: 95%;
             }
             .page-header-logo img {
-                max-width: 80%;
+                max-width: 80%; /* Sesuaikan ukuran logo di mobile */
             }
             .container-status {
                 padding: 0 10px;
@@ -452,11 +458,11 @@
             .server-card h2 {
                 font-size: 1.4rem;
             }
-            .theme-toggle {
+            .music-controls {
                 bottom: 10px;
                 right: 10px;
             }
-            .theme-btn {
+            .music-btn {
                 width: 40px;
                 height: 40px;
                 font-size: 1rem;
@@ -626,16 +632,15 @@
                 <i class="fas fa-sync-alt"></i> Segarkan Status
             </button>
         </div>
+    </div> <div class="music-controls">
+        <button class="music-btn" id="musicToggleBtn"><i class="fa-solid fa-volume-off"></i></button>
     </div>
 
-    <!-- Theme Toggle Button -->
-    <div class="theme-toggle">
-        <button class="theme-btn" id="themeToggleBtn"><i class="fa-solid fa-moon"></i></button>
-    </div>
+    <audio id="backgroundMusic"></audio>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Mobile Navbar Toggle Functionality
+            // Mobile Navbar Toggle Functionality (sama seperti sebelumnya)
             const mobileNavbarLinks = document.getElementById("mobile_navbar_links");
             const mobileNavbarHamburgerIconContainer = document.querySelector(".mobile_navbar .icon");
 
@@ -652,38 +657,44 @@
                 link.addEventListener('click', toggleMobileNavbar);
             });
 
-            // Theme toggle functionality
-            const themeToggleBtn = document.getElementById('themeToggleBtn');
-            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            // Music player functionality (dikembalikan dari index.html)
+            const musicFiles = [
+                "https://files.catbox.moe/7bzwfz.mp3",
+                "https://files.catbox.moe/du52ay.mp3"
+            ];
+            let currentMusicIndex = 0;
+            const backgroundMusic = document.getElementById('backgroundMusic');
+            const musicToggleBtn = document.getElementById('musicToggleBtn');
+            let isPlaying = false;
 
-            // Check for saved theme preference or use system preference
-            const currentTheme = localStorage.getItem('theme') || 
-                                (prefersDarkScheme.matches ? 'dark' : 'light');
-            document.documentElement.setAttribute('data-theme', currentTheme);
-
-            // Update button icon based on theme
-            updateThemeButtonIcon(currentTheme);
-
-            // Toggle theme function
-            themeToggleBtn.addEventListener('click', () => {
-                const currentTheme = document.documentElement.getAttribute('data-theme');
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                
-                document.documentElement.setAttribute('data-theme', newTheme);
-                localStorage.setItem('theme', newTheme);
-                
-                updateThemeButtonIcon(newTheme);
-            });
-
-            function updateThemeButtonIcon(theme) {
-                if (theme === 'dark') {
-                    themeToggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
-                } else {
-                    themeToggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
-                }
+            function loadAndPlayMusic() {
+                backgroundMusic.src = musicFiles[currentMusicIndex];
+                backgroundMusic.play();
+                isPlaying = true;
+                musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-up"></i>';
             }
 
-            // Server status functionality
+            function stopMusic() {
+                backgroundMusic.pause();
+                backgroundMusic.currentTime = 0;
+                isPlaying = false;
+                musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-off"></i>';
+            }
+
+            musicToggleBtn.addEventListener('click', () => {
+                if (isPlaying) {
+                    stopMusic();
+                } else {
+                    loadAndPlayMusic();
+                }
+            });
+
+            backgroundMusic.addEventListener('ended', () => {
+                currentMusicIndex = (currentMusicIndex + 1) % musicFiles.length;
+                loadAndPlayMusic();
+            });
+
+            // Server status functionality (sama seperti sebelumnya, refresh setiap detik)
             const servers = [
                 { id: 'hub', name: 'Hub Server', port: '19132', displayIp: 'mc.kaidosmp.kesug.com:19132', apiIp: 'mc.kaidosmp.kesug.com' },
                 { id: 'fantasy', name: 'Fantasy Server', port: '19135', displayIp: 'mc.kaidosmp.kesug.com:19135', apiIp: 'mc.kaidosmp.kesug.com' },
@@ -763,9 +774,554 @@
                 }, 1000);
             });
             
-            // Auto-refresh setiap detik
+            // Auto-refresh setiap detik (PERHATIAN: Masih ada risiko rate limit)
             setInterval(refreshAllServers, 1000); 
         });
+    </script>
+</body>
+</html>
+nih html index
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaido SMP</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.bunny.net/css?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS yang Anda berikan (sebelum diubah) */
+        :root {
+            --nice-padding: 6rem;
+            --roundness: 0.75rem;
+            --accent1: #02db02;
+            --accent2: #05b305;
+            --accent2_transp: #05b30555;
+            --background1: #212529;
+            --background2: #16191b;
+            color-scheme: dark;
+        }
+        [data-theme="light"] {
+            --accent1: #02a302;
+            --accent2: #028502;
+            --accent2_transp: #02850255;
+            --background1: #f8f9fa;
+            --background2: #e9ecef;
+            color-scheme: light;
+            color: #212529;
+        }
+
+        span {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        body {
+            font-family:'Space Grotesk', sans-serif;
+            background-color: var(--background1);
+            color: white;
+            margin:0px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Perbaikan: Hilangkan outline fokus dan tambahkan gaya fokus yang lebih baik */
+        *:focus {
+            outline: none;
+            /* box-shadow: 0 0 0 2px var(--accent1); */
+        }
+
+        button {
+            -webkit-tap-highlight-color: transparent; /* Hilangkan highlight biru di mobile */
+        }
+
+        /* Tambahan untuk aksesibilitas */
+        a:focus, button:focus {
+            outline: none;
+            /* box-shadow: 0 0 0 2px var(--accent1); */
+        }
+
+        #more {
+            padding-top:5rem;
+            margin-top: -5rem;
+        }
+        #discord {
+            padding-top:5rem;
+            margin-top: -5rem;
+        }
+        #about {
+            padding-top:5rem;
+            margin-top: -5rem;
+        }
+        #join {
+            padding-top:5rem;
+            margin-top: -5rem;
+        }
+
+        .banner {
+            display: flex;
+            position: fixed;
+            background-color: #ff000099;
+            width: 100%;
+            height: 3rem;
+            z-index: 10;
+            font-size: 2rem;
+            font-weight: 600;
+            justify-content: center;
+            backdrop-filter: blur(15px);
+            align-content: center;
+            padding-top: .4rem;
+        }
+
+        .headline {
+            margin-top: 2rem;
+            color: #fff;
+            font-size:3rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .desktop_navbar {
+            position:fixed;
+            display: flex;
+            height: 4rem;
+            width: 100%;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom:0;
+            background-color: #00000022;
+            backdrop-filter: blur(15px);
+            z-index: 5;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+        }
+
+        .desktop_navbar_controls {
+            display: flex;
+            margin-left: auto;
+            margin-right: 2rem;
+            gap: 1rem;
+        }
+
+        .desktop_navbar_logo_img {
+            width: 5rem;
+            padding-left: 2rem;
+            padding-right: 1rem;
+        }
+
+        .desktop_navbar_links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .desktop_navbar_link {
+            font-size: 1.2rem;
+            padding: .8rem;
+            transition: all .5s;
+            text-decoration: none;
+            color: #fff;
+            text-align: center;
+        }
+        .desktop_navbar_link:hover {
+            color: var(--accent1);
+        }
+
+        .desktop_navbar_link2 {
+            padding:.5rem;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+        }
+        .desktop_navbar_link2_div {
+            font-size: 1.2rem;
+            padding: .8rem;
+            transition: all .5s;
+            font-weight: 700;
+            border: solid 1px var(--accent1);
+            border-radius: var(--roundness);
+            text-align: center;
+        }
+        .desktop_navbar_link2_div:hover {
+            border: solid 1px var(--accent2);
+            background-color: var(--accent2);
+            transform: scale(1.05)
+        }
+
+        .mobile_navbar {
+            display: none;
+            overflow: hidden;
+            background-color: #00000033;
+            backdrop-filter: blur(15px);
+            position: fixed;
+            width: 100%;
+            z-index: 5;
+            flex-direction: row;
+            min-height: 53px;
+        }
+
+        .mobile_navbar_logo_img {
+            position: absolute;
+            display: block;
+            height: 42px;
+            padding-left: .5rem;
+            top: 0;
+            left: 0;
+            padding-top: 3.5px;
+        }
+
+        .mobile_navbar #mobile_navbar_links {
+            margin-top: 53px;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            background-color: #00000011;
+            max-height: 0;
+            transition: max-height 0.5s ease-out;
+            overflow: hidden;
+        }
+        .mobile_navbar #mobile_navbar_links.open {
+            max-height: 500px;
+            transition: max-height 0.5s ease-in;
+        }
+
+        .mobile_navbar_link {
+            padding:.5rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        .mobile_navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+            display: block;
+            padding: 10px;
+        }
+
+        .mobile_navbar .icon {
+            background-color: #00000044;
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 16px;
+            cursor: pointer;
+        }
+
+        /* Animasi putar untuk ikon hamburger */
+        .mobile_navbar .icon i { /* Targetkan elemen <i> di dalam .icon */
+            transition: transform 0.5s ease-in-out; /* Transisi untuk rotasi */
+        }
+
+        .mobile_navbar .icon.open i {
+            transform: rotate(180deg); /* Berputar menjadi 'X' (jika font awesome mendukung) */
+        }
+
+
+        .mobile_navbar_logo_img_a {
+            display: block;
+            background-color: #00000022;
+        }
+
+        .mobile_navbar_controls {
+            display: flex;
+            margin-left: auto;
+            margin-right: 1rem;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .mainflex {
+            display: flex;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .main1 {
+            padding-top: calc(var(--nice-padding) + 2rem);
+            display:flex;
+            width: 100%;
+            align-self: center;
+            flex-direction: column;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, .5) url('https://imgur.com/cGMLytH.png');
+            background-blend-mode: darken;
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            background-size: cover;
+            min-height: 100vh;
+        }
+
+        .main1_logo_a {
+            margin-bottom: var(--nice-padding);
+            cursor: default;
+        }
+
+        .main1_logo {
+            display: block;
+            align-self: center;
+            margin-left:auto;
+            margin-right: auto;
+            transition: all .5s;
+            max-width: 40rem;
+        }
+        .main1_logo:hover {
+            transform: scale(1.05)
+        }
+
+        .main1_description {
+            text-align: center;
+            font-size:3rem;
+            margin-bottom: var(--nice-padding);
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+
+        .main1_actcent {
+            font-weight: 800;
+            color: #FF8C00;
+        }
+
+        .main1_downarrow {
+            opacity: 50%;
+            height: 1.5rem;
+            padding:2rem;
+            transition: all .5s;
+            cursor: pointer;
+            outline: none; /* Remove outline on click */
+            box-shadow: none; /* Remove box-shadow on click */
+        }
+
+        .main1_downarrow:hover {
+            opacity: 100%;
+            transform: scale(1.05)
+        }
+
+        /* Music player controls */
+        .music-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+
+        .music-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--accent2_transp);
+            border: 1px solid var(--accent1);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .music-btn:hover {
+            background-color: var(--accent2);
+            transform: scale(1.1);
+        }
+
+        /* Media Queries from your CSS */
+        @media only screen and (max-width: 600px) {
+            .desktop_navbar{
+                display:none;
+            }
+            .mobile_navbar{
+                display:flex;
+            }
+            .headline {
+                font-size:1.9rem;
+                margin-right: 1rem;
+                margin-left: 1rem;
+            }
+            .main1_logo {
+                max-width: 16rem;
+            }
+            .main1_description {
+                font-size: 2.5rem;
+                margin-bottom: 2rem;
+            }
+            .music-controls {
+                bottom: 10px;
+                right: 10px;
+            }
+            .music-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            /* Panah bawah berubah arah pada mobile saat navbar terbuka */
+            .main1_downarrow.open {
+                transform: rotate(180deg);
+            }
+        }
+        @media only screen and (max-width: 360px) {
+            /* Removed unrelated media queries for brevity in this specific output */
+        }
+
+        /* Desktop Navbar override for screens larger than 600px */
+        @media only screen and (min-width: 601px) {
+            .desktop_navbar {
+                display: flex;
+            }
+            .mobile_navbar {
+                display: none;
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <nav class="desktop_navbar">
+        <a href="#"><img class="desktop_navbar_logo_img" src="logo_small.png" alt="logo"></a>
+        <div class="desktop_navbar_links">
+            <a href="server.html" class="desktop_navbar_link">Server</a>
+            <a href="community.html" class="desktop_navbar_link">Community</a>
+            <a href="tentang.html" class="desktop_navbar_link">Tentang</a>
+        </div>
+        <div class="desktop_navbar_link2_div">
+            <a href="update.html" class="desktop_navbar_link2">Update</a>
+        </div>
+        <div class="desktop_navbar_controls">
+        </div>
+    </nav>
+    <div class="mobile_navbar">
+        <a href="#" class="mobile_navbar_logo_img_a"><img class="mobile_navbar_logo_img" src="logo_small.png" alt="logo"></a>
+        <div id="mobile_navbar_links">
+            <a class="mobile_navbar_link" href="server.html">Server</a>
+            <a class="mobile_navbar_link" href="community.html">Community</a>
+            <a class="mobile_navbar_link" href="tentang.html">Tentang</a>
+            <a class="mobile_navbar_link" href="update.html">Update</a>
+        </div>
+        <div class="mobile_navbar_controls">
+            <div class="icon">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </div>
+    <div class="mainflex">
+        <div class="main1">
+            <a class="main1_logo_a" href="#">
+                <img class="main1_logo" src="logo.png" alt="logo">
+            </a>
+            <div class="main1_description">
+                <a>Berpetualang,<br>Seru</a>
+                <a class="main1_actcent">di dunia Minecraft</a><a>.</a>
+            </div>
+            <a href="#more" class="scroll main1_downarrow_mobile_trigger">
+                <img alt="downarrow" class="main1_downarrow" src="downarrow.png">
+            </a>
+            <script>
+                const scrollLinks = document.querySelectorAll('.scroll');
+                scrollLinks.forEach(function(link) {
+                    link.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        const target = document.querySelector(link.getAttribute('href'));
+                        const offsetTop = target.offsetTop;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    });
+                });
+            </script>
+        </div>
+    </div>
+
+    <div class="music-controls">
+        <button class="music-btn" id="musicToggleBtn"><i class="fa-solid fa-volume-off"></i></button>
+    </div>
+
+    <audio id="backgroundMusic"></audio>
+
+    <script>
+        // Music player functionality
+        const musicFiles = [
+            "https://files.catbox.moe/7bzwfz.mp3",
+            "https://files.catbox.moe/du52ay.mp3"
+        ];
+        let currentMusicIndex = 0;
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const musicToggleBtn = document.getElementById('musicToggleBtn');
+        let isPlaying = false;
+
+        function loadAndPlayMusic() {
+            backgroundMusic.src = musicFiles[currentMusicIndex];
+            backgroundMusic.play();
+            isPlaying = true;
+            musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-up"></i>';
+        }
+
+        function stopMusic() {
+            backgroundMusic.pause();
+            backgroundMusic.currentTime = 0;
+            isPlaying = false;
+            musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-off"></i>';
+        }
+
+        musicToggleBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                stopMusic();
+            } else {
+                loadAndPlayMusic();
+            }
+        });
+
+        backgroundMusic.addEventListener('ended', () => {
+            currentMusicIndex = (currentMusicIndex + 1) % musicFiles.length;
+            loadAndPlayMusic();
+        });
+
+        // Mobile Navbar Toggle Functionality
+        const mobileNavbarLinks = document.getElementById("mobile_navbar_links");
+        const mobileNavbarHamburgerIconContainer = document.querySelector(".mobile_navbar .icon"); // Container ikon
+        const mobileNavbarHamburgerIcon = document.querySelector(".mobile_navbar .icon i"); // Ikon sebenarnya
+        const mobileDownArrowTrigger = document.querySelector(".main1_downarrow_mobile_trigger");
+        const downArrowImage = document.querySelector(".main1_downarrow");
+
+        function toggleMobileNavbar() {
+            mobileNavbarLinks.classList.toggle("open");
+            mobileNavbarHamburgerIconContainer.classList.toggle("open"); // Toggle class pada container ikon
+            if (window.matchMedia('(max-width: 600px)').matches) {
+                downArrowImage.classList.toggle("open");
+            }
+        }
+
+        // Event listener untuk hamburger icon (container)
+        if (mobileNavbarHamburgerIconContainer) {
+            mobileNavbarHamburgerIconContainer.addEventListener('click', toggleMobileNavbar);
+        }
+
+        // Event listener untuk mobile navbar links
+        document.querySelectorAll('.mobile_navbar_link').forEach(link => {
+            link.addEventListener('click', toggleMobileNavbar);
+        });
+
+        // Down arrow opens navbar on mobile
+        if (mobileDownArrowTrigger) {
+            mobileDownArrowTrigger.addEventListener('click', function(event) {
+                if (window.matchMedia('(max-width: 600px)').matches) {
+                    event.preventDefault();
+                    toggleMobileNavbar();
+                }
+            });
+        }
     </script>
 </body>
 </html>
