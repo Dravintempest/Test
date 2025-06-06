@@ -514,41 +514,11 @@
                 <h2>Progres Update</h2>
                 <div class="progress-container">
                     <div class="progress-header">
-                        <span class="progress-title">Mode Apocalypse</span>
-                        <span class="progress-percent">75%</span>
+                        <span class="progress-title">Total Progres Update</span>
+                        <span class="progress-percent" id="totalProgressPercent"></span>
                     </div>
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: 75%;">75%</div>
-                    </div>
-                </div>
-                
-                <div class="progress-container">
-                    <div class="progress-header">
-                        <span class="progress-title">Parkour Mode Fantasy</span>
-                        <span class="progress-percent">90%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 90%;">90%</div>
-                    </div>
-                </div>
-                
-                <div class="progress-container">
-                    <div class="progress-header">
-                        <span class="progress-title">Sistem Quest Baru</span>
-                        <span class="progress-percent">40%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 40%;">40%</div>
-                    </div>
-                </div>
-                
-                <div class="progress-container">
-                    <div class="progress-header">
-                        <span class="progress-title">Custom Enchant Baru</span>
-                        <span class="progress-percent">25%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 25%;">25%</div>
+                        <div class="progress-fill" id="totalProgressFill"></div>
                     </div>
                 </div>
             </div>
@@ -556,6 +526,21 @@
             <div class="update-card">
                 <h2>Update Terbaru</h2>
                 <div class="update-list">
+                    <div class="update-item">
+                        <div class="update-header">
+                            <div>
+                                <span class="update-version">v0.0.2</span>
+                                <span class="update-status status-released">Dirilis</span>
+                            </div>
+                            <span class="update-date">28 Mei 2025</span>
+                        </div>
+                        <div class="update-title">Update Terbaru! Penambahan hub untuk memilih mode.</div>
+                        <div class="update-content">
+                            <div class="update-feature">Penambahan hub untuk memilih mode</div>
+                            <div class="update-feature">Penambahan mode vanilla</div>
+                            <div class="update-feature">Penambahan mode bedwars</div>
+                        </div>
+                    </div>
                     <div class="update-item">
                         <div class="update-header">
                             <div>
@@ -625,6 +610,7 @@
                             <div class="update-feature">Sistem kerajaan dengan castle</div>
                             <div class="update-feature">PvP zone baru</div>
                             <div class="update-feature">10+ struktur baru</div>
+                            <div class="update-feature">**Penambahan Mode Apocalypse**</div>
                         </div>
                     </div>
                     
@@ -642,22 +628,8 @@
                             <div class="update-feature">50+ spell berbeda</div>
                             <div class="update-feature">Sistem kombinasi spell</div>
                             <div class="update-feature">Dungeon khusus magic</div>
-                        </div>
-                    </div>
-                    
-                    <div class="update-item">
-                        <div class="update-header">
-                            <div>
-                                <span class="update-version">v0.0.3</span>
-                                <span class="update-status status-released">Dirilis</span>
-                            </div>
-                            <span class="update-date">28 Mei 2025</span>
-                        </div>
-                        <div class="update-title">Update dasar server.</div>
-                        <div class="update-content">
-                            <div class="update-feature">Penambahan hub untuk memilih mode</div>
-                            <div class="update-feature">Penambahan mode vanilla</div>
-                            <div class="update-feature">Penambahan mode bedwars</div>
+                            <div class="update-feature">**Penambahan parkour di mode fantasy**</div>
+                            <div class="update-feature">Dll</div>
                         </div>
                     </div>
                 </div>
@@ -726,6 +698,18 @@
                 currentMusicIndex = (currentMusicIndex + 1) % musicFiles.length;
                 loadAndPlayMusic();
             });
+
+            // Calculate and display total progress
+            const totalProgressPercentElement = document.getElementById('totalProgressPercent');
+            const totalProgressFillElement = document.getElementById('totalProgressFill');
+
+            // Ini adalah contoh bagaimana Anda bisa menghitung progres total.
+            // Anda bisa menyesuaikan angka ini berdasarkan progres aktual dari semua update.
+            const totalProgress = 0; // Contoh: 60% progres keseluruhan
+
+            totalProgressPercentElement.textContent = totalProgress + '%';
+            totalProgressFillElement.style.width = totalProgress + '%';
+            totalProgressFillElement.textContent = totalProgress + '%';
         });
     </script>
 </body>
