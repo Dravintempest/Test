@@ -1,34 +1,42 @@
 {
     "progress": {
-        "mainUpdate": 65,
-        "bugFixes": 85,
-        "cosmetics": 30
+        "progressBars": [
+            {
+                "id": "modeSelection",
+                "title": "Penambahan Hub & Mode",
+                "percentage": 0
+            },
+            {
+                "id": "futureFeatures",
+                "title": "Progres Fitur Mendatang",
+                "percentage": 0
+            }
+        ]
     },
     "recentUpdates": [
         {
-            "date": "1 Juni 2025",
-            "version": "v1.4.2",
-            "description": "Hotfix untuk beberapa masalah kecil dan optimasi performa.",
+            "date": "28 Mei 2025",
+            "version": "0.0.2",
+            "description": "Dirilis dengan penambahan mode awal.",
             "features": [
-                "Memperbaiki bug duplikasi item di shop",
-                "Optimasi performa sistem klan",
-                "Menambahkan 5 skin baru untuk pets"
+                "Penambahan hub untuk memilih mode",
+                "Penambahan mode vanilla",
+                "Penambahan mode bedwars"
             ],
             "status": "completed"
         }
     ],
     "plannedUpdates": [
         {
-            "date": "Q3 2025",
-            "version": "v1.5.0",
-            "description": "Kingdom Expansion - Update besar dengan perluasan map dan sistem kerajaan.",
+            "date": "Segera Hadir",
+            "version": "Mendatang",
+            "description": "Fitur-fitur yang akan datang di Kaido SMP:",
             "features": [
-                "Map baru 3000x3000 block",
-                "Sistem kerajaan dengan castle",
-                "PvP zone baru",
-                "10+ struktur baru"
+                "Mode apocalypse",
+                "Penambahan parkour di mode fantasy",
+                "Dll"
             ],
-            "status": "in-progress"
+            "status": "planned"
         }
     ]
 }
