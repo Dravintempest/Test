@@ -1,0 +1,34 @@
+{
+    "progress": {
+        "mainUpdate": 65,
+        "bugFixes": 85,
+        "cosmetics": 30
+    },
+    "recentUpdates": [
+        {
+            "date": "1 Juni 2025",
+            "version": "v1.4.2",
+            "description": "Hotfix untuk beberapa masalah kecil dan optimasi performa.",
+            "features": [
+                "Memperbaiki bug duplikasi item di shop",
+                "Optimasi performa sistem klan",
+                "Menambahkan 5 skin baru untuk pets"
+            ],
+            "status": "completed"
+        }
+    ],
+    "plannedUpdates": [
+        {
+            "date": "Q3 2025",
+            "version": "v1.5.0",
+            "description": "Kingdom Expansion - Update besar dengan perluasan map dan sistem kerajaan.",
+            "features": [
+                "Map baru 3000x3000 block",
+                "Sistem kerajaan dengan castle",
+                "PvP zone baru",
+                "10+ struktur baru"
+            ],
+            "status": "in-progress"
+        }
+    ]
+}
