@@ -363,6 +363,54 @@
             margin-bottom: 8px;
         }
 
+        /* Styles for Team Section */
+        .team-members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .team-member-card {
+            background-color: #3a3a5a;
+            border-radius: var(--roundness);
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .team-member-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-member-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent1);
+        }
+
+        .team-member-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .team-member-role {
+            font-size: 0.9rem;
+            color: var(--accent1);
+            background-color: rgba(2, 219, 2, 0.1);
+            padding: 4px 8px;
+            border-radius: 5px;
+        }
+
         /* Music player controls */
         .music-controls {
             position: fixed;
@@ -429,6 +477,13 @@
             }
             .server-info {
                 grid-template-columns: 1fr;
+            }
+            .team-members-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Adjust for smaller screens */
+            }
+            .team-member-avatar {
+                width: 70px;
+                height: 70px;
             }
             .music-controls {
                 bottom: 10px;
@@ -627,10 +682,35 @@
                     <div style="margin-top: 20px;">
                         <h3 style="color: var(--accent1); font-size: 1.3rem; margin-bottom: 10px;">Tim Pengembang</h3>
                         <p>Kaido SMP dikelola oleh tim yang berdedikasi untuk memberikan pengalaman bermain terbaik:</p>
-                        <ul class="rules-list">
-                            <li><strong>Admin:</strong> Zezzy ~ Traa ~ Aqil</li>
-                            <li><strong>Developer:</strong> Dravin ~ Pixelated</li>
-                        </ul>
+                        
+                        <div class="team-members-grid">
+                            <div class="team-member-card">
+                                <img src="member_placeholder.webp" alt="Zezzy" class="team-member-avatar" id="avatar-zezzy">
+                                <span class="team-member-name">Zezzy</span>
+                                <span class="team-member-role">Admin</span>
+                            </div>
+                            <div class="team-member-card">
+                                <img src="member_placeholder.webp" alt="Traa" class="team-member-avatar" id="avatar-traa">
+                                <span class="team-member-name">Traa</span>
+                                <span class="team-member-role">Admin</span>
+                            </div>
+                            <div class="team-member-card">
+                                <img src="member_placeholder.webp" alt="Aqil" class="team-member-avatar" id="avatar-aqil">
+                                <span class="team-member-name">Aqil</span>
+                                <span class="team-member-role">Admin</span>
+                            </div>
+                            
+                            <div class="team-member-card">
+                                <img src="member_placeholder.webp" alt="Dravin" class="team-member-avatar" id="avatar-dravin">
+                                <span class="team-member-name">Dravin</span>
+                                <span class="team-member-role">Developer</span>
+                            </div>
+                            <div class="team-member-card">
+                                <img src="member_placeholder.webp" alt="Pixelated" class="team-member-avatar" id="avatar-pixelated">
+                                <span class="team-member-name">Pixelated</span>
+                                <span class="team-member-role">Developer</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
