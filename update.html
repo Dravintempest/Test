@@ -631,11 +631,11 @@
 
             // Calculate and display total progress
             const totalProgressPercentElement = document.getElementById('totalProgressPercent');
-            const totalProgressFillElement = document('totalProgressFill');
+            const totalProgressFillElement = document.getElementById('totalProgressFill'); // <-- PERBAIKAN DI SINI!
 
             // Anda bisa menyesuaikan angka ini berdasarkan progres aktual dari semua update yang sedang berjalan.
             // Contoh: Jika v0.0.3 sedang dalam pengerjaan, Anda bisa atur progresnya di sini.
-            const totalProgress = 0; // Contoh: 30% progres keseluruhan
+            const totalProgress = 30; // Contoh: 30% progres keseluruhan
 
             totalProgressPercentElement.textContent = totalProgress + '%';
             totalProgressFillElement.style.width = totalProgress + '%';
