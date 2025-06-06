@@ -204,7 +204,7 @@
             padding: 10px;
         }
 
-        /* Konten Utama */
+        /* Konten Utama - Update Page */
         .main-content-wrapper {
             padding-top: 4rem; /* Sesuaikan dengan tinggi navbar agar tidak tertutup */
             display:flex;
@@ -271,28 +271,27 @@
             width: 100%;
         }
 
-        /* Progress bar styling */
-        .progress-section {
+        /* Progress Bar */
+        .progress-container {
             width: 100%;
-            margin-bottom: 30px;
+            margin: 20px 0;
         }
 
         .progress-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .progress-title {
             font-weight: bold;
+        }
+
+        .progress-percent {
             color: var(--accent1);
         }
 
-        .progress-percentage {
-            font-weight: bold;
-        }
-
-        .progress-bar-container {
+        .progress-bar {
             width: 100%;
             height: 20px;
             background-color: #3a3a5a;
@@ -300,58 +299,86 @@
             overflow: hidden;
         }
 
-        .progress-bar {
+        .progress-fill {
             height: 100%;
-            background-color: var(--accent1);
+            background: linear-gradient(90deg, var(--accent1), var(--accent2));
             border-radius: 10px;
             transition: width 0.5s ease;
             display: flex;
             align-items: center;
             justify-content: flex-end;
             padding-right: 10px;
-            font-size: 12px;
+            font-size: 0.8rem;
             color: white;
         }
 
-        /* Update list styling */
+        /* Update List */
         .update-list {
             width: 100%;
         }
 
         .update-item {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
             border-bottom: 1px solid #4a4a6b;
         }
 
         .update-item:last-child {
             border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
+        }
+
+        .update-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
         }
 
         .update-date {
             font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .update-status {
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-released {
+            background-color: var(--accent2_transp);
             color: var(--accent1);
-            margin-bottom: 5px;
+        }
+
+        .status-inprogress {
+            background-color: rgba(255, 165, 0, 0.2);
+            color: orange;
+        }
+
+        .status-planned {
+            background-color: rgba(100, 149, 237, 0.2);
+            color: cornflowerblue;
         }
 
         .update-version {
+            font-weight: bold;
+            color: var(--accent1);
+            margin-right: 10px;
+        }
+
+        .update-title {
             font-weight: bold;
             font-size: 1.2rem;
             margin-bottom: 10px;
         }
 
-        .update-description {
-            margin-bottom: 10px;
-        }
-
-        .update-features {
-            margin-left: 20px;
+        .update-content {
+            margin-left: 15px;
         }
 
         .update-feature {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             position: relative;
             padding-left: 20px;
         }
@@ -361,29 +388,7 @@
             color: var(--accent1);
             position: absolute;
             left: 0;
-        }
-
-        .update-status {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-left: 10px;
-        }
-
-        .status-planned {
-            background-color: #ff980055;
-            color: #ff9800;
-        }
-
-        .status-in-progress {
-            background-color: #2196f355;
-            color: #2196f3;
-        }
-
-        .status-completed {
-            background-color: #4caf5055;
-            color: #4caf50;
+            font-size: 1.2rem;
         }
 
         /* Music player controls */
@@ -506,56 +511,154 @@
 
         <div class="update-container">
             <div class="update-card">
-                <h2>Progress Update</h2>
-                <div class="progress-section">
+                <h2>Progres Update</h2>
+                <div class="progress-container">
                     <div class="progress-header">
-                        <span class="progress-title">Update v1.5 "Kingdom Expansion"</span>
-                        <span class="progress-percentage" id="progress-percentage">0%</span>
+                        <span class="progress-title">Mode Apocalypse</span>
+                        <span class="progress-percent">75%</span>
                     </div>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="progress-bar" style="width: 0%">0%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%;">75%</div>
                     </div>
                 </div>
                 
-                <div class="progress-section">
+                <div class="progress-container">
                     <div class="progress-header">
-                        <span class="progress-title">Bug Fixes & Optimizations</span>
-                        <span class="progress-percentage" id="bugfix-percentage">0%</span>
+                        <span class="progress-title">Parkour Mode Fantasy</span>
+                        <span class="progress-percent">90%</span>
                     </div>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="bugfix-bar" style="width: 0%">0%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 90%;">90%</div>
                     </div>
                 </div>
                 
-                <div class="progress-section">
+                <div class="progress-container">
                     <div class="progress-header">
-                        <span class="progress-title">New Cosmetics</span>
-                        <span class="progress-percentage" id="cosmetic-percentage">0%</span>
+                        <span class="progress-title">Sistem Quest Baru</span>
+                        <span class="progress-percent">40%</span>
                     </div>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="cosmetic-bar" style="width: 0%">0%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 40%;">40%</div>
                     </div>
                 </div>
                 
-                <p style="margin-top: 20px; font-style: italic;">Update berikutnya akan dirilis ketika progress mencapai 100%</p>
+                <div class="progress-container">
+                    <div class="progress-header">
+                        <span class="progress-title">Custom Enchant Baru</span>
+                        <span class="progress-percent">25%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 25%;">25%</div>
+                    </div>
+                </div>
             </div>
             
             <div class="update-card">
                 <h2>Update Terbaru</h2>
-                <div class="update-list" id="update-list">
-                    <!-- Update items will be loaded here from JSON -->
+                <div class="update-list">
                     <div class="update-item">
-                        <div class="update-date">Memuat data update...</div>
+                        <div class="update-header">
+                            <div>
+                                <span class="update-version">v1.4.2</span>
+                                <span class="update-status status-released">Selesai</span>
+                            </div>
+                            <span class="update-date">1 Juni 2025</span>
+                        </div>
+                        <div class="update-title">Hotfix untuk beberapa masalah kecil dan optimasi performa.</div>
+                        <div class="update-content">
+                            <div class="update-feature">Memperbaiki bug duplikasi item di shop</div>
+                            <div class="update-feature">Optimasi performa sistem klan</div>
+                            <div class="update-feature">Menambahkan 5 skin baru untuk pets</div>
+                        </div>
+                    </div>
+                    
+                    <div class="update-item">
+                        <div class="update-header">
+                            <div>
+                                <span class="update-version">v1.4.1</span>
+                                <span class="update-status status-released">Selesai</span>
+                            </div>
+                            <span class="update-date">25 Mei 2025</span>
+                        </div>
+                        <div class="update-title">Update keseimbangan dan konten baru.</div>
+                        <div class="update-content">
+                            <div class="update-feature">Menambahkan 3 job baru</div>
+                            <div class="update-feature">Nerf damage enchant tertentu</div>
+                            <div class="update-feature">Buff drop rate beberapa mob</div>
+                            <div class="update-feature">Menambahkan event musiman</div>
+                        </div>
+                    </div>
+                    
+                    <div class="update-item">
+                        <div class="update-header">
+                            <div>
+                                <span class="update-version">v1.4.0</span>
+                                <span class="update-status status-released">Selesai</span>
+                            </div>
+                            <span class="update-date">10 Mei 2025</span>
+                        </div>
+                        <div class="update-title">Major update dengan sistem klan baru dan fitur-fitur lainnya.</div>
+                        <div class="update-content">
+                            <div class="update-feature">Menambahkan sistem klan dengan 5 level</div>
+                            <div class="update-feature">10 quest baru untuk klan</div>
+                            <div class="update-feature">Shop item khusus klan</div>
+                            <div class="update-feature">Leaderboard klan</div>
+                        </div>
                     </div>
                 </div>
             </div>
             
             <div class="update-card">
                 <h2>Rencana Update Mendatang</h2>
-                <div class="update-list" id="planned-updates">
-                    <!-- Planned updates will be loaded here from JSON -->
+                <div class="update-list">
                     <div class="update-item">
-                        <div class="update-date">Memuat rencana update...</div>
+                        <div class="update-header">
+                            <div>
+                                <span class="update-version">v1.5.0</span>
+                                <span class="update-status status-inprogress">Dalam Pengerjaan</span>
+                            </div>
+                            <span class="update-date">Q3 2025</span>
+                        </div>
+                        <div class="update-title">Kingdom Expansion - Update besar dengan perluasan map dan sistem kerajaan.</div>
+                        <div class="update-content">
+                            <div class="update-feature">Map baru 3000x3000 block</div>
+                            <div class="update-feature">Sistem kerajaan dengan castle</div>
+                            <div class="update-feature">PvP zone baru</div>
+                            <div class="update-feature">10+ struktur baru</div>
+                        </div>
+                    </div>
+                    
+                    <div class="update-item">
+                        <div class="update-header">
+                            <div>
+                                <span class="update-version">v1.6.0</span>
+                                <span class="update-status status-planned">Rencana</span>
+                            </div>
+                            <span class="update-date">Q4 2025</span>
+                        </div>
+                        <div class="update-title">Magic Update - Sistem sihir dan enchant baru.</div>
+                        <div class="update-content">
+                            <div class="update-feature">5 sekolah sihir baru</div>
+                            <div class="update-feature">50+ spell berbeda</div>
+                            <div class="update-feature">Sistem kombinasi spell</div>
+                            <div class="update-feature">Dungeon khusus magic</div>
+                        </div>
+                    </div>
+                    
+                    <div class="update-item">
+                        <div class="update-header">
+                            <div>
+                                <span class="update-version">v0.0.3</span>
+                                <span class="update-status status-released">Dirilis</span>
+                            </div>
+                            <span class="update-date">28 Mei 2025</span>
+                        </div>
+                        <div class="update-title">Update dasar server.</div>
+                        <div class="update-content">
+                            <div class="update-feature">Penambahan hub untuk memilih mode</div>
+                            <div class="update-feature">Penambahan mode vanilla</div>
+                            <div class="update-feature">Penambahan mode bedwars</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -623,108 +726,6 @@
                 currentMusicIndex = (currentMusicIndex + 1) % musicFiles.length;
                 loadAndPlayMusic();
             });
-
-            // Load update data from JSON
-            function loadUpdateData() {
-                // In a real implementation, you would fetch this from a JSON file
-                // For example: fetch('updates.json').then(response => response.json()).then(data => {...})
-                
-                // This is a mock data structure that would come from updates.json
-                const updateData = {
-                    progress: {
-                        Update: 65
-                    },
-                    recentUpdates: [
-                        {
-                            date: "28 Mei 2025",
-                            version: "v0.0.2",
-                            description: "update dengan menambahkan banyak mode.",
-                            features: [
-                                "Penambahan hub untuk memilih mode"
-          "Penambahan mode vanilla"
-        "Penambahan mode bedwars"
-                            ],
-                            status: "completed"
-                        }
-                    ],
-                    "plannedUpdates": [
-                        {
-                            "date": "idk",
-                            "version": "v0.0.3",
-                            "description": "Update dengan fitur-fitur baru yang sedang dikembangkan",
-                            "features": [
-                                "Mode apocalypse",
-                                "Penambahan parkour di mode fantasy",
-                                "Dan fitur-fitur lainnya"
-                            ],
-                            "status": "in-progress"
-                        }
-                    ]
-                };
-
-                // Update progress bars
-                updateProgressBar('progress-bar', 'progress-percentage', updateData.progress.mainUpdate);
-                updateProgressBar('bugfix-bar', 'bugfix-percentage', updateData.progress.bugFixes);
-                updateProgressBar('cosmetic-bar', 'cosmetic-percentage', updateData.progress.cosmetics);
-
-                // Populate recent updates
-                const updateList = document.getElementById('update-list');
-                updateList.innerHTML = '';
-                updateData.recentUpdates.forEach(update => {
-                    updateList.appendChild(createUpdateItem(update));
-                });
-
-                // Populate planned updates
-                const plannedUpdates = document.getElementById('planned-updates');
-                plannedUpdates.innerHTML = '';
-                updateData.plannedUpdates.forEach(update => {
-                    plannedUpdates.appendChild(createUpdateItem(update));
-                });
-            }
-
-            function updateProgressBar(barId, percentageId, value) {
-                const bar = document.getElementById(barId);
-                const percentage = document.getElementById(percentageId);
-                
-                bar.style.width = value + '%';
-                bar.textContent = value + '%';
-                percentage.textContent = value + '%';
-            }
-
-            function createUpdateItem(update) {
-                const item = document.createElement('div');
-                item.className = 'update-item';
-                
-                let statusClass = '';
-                switch(update.status) {
-                    case 'planned': statusClass = 'status-planned'; break;
-                    case 'in-progress': statusClass = 'status-in-progress'; break;
-                    case 'completed': statusClass = 'status-completed'; break;
-                }
-                
-                item.innerHTML = `
-                    <div class="update-date">${update.date} <span class="update-status ${statusClass}">${getStatusText(update.status)}</span></div>
-                    <div class="update-version">${update.version}</div>
-                    <div class="update-description">${update.description}</div>
-                    <div class="update-features">
-                        ${update.features.map(feature => `<div class="update-feature">${feature}</div>`).join('')}
-                    </div>
-                `;
-                
-                return item;
-            }
-
-            function getStatusText(status) {
-                switch(status) {
-                    case 'planned': return 'Rencana';
-                    case 'in-progress': return 'Dalam Pengerjaan';
-                    case 'completed': return 'Selesai';
-                    default: return status;
-                }
-            }
-
-            // Load the data when page loads
-            loadUpdateData();
         });
     </script>
 </body>
