@@ -509,7 +509,7 @@
                 <h2>Progress Update</h2>
                 <div class="progress-section">
                     <div class="progress-header">
-                        <span class="progress-title">Update v1.5 "Kingdom Expansion"</span>
+                        <span class="progress-title" for="progress-bar">Mode Baru</span>
                         <span class="progress-percentage" id="progress-percentage">0%</span>
                     </div>
                     <div class="progress-bar-container">
@@ -519,7 +519,7 @@
                 
                 <div class="progress-section">
                     <div class="progress-header">
-                        <span class="progress-title">Bug Fixes & Optimizations</span>
+                        <span class="progress-title" for="bugfix-bar">Optimasi</span>
                         <span class="progress-percentage" id="bugfix-percentage">0%</span>
                     </div>
                     <div class="progress-bar-container">
@@ -529,7 +529,7 @@
                 
                 <div class="progress-section">
                     <div class="progress-header">
-                        <span class="progress-title">New Cosmetics</span>
+                        <span class="progress-title" for="cosmetic-bar">Fitur Baru</span>
                         <span class="progress-percentage" id="cosmetic-percentage">0%</span>
                     </div>
                     <div class="progress-bar-container">
@@ -590,181 +590,4 @@
             // Music player functionality
             const musicFiles = [
                 "https://files.catbox.moe/7bzwfz.mp3",
-                "https://files.catbox.moe/du52ay.mp3"
-            ];
-            let currentMusicIndex = 0;
-            const backgroundMusic = document.getElementById('backgroundMusic');
-            const musicToggleBtn = document.getElementById('musicToggleBtn');
-            let isPlaying = false;
-
-            function loadAndPlayMusic() {
-                backgroundMusic.src = musicFiles[currentMusicIndex];
-                backgroundMusic.play();
-                isPlaying = true;
-                musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-up"></i>';
-            }
-
-            function stopMusic() {
-                backgroundMusic.pause();
-                backgroundMusic.currentTime = 0;
-                isPlaying = false;
-                musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-off"></i>';
-            }
-
-            musicToggleBtn.addEventListener('click', () => {
-                if (isPlaying) {
-                    stopMusic();
-                } else {
-                    loadAndPlayMusic();
-                }
-            });
-
-            backgroundMusic.addEventListener('ended', () => {
-                currentMusicIndex = (currentMusicIndex + 1) % musicFiles.length;
-                loadAndPlayMusic();
-            });
-
-            // Load update data from JSON
-            function loadUpdateData() {
-                // In a real implementation, you would fetch this from a JSON file
-                // For example: fetch('updates.json').then(response => response.json()).then(data => {...})
-                
-                // This is a mock data structure that would come from updates.json
-                const updateData = {
-                    progress: {
-                        mainUpdate: 65,
-                        bugFixes: 85,
-                        cosmetics: 30
-                    },
-                    recentUpdates: [
-                        {
-                            date: "1 Juni 2025",
-                            version: "v1.4.2",
-                            description: "Hotfix untuk beberapa masalah kecil dan optimasi performa.",
-                            features: [
-                                "Memperbaiki bug duplikasi item di shop",
-                                "Optimasi performa sistem klan",
-                                "Menambahkan 5 skin baru untuk pets"
-                            ],
-                            status: "completed"
-                        },
-                        {
-                            date: "25 Mei 2025",
-                            version: "v1.4.1",
-                            description: "Update keseimbangan dan konten baru.",
-                            features: [
-                                "Menambahkan 3 job baru",
-                                "Nerf damage enchant tertentu",
-                                "Buff drop rate beberapa mob",
-                                "Menambahkan event musiman"
-                            ],
-                            status: "completed"
-                        },
-                        {
-                            date: "10 Mei 2025",
-                            version: "v1.4.0",
-                            description: "Major update dengan sistem klan baru dan fitur-fitur lainnya.",
-                            features: [
-                                "Menambahkan sistem klan dengan 5 level",
-                                "10 quest baru untuk klan",
-                                "Shop item khusus klan",
-                                "Leaderboard klan"
-                            ],
-                            status: "completed"
-                        }
-                    ],
-                    plannedUpdates: [
-                        {
-                            date: "Q3 2025",
-                            version: "v1.5.0",
-                            description: "Kingdom Expansion - Update besar dengan perluasan map dan sistem kerajaan.",
-                            features: [
-                                "Map baru 3000x3000 block",
-                                "Sistem kerajaan dengan castle",
-                                "PvP zone baru",
-                                "10+ struktur baru"
-                            ],
-                            status: "in-progress"
-                        },
-                        {
-                            date: "Q4 2025",
-                            version: "v1.6.0",
-                            description: "Magic Update - Sistem sihir dan enchant baru.",
-                            features: [
-                                "5 sekolah sihir baru",
-                                "50+ spell berbeda",
-                                "Sistem kombinasi spell",
-                                "Dungeon khusus magic"
-                            ],
-                            status: "planned"
-                        }
-                    ]
-                };
-
-                // Update progress bars
-                updateProgressBar('progress-bar', 'progress-percentage', updateData.progress.mainUpdate);
-                updateProgressBar('bugfix-bar', 'bugfix-percentage', updateData.progress.bugFixes);
-                updateProgressBar('cosmetic-bar', 'cosmetic-percentage', updateData.progress.cosmetics);
-
-                // Populate recent updates
-                const updateList = document.getElementById('update-list');
-                updateList.innerHTML = '';
-                updateData.recentUpdates.forEach(update => {
-                    updateList.appendChild(createUpdateItem(update));
-                });
-
-                // Populate planned updates
-                const plannedUpdates = document.getElementById('planned-updates');
-                plannedUpdates.innerHTML = '';
-                updateData.plannedUpdates.forEach(update => {
-                    plannedUpdates.appendChild(createUpdateItem(update));
-                });
-            }
-
-            function updateProgressBar(barId, percentageId, value) {
-                const bar = document.getElementById(barId);
-                const percentage = document.getElementById(percentageId);
-                
-                bar.style.width = value + '%';
-                bar.textContent = value + '%';
-                percentage.textContent = value + '%';
-            }
-
-            function createUpdateItem(update) {
-                const item = document.createElement('div');
-                item.className = 'update-item';
-                
-                let statusClass = '';
-                switch(update.status) {
-                    case 'planned': statusClass = 'status-planned'; break;
-                    case 'in-progress': statusClass = 'status-in-progress'; break;
-                    case 'completed': statusClass = 'status-completed'; break;
-                }
-                
-                item.innerHTML = `
-                    <div class="update-date">${update.date} <span class="update-status ${statusClass}">${getStatusText(update.status)}</span></div>
-                    <div class="update-version">${update.version}</div>
-                    <div class="update-description">${update.description}</div>
-                    <div class="update-features">
-                        ${update.features.map(feature => `<div class="update-feature">${feature}</div>`).join('')}
-                    </div>
-                `;
-                
-                return item;
-            }
-
-            function getStatusText(status) {
-                switch(status) {
-                    case 'planned': return 'Rencana';
-                    case 'in-progress': return 'Dalam Pengerjaan';
-                    case 'completed': return 'Selesai';
-                    default: return status;
-                }
-            }
-
-            // Load the data when page loads
-            loadUpdateData();
-        });
-    </script>
-</body>
-</html>
+                "
