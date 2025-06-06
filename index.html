@@ -35,7 +35,7 @@
         }
 
         body {
-            font-family:'Space Grotesk', sans-serif;
+            font-family:'Space Groatesk', sans-serif;
             background-color: var(--background1);
             color: white;
             margin:0px;
@@ -352,6 +352,128 @@
             transform: scale(1.1);
         }
 
+        /* Forms Section Styles */
+        .auth-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh; /* Adjust as needed */
+            background-color: var(--background2);
+            padding: var(--nice-padding) 1rem;
+        }
+
+        .auth-container {
+            background-color: var(--background1);
+            padding: 2.5rem;
+            border-radius: var(--roundness);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        .auth-container h2 {
+            margin-bottom: 2rem;
+            color: var(--accent1);
+            font-size: 2rem;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #ccc;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: calc(100% - 20px); /* Adjust for padding */
+            padding: 12px 10px;
+            border: 1px solid var(--accent2_transp);
+            border-radius: var(--roundness);
+            background-color: var(--background2);
+            color: white;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group input[type="password"]:focus {
+            border-color: var(--accent1);
+            box-shadow: 0 0 0 2px var(--accent1);
+            background-color: var(--background1);
+        }
+
+        .auth-submit-btn {
+            background-color: var(--accent1);
+            color: white;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: var(--roundness);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            font-weight: 600;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .auth-submit-btn:hover {
+            background-color: var(--accent2);
+            transform: translateY(-2px);
+        }
+
+        .form-toggle-link {
+            display: block;
+            margin-top: 1.5rem;
+            color: var(--accent1);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .form-toggle-link:hover {
+            color: var(--accent2);
+            text-decoration: underline;
+        }
+
+        .forgot-password-link {
+            margin-top: 1rem;
+            text-align: right;
+            font-size: 0.9rem;
+        }
+
+        .forgot-password-link a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .forgot-password-link a:hover {
+            color: var(--accent1);
+            text-decoration: underline;
+        }
+
+        /* Hide forms by default */
+        #registerForm, #loginForm {
+            display: none;
+        }
+        #loginForm.active, #registerForm.active {
+            display: block;
+        }
+
         /* Media Queries from your CSS */
         @media only screen and (max-width: 600px) {
             .desktop_navbar{
@@ -386,6 +508,17 @@
             .main1_downarrow.open {
                 transform: rotate(180deg);
             }
+
+            .auth-container {
+                padding: 1.5rem;
+            }
+            .auth-container h2 {
+                font-size: 1.6rem;
+            }
+            .auth-submit-btn {
+                padding: 0.8rem 1rem;
+                font-size: 1rem;
+            }
         }
         @media only screen and (max-width: 360px) {
             /* Removed unrelated media queries for brevity in this specific output */
@@ -411,7 +544,7 @@
             <a href="server.html" class="desktop_navbar_link">Server</a>
             <a href="community.html" class="desktop_navbar_link">Community</a>
             <a href="tentang.html" class="desktop_navbar_link">Tentang</a>
-        </div>
+            <a href="#authSection" class="desktop_navbar_link" id="desktopLoginLink">Login</a> </div>
         <div class="desktop_navbar_link2_div">
             <a href="update.html" class="desktop_navbar_link2">Update</a>
         </div>
@@ -425,7 +558,7 @@
             <a class="mobile_navbar_link" href="community.html">Community</a>
             <a class="mobile_navbar_link" href="tentang.html">Tentang</a>
             <a class="mobile_navbar_link" href="update.html">Update</a>
-        </div>
+            <a class="mobile_navbar_link" href="#authSection" id="mobileLoginLink">Login</a> </div>
         <div class="mobile_navbar_controls">
             <div class="icon">
                 <i class="fa fa-bars"></i>
@@ -458,6 +591,63 @@
                     });
                 });
             </script>
+        </div>
+
+        <div class="auth-section" id="authSection">
+            <div class="auth-container">
+                <div id="loginForm" class="active">
+                    <h2>Login</h2>
+                    <form class="auth-form" action="#" method="POST">
+                        <div class="form-group">
+                            <label for="loginEmail">Email:</label>
+                            <input type="email" id="loginEmail" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password:</label>
+                            <input type="password" id="loginPassword" name="password" required>
+                        </div>
+                        <button type="submit" class="auth-submit-btn">Login</button>
+                    </form>
+                    <p class="forgot-password-link"><a href="#" id="forgotPasswordLink">Lupa password?</a></p>
+                    <a href="#" class="form-toggle-link" id="showRegister">Belum punya akun? Register!</a>
+                </div>
+
+                <div id="registerForm">
+                    <h2>Register</h2>
+                    <form class="auth-form" action="#" method="POST">
+                        <div class="form-group">
+                            <label for="registerGamertag">Minecraft Gamertag:</label>
+                            <input type="text" id="registerGamertag" name="gamertag" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerEmail">Email:</label>
+                            <input type="email" id="registerEmail" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Password:</label>
+                            <input type="password" id="registerPassword" name="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password:</label>
+                            <input type="password" id="confirmPassword" name="confirm_password" required>
+                        </div>
+                        <button type="submit" class="auth-submit-btn">Register</button>
+                    </form>
+                    <a href="#" class="form-toggle-link" id="showLogin">Sudah punya akun? Login!</a>
+                </div>
+
+                <div id="forgotPasswordForm" style="display: none;">
+                    <h2>Lupa Password</h2>
+                    <form class="auth-form" action="#" method="POST">
+                        <div class="form-group">
+                            <label for="forgotEmail">Email:</label>
+                            <input type="email" id="forgotEmail" name="email" required>
+                        </div>
+                        <button type="submit" class="auth-submit-btn">Reset Password</button>
+                    </form>
+                    <a href="#" class="form-toggle-link" id="backToLogin">Kembali ke Login</a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -537,6 +727,83 @@
                     event.preventDefault();
                     toggleMobileNavbar();
                 }
+            });
+        }
+
+        // Form Toggle Functionality
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+
+        const showRegisterLink = document.getElementById('showRegister');
+        const showLoginLink = document.getElementById('showLogin');
+        const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+        const backToLoginLink = document.getElementById('backToLogin');
+
+        const desktopLoginLink = document.getElementById('desktopLoginLink');
+        const mobileLoginLink = document.getElementById('mobileLoginLink');
+
+        function showForm(formToShow) {
+            loginForm.classList.remove('active');
+            registerForm.classList.remove('active');
+            forgotPasswordForm.style.display = 'none'; // Ensure forgot password is hidden
+            if (formToShow === 'login') {
+                loginForm.classList.add('active');
+            } else if (formToShow === 'register') {
+                registerForm.classList.add('active');
+            } else if (formToShow === 'forgot') {
+                forgotPasswordForm.style.display = 'block';
+            }
+        }
+
+        if (showRegisterLink) {
+            showRegisterLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                showForm('register');
+            });
+        }
+
+        if (showLoginLink) {
+            showLoginLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                showForm('login');
+            });
+        }
+
+        if (forgotPasswordLink) {
+            forgotPasswordLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                showForm('forgot');
+            });
+        }
+
+        if (backToLoginLink) {
+            backToLoginLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                showForm('login');
+            });
+        }
+
+        // Handle clicks from navbar "Login" links to show the login form
+        if (desktopLoginLink) {
+            desktopLoginLink.addEventListener('click', (e) => {
+                // Allow default smooth scroll but then activate form
+                setTimeout(() => {
+                    showForm('login');
+                }, 500); // Adjust delay to match scroll speed
+            });
+        }
+
+        if (mobileLoginLink) {
+            mobileLoginLink.addEventListener('click', (e) => {
+                // Allow default smooth scroll but then activate form
+                setTimeout(() => {
+                    showForm('login');
+                    // Also close mobile navbar if it's open
+                    if (mobileNavbarLinks.classList.contains('open')) {
+                        toggleMobileNavbar();
+                    }
+                }, 500); // Adjust delay to match scroll speed
             });
         }
     </script>
