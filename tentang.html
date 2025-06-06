@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaido SMP - Info Server</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --nice-padding: 6rem;
+            --roundness: 0.75rem;
+            --accent1: #02db02;
+            --accent2: #05b305;
+            --background1: #212529;
+            --background2: #16191b;
+            color-scheme: dark;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background1);
+            color: white;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://imgur.com/cGMLytH.png');
+            background-size: cover;
+            background-position: center;
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--accent1);
+        }
+
+        h1 {
+            color: var(--accent1);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .server-info-card {
+            background-color: var(--background2);
+            border-radius: var(--roundness);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            color: var(--accent1);
+            border-bottom: 2px solid #4a4a6b;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .info-item {
+            background-color: #2d2d44;
+            padding: 15px;
+            border-radius: var(--roundness);
+        }
+
+        .info-item h3 {
+            margin-top: 0;
+            color: var(--accent2);
+        }
+
+        ul.feature-list {
+            padding-left: 20px;
+        }
+
+        ul.feature-list li {
+            margin-bottom: 8px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .online {
+            background-color: #02db02;
+            color: black;
+        }
+
+        .offline {
+            background-color: #ff3333;
+        }
+
+        .maintenance {
+            background-color: #ffcc00;
+            color: black;
+        }
+
+        .connect-box {
+            background-color: var(--accent2);
+            padding: 20px;
+            border-radius: var(--roundness);
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .connect-details {
+            font-family: monospace;
+            font-size: 1.2rem;
+            margin: 15px 0;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .social-link {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-link:hover {
+            color: var(--accent1);
+        }
+
+        @media (max-width: 768px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>⚔️ KAIDO SMP ⚔️</h1>
+            <p class="subtitle">"Medieval Survival Reborn"</p>
+            <div class="connect-box">
+                <h3>CONNECT NOW</h3>
+                <div class="connect-details">
+                    IP: mc.kaidosmp.kesug.com<br>
+                    Port: 19132 (default)<br>
+                    Version: 1.21.80+
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="server-info-card">
+            <h2>📌 Tentang Server</h2>
+            <p>Kaido SMP adalah server Minecraft Bedrock Edition dengan tema <strong>Medieval Survival Reborn</strong> yang menawarkan pengalaman bermain unik dengan berbagai fitur menarik.</p>
+            
+            <div class="info-grid">
+                <div class="info-item">
+                    <h3>📅 Dibuat Pada</h3>
+                    <p>17 April 2025</p>
+                </div>
+                <div class="info-item">
+                    <h3>👑 Team</h3>
+                    <p><strong>Admin:</strong> Zezzy, Traaa, Aqil<br>
+                    <strong>Developer:</strong> Dravin, Pixelated</p>
+                </div>
+                <div class="info-item">
+                    <h3>🔄 Status Server</h3>
+                    <p>
+                        <span class="status-badge online">🟢 ONLINE</span>
+                        <span class="status-badge offline">🔴 OFFLINE</span>
+                        <span class="status-badge maintenance">🔒 MAINTENANCE</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="server-info-card">
+            <h2>✨ Fitur Unggulan</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <h3>🎩 Sistem Kosmetik</h3>
+                    <ul class="feature-list">
+                        <li>Berbagai aksesori (topi, sayap, pets)</li>
+                        <li>Particle effects</li>
+                        <li>Sistem nickname custom</li>
+                    </ul>
+                </div>
+                <div class="info-item">
+                    <h3>⚔️ Gameplay</h3>
+                    <ul class="feature-list">
+                        <li>Sistem warp & PvP arena</li>
+                        <li>Beragam minigame seru</li>
+                        <li>Jobs, misi, dan sistem ranking</li>
+                    </ul>
+                </div>
+                <div class="info-item">
+                    <h3>👥 Fitur Komunitas</h3>
+                    <ul class="feature-list">
+                        <li>Sistem bounty dan clan</li>
+                        <li>Gacha dan mining simulator</li>
+                        <li>Event reguler</li>
+                    </ul>
+                </div>
+                <div class="info-item">
+                    <h3>💰 Ekonomi</h3>
+                    <ul class="feature-list">
+                        <li>Custom shop dengan enchant khusus</li>
+                        <li>XP shop dan XP jobs</li>
+                        <li>Sistem ekonomi yang dinamis</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="server-info-card">
+            <h2>📜 Aturan Server</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <h3>🚫 Aturan Umum</h3>
+                    <ul class="feature-list">
+                        <li>Dilarang menggunakan cheat/X-Ray</li>
+                        <li>Hormati sesama pemain</li>
+                        <li>Jangan AFK berlebihan</li>
+                        <li>Pelanggaran = ban</li>
+                    </ul>
+                </div>
+                <div class="info-item">
+                    <h3>💬 Aturan Komunitas</h3>
+                    <ul class="feature-list">
+                        <li>Dilarang promosi</li>
+                        <li>Tidak boleh rasis/toxic</li>
+                        <li>Dilarang spam/sticker 18+</li>
+                        <li>Pelanggaran = kick</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="server-info-card">
+            <h2>🌐 Media Sosial</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <h3><i class="fab fa-youtube"></i> YouTube</h3>
+                    <p>s.id/YTKAIDO</p>
+                </div>
+                <div class="info-item">
+                    <h3><i class="fab fa-whatsapp"></i> WhatsApp Group</h3>
+                    <p>s.id/GCNET</p>
+                </div>
+                <div class="info-item">
+                    <h3><i class="fas fa-globe"></i> Website</h3>
+                    <p>kaidosmp.vercel.app</p>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://s.id/YTKAIDO" class="social-link" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://s.id/GCNET" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
