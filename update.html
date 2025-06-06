@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Kaido SMP</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.bunny.net/css?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Umum dari index.html */
+        :root {
+            --nice-padding: 6rem;
+            --roundness: 0.75rem;
+            --accent1: #02db02;
+            --accent2: #05b305;
+            --accent2_transp: #05b30555;
+            --background1: #212529;
+            --background2: #16191b;
+            color-scheme: dark;
+        }
+
+        /* Light mode dari index.html */
+        [data-theme="light"] {
+            --accent1: #02a302;
+            --accent2: #028502;
+            --accent2_transp: #02850255;
+            --background1: #f8f9fa;
+            --background2: #e9ecef;
+            color-scheme: light;
+            color: #212529;
+        }
+
+        span {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        body {
+            font-family:'Space Grotesk', sans-serif;
+            background-color: var(--background1);
+            color: white;
+            margin:0px;
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Hilangkan outline fokus */
+        *:focus {
+            outline: none;
+        }
+
+        button {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        a:focus, button:focus {
+            outline: none;
+        }
+
+        /* Styling Navbar Desktop dari index.html */
+        .desktop_navbar {
+            position:fixed;
+            display: flex;
+            height: 4rem;
+            width: 100%;
+            top: 0;
+            right: 0;
+            left: 0;
+            background-color: #00000022;
+            backdrop-filter: blur(15px);
+            z-index: 5;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+        }
+
+        .desktop_navbar_controls {
+            display: flex;
+            margin-left: auto;
+            margin-right: 2rem;
+            gap: 1rem;
+        }
+
+        .desktop_navbar_logo_img {
+            width: 5rem;
+            padding-left: 2rem;
+            padding-right: 1rem;
+        }
+
+        .desktop_navbar_link {
+            font-size: 1.2rem;
+            padding: .8rem;
+            transition: all .5s;
+            text-decoration: none;
+            color: #fff;
+            text-align: center;
+        }
+        .desktop_navbar_link:hover {
+            color: var(--accent1);
+        }
+
+        .desktop_navbar_link2 {
+            padding:.5rem;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+        }
+        .desktop_navbar_link2_div {
+            font-size: 1.2rem;
+            padding: .8rem;
+            transition: all .5s;
+            font-weight: 700;
+            border: solid 1px var(--accent1);
+            border-radius: var(--roundness);
+            text-align: center;
+        }
+        .desktop_navbar_link2_div:hover {
+            border: solid 1px var(--accent2);
+            background-color: var(--accent2);
+            transform: scale(1.05)
+        }
+
+        /* Styling Navbar Mobile dari index.html */
+        .mobile_navbar {
+            display: none; /* Default hidden */
+            overflow: hidden;
+            background-color: #00000033;
+            backdrop-filter: blur(15px);
+            position: fixed;
+            width: 100%;
+            z-index: 5;
+            flex-direction: row;
+            min-height: 53px;
+        }
+
+        .mobile_navbar_logo_img {
+            position: absolute;
+            display: block;
+            height: 42px;
+            padding-left: .5rem;
+            top: 0;
+            left: 0;
+            padding-top: 3.5px;
+        }
+
+        .mobile_navbar_logo_img_a {
+            display: block;
+            background-color: #00000022;
+        }
+        
+        .mobile_navbar_controls {
+            display: flex;
+            margin-left: auto;
+            margin-right: 1rem;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .mobile_navbar .icon {
+            background-color: #00000044;
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 16px;
+            cursor: pointer;
+        }
+        .mobile_navbar .icon i {
+            transition: transform 0.5s ease-in-out;
+        }
+        .mobile_navbar .icon.open i {
+            transform: rotate(180deg);
+        }
+
+        .mobile_navbar #mobile_navbar_links {
+            margin-top: 53px;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            background-color: #00000011;
+            max-height: 0;
+            transition: max-height 0.5s ease-out;
+            overflow: hidden;
+        }
+        .mobile_navbar #mobile_navbar_links.open {
+            max-height: 500px;
+            transition: max-height 0.5s ease-in;
+        }
+
+        .mobile_navbar_link {
+            padding:.5rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        .mobile_navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+            display: block;
+            padding: 10px;
+        }
+
+        /* Konten Utama */
+        .main-content-wrapper {
+            padding-top: 4rem; /* Sesuaikan dengan tinggi navbar agar tidak tertutup */
+            display:flex;
+            width: 100%;
+            align-self: center;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            background: rgba(0, 0, 0, .5) url('https://imgur.com/cGMLytH.png');
+            background-blend-mode: darken;
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            background-size: cover;
+            flex-grow: 1;
+            padding-bottom: 50px;
+            min-height: calc(100vh - 4rem);
+        }
+        
+        /* Gaya header baru dengan logo */
+        .page-header-logo {
+            margin-top: 2rem;
+            margin-bottom: 30px;
+            max-width: 900px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .page-header-logo img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Container untuk konten update */
+        .update-container {
+            max-width: 900px;
+            width: 90%;
+            margin: 0 auto;
+            display: grid;
+            gap: 25px;
+            box-sizing: border-box;
+        }
+
+        /* Card update */
+        .update-card {
+            background-color: #2d2d44;
+            border-radius: var(--roundness);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            padding: 25px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .update-card h2 {
+            color: var(--accent1);
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #4a4a6b;
+            width: 100%;
+        }
+
+        /* Progress bar styling */
+        .progress-section {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .progress-title {
+            font-weight: bold;
+            color: var(--accent1);
+        }
+
+        .progress-percentage {
+            font-weight: bold;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 20px;
+            background-color: #3a3a5a;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--accent1);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            font-size: 12px;
+            color: white;
+        }
+
+        /* Update list styling */
+        .update-list {
+            width: 100%;
+        }
+
+        .update-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #4a4a6b;
+        }
+
+        .update-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .update-date {
+            font-size: 0.9rem;
+            color: var(--accent1);
+            margin-bottom: 5px;
+        }
+
+        .update-version {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .update-description {
+            margin-bottom: 10px;
+        }
+
+        .update-features {
+            margin-left: 20px;
+        }
+
+        .update-feature {
+            margin-bottom: 5px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .update-feature:before {
+            content: "•";
+            color: var(--accent1);
+            position: absolute;
+            left: 0;
+        }
+
+        .update-status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+
+        .status-planned {
+            background-color: #ff980055;
+            color: #ff9800;
+        }
+
+        .status-in-progress {
+            background-color: #2196f355;
+            color: #2196f3;
+        }
+
+        .status-completed {
+            background-color: #4caf5055;
+            color: #4caf50;
+        }
+
+        /* Music player controls */
+        .music-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+
+        .music-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--accent2_transp);
+            border: 1px solid var(--accent1);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .music-btn:hover {
+            background-color: var(--accent2);
+            transform: scale(1.1);
+        }
+
+        /* Media Queries */
+        @media only screen and (max-width: 600px) {
+            .desktop_navbar {
+                display: none;
+            }
+            .mobile_navbar {
+                display: flex;
+            }
+            .main-content-wrapper {
+                padding-top: 53px;
+                min-height: calc(100vh - 53px);
+            }
+            .page-header-logo {
+                margin-top: 1rem;
+                width: 95%;
+            }
+            .page-header-logo img {
+                max-width: 80%;
+            }
+            .update-container {
+                padding: 0 10px;
+                width: 95%;
+            }
+            .update-card {
+                padding: 15px;
+            }
+            .update-card h2 {
+                font-size: 1.4rem;
+            }
+            .music-controls {
+                bottom: 10px;
+                right: 10px;
+            }
+            .music-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+        
+        @media only screen and (min-width: 601px) {
+            .desktop_navbar {
+                display: flex;
+            }
+            .mobile_navbar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <nav class="desktop_navbar">
+        <a href="./"><img class="desktop_navbar_logo_img" src="logo_small.png" alt="logo"></a>
+        <a href="https://tokodukun.com" class="desktop_navbar_link">Donasi</a>
+        <a href="community.html" class="desktop_navbar_link">Community</a>
+        <a href="tentang.html" class="desktop_navbar_link">Tentang</a>
+        <div class="desktop_navbar_link2_div">
+            <a href="update.html" class="desktop_navbar_link2">Update</a>
+        </div>
+        <div class="desktop_navbar_controls">
+            </div>
+    </nav>
+
+    <div class="mobile_navbar">
+        <a href="./" class="mobile_navbar_logo_img_a"> <img class="mobile_navbar_logo_img" src="logo_small.png" alt="logo">
+        </a>
+        <div id="mobile_navbar_links">
+            <a class="mobile_navbar_link" href="server.html">Server</a>
+            <a class="mobile_navbar_link" href="community.html">Community</a>
+            <a class="mobile_navbar_link" href="tentang.html">Tentang</a>
+            <a class="mobile_navbar_link" href="update.html">Update</a>
+        </div>
+        <div class="mobile_navbar_controls">
+            <div class="icon">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content-wrapper">
+        <div class="page-header-logo">
+            <img src="logo.png" alt="Kaido SMP Logo">
+        </div>
+
+        <div class="update-container">
+            <div class="update-card">
+                <h2>Progress Update</h2>
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <span class="progress-title">Update v1.5 "Kingdom Expansion"</span>
+                        <span class="progress-percentage" id="progress-percentage">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progress-bar" style="width: 0%">0%</div>
+                    </div>
+                </div>
+                
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <span class="progress-title">Bug Fixes & Optimizations</span>
+                        <span class="progress-percentage" id="bugfix-percentage">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="bugfix-bar" style="width: 0%">0%</div>
+                    </div>
+                </div>
+                
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <span class="progress-title">New Cosmetics</span>
+                        <span class="progress-percentage" id="cosmetic-percentage">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="cosmetic-bar" style="width: 0%">0%</div>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 20px; font-style: italic;">Update berikutnya akan dirilis ketika progress mencapai 100%</p>
+            </div>
+            
+            <div class="update-card">
+                <h2>Update Terbaru</h2>
+                <div class="update-list" id="update-list">
+                    <!-- Update items will be loaded here from JSON -->
+                    <div class="update-item">
+                        <div class="update-date">Memuat data update...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="update-card">
+                <h2>Rencana Update Mendatang</h2>
+                <div class="update-list" id="planned-updates">
+                    <!-- Planned updates will be loaded here from JSON -->
+                    <div class="update-item">
+                        <div class="update-date">Memuat rencana update...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="music-controls">
+        <button class="music-btn" id="musicToggleBtn"><i class="fa-solid fa-volume-off"></i></button>
+    </div>
+
+    <audio id="backgroundMusic"></audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Navbar Toggle Functionality
+            const mobileNavbarLinks = document.getElementById("mobile_navbar_links");
+            const mobileNavbarHamburgerIconContainer = document.querySelector(".mobile_navbar .icon");
+
+            function toggleMobileNavbar() {
+                mobileNavbarLinks.classList.toggle("open");
+                mobileNavbarHamburgerIconContainer.classList.toggle("open");
+            }
+
+            if (mobileNavbarHamburgerIconContainer) {
+                mobileNavbarHamburgerIconContainer.addEventListener('click', toggleMobileNavbar);
+            }
+
+            document.querySelectorAll('.mobile_navbar_link').forEach(link => {
+                link.addEventListener('click', toggleMobileNavbar);
+            });
+
+            // Music player functionality
+            const musicFiles = [
+                "https://files.catbox.moe/7bzwfz.mp3",
+                "https://files.catbox.moe/du52ay.mp3"
+            ];
+            let currentMusicIndex = 0;
+            const backgroundMusic = document.getElementById('backgroundMusic');
+            const musicToggleBtn = document.getElementById('musicToggleBtn');
+            let isPlaying = false;
+
+            function loadAndPlayMusic() {
+                backgroundMusic.src = musicFiles[currentMusicIndex];
+                backgroundMusic.play();
+                isPlaying = true;
+                musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-up"></i>';
+            }
+
+            function stopMusic() {
+                backgroundMusic.pause();
+                backgroundMusic.currentTime = 0;
+                isPlaying = false;
+                musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-off"></i>';
+            }
+
+            musicToggleBtn.addEventListener('click', () => {
+                if (isPlaying) {
+                    stopMusic();
+                } else {
+                    loadAndPlayMusic();
+                }
+            });
+
+            backgroundMusic.addEventListener('ended', () => {
+                currentMusicIndex = (currentMusicIndex + 1) % musicFiles.length;
+                loadAndPlayMusic();
+            });
+
+            // Load update data from JSON
+            function loadUpdateData() {
+                // In a real implementation, you would fetch this from a JSON file
+                // For example: fetch('updates.json').then(response => response.json()).then(data => {...})
+                
+                // This is a mock data structure that would come from updates.json
+                const updateData = {
+                    progress: {
+                        mainUpdate: 65,
+                        bugFixes: 85,
+                        cosmetics: 30
+                    },
+                    recentUpdates: [
+                        {
+                            date: "1 Juni 2025",
+                            version: "v1.4.2",
+                            description: "Hotfix untuk beberapa masalah kecil dan optimasi performa.",
+                            features: [
+                                "Memperbaiki bug duplikasi item di shop",
+                                "Optimasi performa sistem klan",
+                                "Menambahkan 5 skin baru untuk pets"
+                            ],
+                            status: "completed"
+                        },
+                        {
+                            date: "25 Mei 2025",
+                            version: "v1.4.1",
+                            description: "Update keseimbangan dan konten baru.",
+                            features: [
+                                "Menambahkan 3 job baru",
+                                "Nerf damage enchant tertentu",
+                                "Buff drop rate beberapa mob",
+                                "Menambahkan event musiman"
+                            ],
+                            status: "completed"
+                        },
+                        {
+                            date: "10 Mei 2025",
+                            version: "v1.4.0",
+                            description: "Major update dengan sistem klan baru dan fitur-fitur lainnya.",
+                            features: [
+                                "Menambahkan sistem klan dengan 5 level",
+                                "10 quest baru untuk klan",
+                                "Shop item khusus klan",
+                                "Leaderboard klan"
+                            ],
+                            status: "completed"
+                        }
+                    ],
+                    plannedUpdates: [
+                        {
+                            date: "Q3 2025",
+                            version: "v1.5.0",
+                            description: "Kingdom Expansion - Update besar dengan perluasan map dan sistem kerajaan.",
+                            features: [
+                                "Map baru 3000x3000 block",
+                                "Sistem kerajaan dengan castle",
+                                "PvP zone baru",
+                                "10+ struktur baru"
+                            ],
+                            status: "in-progress"
+                        },
+                        {
+                            date: "Q4 2025",
+                            version: "v1.6.0",
+                            description: "Magic Update - Sistem sihir dan enchant baru.",
+                            features: [
+                                "5 sekolah sihir baru",
+                                "50+ spell berbeda",
+                                "Sistem kombinasi spell",
+                                "Dungeon khusus magic"
+                            ],
+                            status: "planned"
+                        }
+                    ]
+                };
+
+                // Update progress bars
+                updateProgressBar('progress-bar', 'progress-percentage', updateData.progress.mainUpdate);
+                updateProgressBar('bugfix-bar', 'bugfix-percentage', updateData.progress.bugFixes);
+                updateProgressBar('cosmetic-bar', 'cosmetic-percentage', updateData.progress.cosmetics);
+
+                // Populate recent updates
+                const updateList = document.getElementById('update-list');
+                updateList.innerHTML = '';
+                updateData.recentUpdates.forEach(update => {
+                    updateList.appendChild(createUpdateItem(update));
+                });
+
+                // Populate planned updates
+                const plannedUpdates = document.getElementById('planned-updates');
+                plannedUpdates.innerHTML = '';
+                updateData.plannedUpdates.forEach(update => {
+                    plannedUpdates.appendChild(createUpdateItem(update));
+                });
+            }
+
+            function updateProgressBar(barId, percentageId, value) {
+                const bar = document.getElementById(barId);
+                const percentage = document.getElementById(percentageId);
+                
+                bar.style.width = value + '%';
+                bar.textContent = value + '%';
+                percentage.textContent = value + '%';
+            }
+
+            function createUpdateItem(update) {
+                const item = document.createElement('div');
+                item.className = 'update-item';
+                
+                let statusClass = '';
+                switch(update.status) {
+                    case 'planned': statusClass = 'status-planned'; break;
+                    case 'in-progress': statusClass = 'status-in-progress'; break;
+                    case 'completed': statusClass = 'status-completed'; break;
+                }
+                
+                item.innerHTML = `
+                    <div class="update-date">${update.date} <span class="update-status ${statusClass}">${getStatusText(update.status)}</span></div>
+                    <div class="update-version">${update.version}</div>
+                    <div class="update-description">${update.description}</div>
+                    <div class="update-features">
+                        ${update.features.map(feature => `<div class="update-feature">${feature}</div>`).join('')}
+                    </div>
+                `;
+                
+                return item;
+            }
+
+            function getStatusText(status) {
+                switch(status) {
+                    case 'planned': return 'Rencana';
+                    case 'in-progress': return 'Dalam Pengerjaan';
+                    case 'completed': return 'Selesai';
+                    default: return status;
+                }
+            }
+
+            // Load the data when page loads
+            loadUpdateData();
+        });
+    </script>
+</body>
+</html>
